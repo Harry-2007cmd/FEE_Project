@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="2.5;url=index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlexForm Gym | Loading</title>
+    <style>
+      :root {
+        --bg: #fff8f5;
+        --bg-soft: #fff1ee;
+        --card: rgba(17, 18, 19, 0.78);
+        --card-strong: rgba(10, 12, 16, 0.92);
+        --text: #f5f5f5;
+        --text-soft: rgba(255, 255, 255, 0.72);
+        --accent: #ff4423;
+        --accent-strong: #e5391d;
+        --accent-soft: rgba(255, 68, 35, 0.18);
+        --line: rgba(255, 255, 255, 0.1);
+        --shadow: 0 30px 80px rgba(255, 68, 35, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        font-family: "Inter", "Segoe UI", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at top left, rgba(255, 102, 61, 0.28), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(255, 168, 120, 0.18), transparent 32%),
+          linear-gradient(135deg, #111111 0%, #1a1919 28%, #140d0d 100%);
+        color: var(--text);
+      }
+
+      .loading-screen {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 24px 16px 18px;
+        overflow: hidden;
+      }
+
+      .ambient {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(50px);
+        opacity: 0.65;
+        pointer-events: none;
+      }
+
+      .ambient.one {
+        width: 220px;
+        height: 220px;
+        background: rgba(255, 68, 35, 0.22);
+        top: 10%;
+        left: 10%;
+      }
+
+      .ambient.two {
+        width: 260px;
+        height: 260px;
+        background: rgba(255, 166, 114, 0.2);
+        bottom: 7%;
+        right: 10%;
+      }
+
+      .content {
+        position: relative;
+        z-index: 2;
+        width: min(760px, 100%);
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        padding: 28px 18px 20px;
+        backdrop-filter: blur(16px);
+        box-shadow: var(--shadow);
+      }
+
+      .brand-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+
+      .brand {
+        font-size: 1.3rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+      }
+
+      .brand span {
+        color: var(--accent);
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        padding: 0.45rem 0.8rem;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--text-soft);
+      }
+
+      .status-pill::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 14px rgba(255, 68, 35, 0.9);
+      }
+
+      .title {
+        margin: 0 0 12px;
+        font-size: clamp(2.2rem, 6vw, 4.1rem);
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--text-soft);
+        font-size: 1rem;
+        max-width: 540px;
+      }
+
+      .loader-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin: 26px 0 20px;
+      }
+
+      .loader-ring {
+        position: relative;
+        width: 104px;
+        height: 104px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.12);
+        border-top-color: var(--accent);
+        border-right-color: #ff9d78;
+        animation: spin 0.8s linear infinite;
+        box-shadow: 0 0 28px rgba(255, 68, 35, 0.22);
+      }
+
+      .loader-ring::before {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .loader-ring::after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-radius: 50%;
+        top: 8px;
+        right: 14px;
+        box-shadow: 0 0 18px rgba(255, 68, 35, 0.9);
+      }
+
+      .loading-text {
+        font-size: 0.82rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-soft);
+      }
+
+      .details-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .detail-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px 16px;
+      }
+
+      .detail-label {
+        display: block;
+        color: var(--text-soft);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .detail-value {
+        font-size: 1.04rem;
+        font-weight: 700;
+      }
+
+      footer {
+        position: relative;
+        z-index: 2;
+        width: min(760px, calc(100% - 28px));
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 14px 18px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-soft);
+        font-size: 0.8rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      footer strong {
+        color: var(--text);
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (min-width: 680px) {
+        .content {
+          padding: 34px 32px 22px;
+        }
+
+        .brand-row {
+          margin-bottom: 22px;
+        }
+
+        .details-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="loading-screen">
+      <div class="ambient one"></div>
+      <div class="ambient two"></div>
+
+      <div class="content">
+        <div class="brand-row">
+          <div class="brand">FLEX<span>FORM</span></div>
+          <div class="status-pill">Launching</div>
+        </div>
+
+        <h1 class="title">Train harder. Feel stronger.</h1>
+        <p class="subtitle">
+          Preparing your next workout, personalized plan, and stronger routine.
+        </p>
+
+        <div class="loader-panel">
+          <div class="loader-ring" aria-label="Loading"></div>
+          <div class="loading-text">Loading your journey</div>
+        </div>
+
+        <div class="details-grid">
+          <div class="detail-card">
+            <span class="detail-label">Program</span>
+            <div class="detail-value">Strength</div>
+          </div>
+          <div class="detail-card">
+            <span class="detail-label">Support</span>
+            <div class="detail-value">Coach-led</div>
+          </div>
+          <div class="detail-card">
+            <span class="detail-label">Focus</span>
+            <div class="detail-value">Results</div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <span>FlexForm Gym</span>
+        <strong>•</strong>
+        <span>Build your best self</span>
+      </footer>
+    </div>
+  </body>
+</html>
