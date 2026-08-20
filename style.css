@@ -602,7 +602,79 @@ textarea:focus-visible {
 }
 
 /* =========================================================
-   Pricing
+   Steps (How it works — Find a Trainer / Free Class pages)
+   ========================================================= */
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.step-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px;
+  position: relative;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.step-card h3 {
+  margin: 0 0 6px;
+}
+
+.step-card p {
+  color: var(--text-soft);
+  margin: 0;
+}
+
+/* Benefit list (checkmark bullets) used on Free Class / Find a Trainer pages */
+
+.benefit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.benefit-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-soft);
+}
+
+.benefit-list li::before {
+  content: "✓";
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+/* =========================================================
+   Pricing (legacy — retained in case pricing content returns)
    ========================================================= */
 
 .price-card {
@@ -897,8 +969,21 @@ textarea:focus {
   display: block;
 }
 
+/* Condensed testimonial strip used on the homepage */
+
+.testimonial-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.testimonial-strip .testimonial {
+  display: block;
+}
+
 /* =========================================================
-   Forms (register / contact / auth)
+   Forms (register / contact / auth / lead forms)
    ========================================================= */
 
 .form-section {
@@ -921,7 +1006,8 @@ textarea:focus {
 }
 
 .register-form,
-.contact-form {
+.contact-form,
+.lead-form {
   display: grid;
   gap: 16px;
 }
@@ -1092,51 +1178,6 @@ textarea:focus {
   transform: translateY(0);
 }
 
-/* =========================================================
-   Modal (plan details)
-   ========================================================= */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(10, 16, 32, 0.6);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-  z-index: 80;
-  padding: 1rem;
-}
-
-.modal.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.modal-content {
-  width: min(440px, 100%);
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 24px;
-  position: relative;
-  box-shadow: var(--shadow);
-}
-
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  border: none;
-  background: transparent;
-  color: var(--text);
-  font-size: 1.8rem;
-  cursor: pointer;
-  line-height: 1;
-}
-
 .hidden {
   display: none !important;
 }
@@ -1209,6 +1250,14 @@ textarea:focus {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .steps-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .testimonial-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .footer-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1279,7 +1328,6 @@ textarea:focus {
   }
 
   .team-grid,
-  .pricing-grid,
   .program-grid,
   .trainer-grid,
   .schedule-grid {
@@ -1287,7 +1335,7 @@ textarea:focus {
   }
 
   .page-link-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .footer {

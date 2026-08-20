@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Create your FlexForm Gym account." />
-    <title>FlexForm Gym | Signup</title>
+    <meta name="description" content="Reserve a free trial class at FlexForm Gym — no cost, no commitment." />
+    <title>FlexForm Gym | Free Class</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -43,34 +43,60 @@
     </header>
 
     <main>
-      <section class="auth-page">
-        <div class="container">
-          <div class="auth-card">
-            <span class="eyebrow">JOIN FLEXFORM</span>
-            <h1>Create your account</h1>
-            <p class="auth-sub">Sign up to save your goals, track calculators, and connect with trainers faster.</p>
+      <section id="free-class" class="section">
+        <div class="container contact-grid">
+          <div class="contact-details">
+            <span class="eyebrow">FREE CLASS</span>
+            <h2>Start your journey today</h2>
+            <p>Reserve your spot and try a class with one of our trainers — no commitment, no cost.</p>
+            <ul class="benefit-list">
+              <li>One free class in the focus area you choose</li>
+              <li>Meet a trainer face-to-face before you commit to anything</li>
+              <li>No credit card or contract required</li>
+              <li>Get a personalized program recommendation afterward</li>
+            </ul>
+          </div>
 
-            <form id="signup-form" class="auth-form" novalidate>
+          <div class="register-grid">
+            <h3>Reserve your spot</h3>
+            <form id="free-class-form" class="lead-form" novalidate>
               <label>
-                Full name
-                <input type="text" id="signup-name" placeholder="Your name" required />
-                <span class="field-error hidden" data-error-for="signup-name"></span>
+                Name
+                <input type="text" id="fc-name" placeholder="Full name" required />
               </label>
               <label>
                 Email
-                <input type="email" id="signup-email" placeholder="you@example.com" required />
-                <span class="field-error hidden" data-error-for="signup-email"></span>
+                <input type="email" id="fc-email" placeholder="Email address" required />
               </label>
               <label>
-                Password
-                <input type="password" id="signup-password" placeholder="At least 6 characters" required />
-                <span class="field-error hidden" data-error-for="signup-password"></span>
+                Phone
+                <input type="tel" id="fc-phone" placeholder="Phone number" required />
               </label>
-              <button type="submit" class="btn btn-primary full">Create Account</button>
+              <label>
+                Goal / Service
+                <select id="fc-goal" required>
+                  <option value="">Select your goal</option>
+                  <option value="weight-loss">Weight Loss</option>
+                  <option value="muscle-building">Muscle Building</option>
+                  <option value="strength">Strength</option>
+                  <option value="cardio">Cardio & Endurance</option>
+                  <option value="yoga">Yoga & Mobility</option>
+                  <option value="athletic">Athletic Performance</option>
+                  <option value="general">General Consultation</option>
+                </select>
+              </label>
+              <button type="submit" class="btn btn-primary full">Reserve My Free Class</button>
             </form>
-
-            <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
           </div>
+        </div>
+      </section>
+
+      <section class="section accent-bg">
+        <div class="container section-head" style="margin-bottom: 0;">
+          <span class="eyebrow">AFTER YOUR CLASS</span>
+          <h2>Want ongoing coaching?</h2>
+          <p style="margin-top: 12px;">If your free class feels like the right fit, we'll match you with a trainer for continued one-on-one support.</p>
+          <a href="features-trainers.html" class="btn btn-secondary" style="margin-top: 20px;">Find a Trainer</a>
         </div>
       </section>
     </main>
@@ -109,6 +135,6 @@
 
     <script src="auth.js"></script>
     <script src="nav.js"></script>
-    <script src="auth-forms.js"></script>
+    <script src="free-class.js"></script>
   </body>
 </html>
