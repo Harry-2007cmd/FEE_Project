@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="FlexForm Gym - a modern fitness website with programs, plans, BMI calculator, and registration."
+      content="FlexForm Gym - a modern fitness website with programs, plans, calculators, and registration."
     />
-    <title>FlexForm Gym</title>
+    <title>FlexForm Gym | Home</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,7 +19,7 @@
   <body>
     <header class="header" id="header">
       <div class="container navbar">
-        <a href="#home" class="logo">FLEX<span>FORM</span></a>
+        <a href="index.html" class="logo">FLEX<span>FORM</span></a>
 
         <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
           <span></span>
@@ -29,33 +29,19 @@
 
         <nav class="nav" aria-label="Main navigation">
           <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#plans">Plans</a></li>
-            <li><a href="#programs">Programs</a></li>
-            <li><a href="#bmi">BMI</a></li>
-            <li><a href="#trainers">Trainers</a></li>
-            <li><a href="#schedule">Schedule</a></li>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features-tools.html">Tools</a></li>
+            <li><a href="features-training.html">Training</a></li>
+            <li><a href="features-plans.html">Plans</a></li>
           </ul>
+          <div class="nav-auth">
+            <a href="login.html" class="btn btn-secondary small" data-auth-action="login">Login</a>
+            <a href="signup.html" class="btn btn-primary small" data-auth-action="signup">Signup</a>
+            <button class="btn btn-secondary small hidden" data-auth-action="logout">Logout</button>
+          </div>
         </nav>
 
-        <div class="nav-actions">
-          <input
-            type="search"
-            id="global-search"
-            class="search-input"
-            placeholder="Search gym..."
-            aria-label="Search content"
-          />
-          <div class="auth-buttons">
-            <button class="btn btn-secondary auth-btn" data-auth-action="login">Login</button>
-            <button class="btn btn-primary auth-btn" data-auth-action="signup">Signup</button>
-            <button class="btn btn-secondary auth-btn hidden" id="logout-btn" data-auth-action="logout">Logout</button>
-          </div>
-          <span id="auth-user-badge" class="auth-user-badge hidden"></span>
-        </div>
+        <span id="auth-user-badge" class="auth-user-badge hidden"></span>
       </div>
     </header>
 
@@ -69,8 +55,8 @@
               Transform your body, sharpen your mindset, and unlock a healthier lifestyle with expert coaching, modern equipment, and personal support.
             </p>
             <div class="cta-group">
-              <button type="button" class="btn btn-primary auth-btn" data-auth-action="login">Login</button>
-              <button type="button" class="btn btn-secondary auth-btn" data-auth-action="signup">Signup</button>
+              <a href="signup.html" class="btn btn-primary">Get Started</a>
+              <a href="features-plans.html" class="btn btn-secondary">View Plans</a>
             </div>
             <div class="hero-stats">
               <div>
@@ -109,35 +95,6 @@
         </div>
       </section>
 
-      <section class="featured-services container">
-        <div class="section-head">
-          <span class="eyebrow">THE FITNESS ADVANTAGE</span>
-          <h2>Featured services</h2>
-        </div>
-        <div class="service-grid">
-          <article class="service-card">
-            <div class="icon">🏋️</div>
-            <h3>Personal Training</h3>
-            <p>One-on-one coaching for faster progress and accountability.</p>
-          </article>
-          <article class="service-card">
-            <div class="icon">🥗</div>
-            <h3>Nutrition Guidance</h3>
-            <p>Customized nutrition plans to fuel performance and recovery.</p>
-          </article>
-          <article class="service-card">
-            <div class="icon">💪</div>
-            <h3>Strength Programs</h3>
-            <p>Progressive training that builds power, lean muscle, and confidence.</p>
-          </article>
-          <article class="service-card">
-            <div class="icon">🧘</div>
-            <h3>Recovery & Yoga</h3>
-            <p>Mobility, flexibility, and recovery sessions for long-term health.</p>
-          </article>
-        </div>
-      </section>
-
       <section id="about" class="section">
         <div class="container about-grid">
           <div class="about-content">
@@ -163,7 +120,7 @@
           </div>
         </div>
 
-        <div class="container trainer-strip">
+        <div class="container">
           <div class="section-head narrow">
             <span class="eyebrow">OUR TEAM</span>
             <h2>World-class trainers</h2>
@@ -200,473 +157,32 @@
         </div>
       </section>
 
-      <section id="plans" class="section accent-bg">
+      <section class="section accent-bg" id="explore">
         <div class="container">
           <div class="section-head">
-            <span class="eyebrow">MEMBERSHIP PLANS</span>
-            <h2>Choose your plan</h2>
+            <span class="eyebrow">EXPLORE</span>
+            <h2>Everything FlexForm offers</h2>
           </div>
-
-          <div class="pricing-grid">
-            <article class="price-card">
-              <div class="plan-badge">Basic</div>
-              <h3>Starter</h3>
-              <div class="price">$29<span>/mo</span></div>
-              <ul>
-                <li>Gym floor access</li>
-                <li>1 group class per week</li>
-                <li>Locker room access</li>
-                <li>Fitness assessment</li>
-              </ul>
-              <button class="btn btn-secondary choose-plan" data-plan="Basic">Choose Plan</button>
+          <div class="page-link-grid">
+            <article class="page-link-card">
+              <span class="tag">Tools</span>
+              <h3>Services & Calculators</h3>
+              <p>Browse featured services, then check your BMI and daily calorie needs.</p>
+              <a href="features-tools.html" class="btn btn-secondary small">Open Tools</a>
             </article>
-
-            <article class="price-card featured-plan">
-              <div class="plan-badge">Popular</div>
-              <h3>Premium</h3>
-              <div class="price">$59<span>/mo</span></div>
-              <ul>
-                <li>Everything in Basic</li>
-                <li>Unlimited classes</li>
-                <li>1 personal training session</li>
-                <li>Nutrition support</li>
-              </ul>
-              <button class="btn btn-primary choose-plan" data-plan="Premium">Choose Plan</button>
+            <article class="page-link-card">
+              <span class="tag">Training</span>
+              <h3>Programs, Trainers & Schedule</h3>
+              <p>Find a program that fits your goals, meet the coaches, and see class times.</p>
+              <a href="features-training.html" class="btn btn-secondary small">Open Training</a>
             </article>
-
-            <article class="price-card">
-              <div class="plan-badge">VIP</div>
-              <h3>Elite</h3>
-              <div class="price">$99<span>/mo</span></div>
-              <ul>
-                <li>Everything in Premium</li>
-                <li>3 PT sessions</li>
-                <li>Priority scheduling</li>
-                <li>Recovery lounge access</li>
-              </ul>
-              <button class="btn btn-secondary choose-plan" data-plan="VIP">Choose Plan</button>
+            <article class="page-link-card">
+              <span class="tag">Plans</span>
+              <h3>Pricing, Testimonials & FAQ</h3>
+              <p>Compare membership plans, read member stories, and get your questions answered.</p>
+              <a href="features-plans.html" class="btn btn-secondary small">Open Plans</a>
             </article>
           </div>
-
-          <div class="compare-table-wrap">
-            <table class="compare-table">
-              <thead>
-                <tr>
-                  <th>Features</th>
-                  <th>Basic</th>
-                  <th>Premium</th>
-                  <th>VIP</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>Gym access</td><td>✔</td><td>✔</td><td>✔</td></tr>
-                <tr><td>Group classes</td><td>1/week</td><td>Unlimited</td><td>Unlimited</td></tr>
-                <tr><td>Personal training</td><td>✘</td><td>1/mo</td><td>3/mo</td></tr>
-                <tr><td>Nutrition plan</td><td>✘</td><td>✔</td><td>✔</td></tr>
-                <tr><td>Recovery lounge</td><td>✘</td><td>✘</td><td>✔</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section id="programs" class="section">
-        <div class="container">
-          <div class="section-head">
-            <span class="eyebrow">WORKOUT PROGRAMS</span>
-            <h2>Programs tailored to your goals</h2>
-          </div>
-
-          <div class="filter-bar" aria-label="Program filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="weight-loss">Weight Loss</button>
-            <button class="filter-btn" data-filter="muscle-building">Muscle Building</button>
-            <button class="filter-btn" data-filter="strength">Strength</button>
-            <button class="filter-btn" data-filter="cardio">Cardio</button>
-            <button class="filter-btn" data-filter="yoga">Yoga</button>
-            <button class="filter-btn" data-filter="beginner">Beginner</button>
-          </div>
-
-          <div class="program-grid">
-            <article class="program-card" data-category="weight-loss">
-              <span class="tag">Weight Loss</span>
-              <h3>Fat Burn Blast</h3>
-              <p>High-energy interval training to improve stamina and burn calories.</p>
-            </article>
-            <article class="program-card" data-category="muscle-building">
-              <span class="tag">Muscle</span>
-              <h3>Lean Gains</h3>
-              <p>Build muscle with progressive overload and smart recovery cycles.</p>
-            </article>
-            <article class="program-card" data-category="strength">
-              <span class="tag">Strength</span>
-              <h3>Power Lift</h3>
-              <p>Structured lifts focused on maximal strength and safe execution.</p>
-            </article>
-            <article class="program-card" data-category="cardio">
-              <span class="tag">Cardio</span>
-              <h3>Heart Pulse</h3>
-              <p>Endurance-focused training designed to improve heart health and stamina.</p>
-            </article>
-            <article class="program-card" data-category="yoga">
-              <span class="tag">Yoga</span>
-              <h3>Flow & Balance</h3>
-              <p>Stretch, stabilize, and recover with mindful movement and breathwork.</p>
-            </article>
-            <article class="program-card" data-category="beginner">
-              <span class="tag">Beginner</span>
-              <h3>Start Strong</h3>
-              <p>Build confidence with beginner-friendly workouts and step-by-step guidance.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="bmi" class="section accent-bg">
-        <div class="container bmi-grid">
-          <div class="calculator-panel">
-            <span class="eyebrow">BMI CALCULATOR</span>
-            <h2>Check your body mass index</h2>
-            <form id="bmi-form" class="calc-form">
-              <label>
-                Height (cm)
-                <input type="number" id="height" min="50" max="250" required />
-              </label>
-              <label>
-                Weight (kg)
-                <input type="number" id="weight" min="20" max="300" required />
-              </label>
-              <button type="submit" class="btn btn-primary">Calculate</button>
-            </form>
-          </div>
-          <div class="result-panel">
-            <h3>Your BMI</h3>
-            <div class="bmi-score" id="bmi-result">--</div>
-            <p id="bmi-category">Your category will appear here.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="calories" class="section">
-        <div class="container calorie-grid">
-          <div class="calculator-panel">
-            <span class="eyebrow">CALORIE CALCULATOR</span>
-            <h2>Estimate your daily needs</h2>
-            <form id="calorie-form" class="calc-form">
-              <label>
-                Age
-                <input type="number" id="age" min="10" max="100" required />
-              </label>
-              <label>
-                Gender
-                <select id="gender">
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </label>
-              <label>
-                Height (cm)
-                <input type="number" id="calorie-height" min="100" max="250" required />
-              </label>
-              <label>
-                Weight (kg)
-                <input type="number" id="calorie-weight" min="20" max="300" required />
-              </label>
-              <label>
-                Activity level
-                <select id="activity-level">
-                  <option value="1.2">Sedentary</option>
-                  <option value="1.375">Lightly active</option>
-                  <option value="1.55">Moderately active</option>
-                  <option value="1.725">Very active</option>
-                  <option value="1.9">Extra active</option>
-                </select>
-              </label>
-              <button type="submit" class="btn btn-primary">Calculate</button>
-            </form>
-          </div>
-          <div class="result-panel">
-            <h3>Estimated Calories</h3>
-            <div class="calorie-score" id="calorie-result">--</div>
-            <p id="calorie-summary">Daily calorie goal will appear here.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="trainers" class="section accent-bg">
-        <div class="container">
-          <div class="section-head">
-            <span class="eyebrow">OUR TRAINERS</span>
-            <h2>Meet your performance team</h2>
-          </div>
-          <div class="trainer-grid">
-            <article class="trainer-card">
-              <img src="https://images.unsplash.com/photo-1541534401786-2077eed87a74?auto=format&fit=crop&w=700&q=80" alt="Coach Rachel" />
-              <div class="trainer-body">
-                <h3>Rachel Moore</h3>
-                <span>Strength Specialist</span>
-                <p>8+ years experience helping athletes improve power and mobility.</p>
-                <button class="btn btn-secondary book-trainer">Book Trainer</button>
-              </div>
-            </article>
-            <article class="trainer-card">
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=80" alt="Coach Daniel" />
-              <div class="trainer-body">
-                <h3>Daniel Ortiz</h3>
-                <span>Fat Loss Coach</span>
-                <p>Focused on sustainable lifestyle changes and performance coaching.</p>
-                <button class="btn btn-secondary book-trainer">Book Trainer</button>
-              </div>
-            </article>
-            <article class="trainer-card">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80" alt="Coach Adrian" />
-              <div class="trainer-body">
-                <h3>Adrian Lee</h3>
-                <span>Functional Fitness</span>
-                <p>Specializes in conditioning, athletic movement, and group programming.</p>
-                <button class="btn btn-secondary book-trainer">Book Trainer</button>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="schedule" class="section">
-        <div class="container">
-          <div class="section-head">
-            <span class="eyebrow">CLASS SCHEDULE</span>
-            <h2>Train on your time</h2>
-          </div>
-
-          <div class="filter-bar schedule-filters" aria-label="Schedule filters">
-            <button class="filter-btn active" data-schedule-filter="all">All</button>
-            <button class="filter-btn" data-schedule-filter="monday">Monday</button>
-            <button class="filter-btn" data-schedule-filter="wednesday">Wednesday</button>
-            <button class="filter-btn" data-schedule-filter="friday">Friday</button>
-            <button class="filter-btn" data-schedule-filter="weekend">Weekend</button>
-          </div>
-
-          <div class="schedule-grid">
-            <article class="schedule-card" data-day="monday">
-              <span class="schedule-type">Yoga</span>
-              <h3>Morning Flow</h3>
-              <p>Mon | 7:00 AM</p>
-            </article>
-            <article class="schedule-card" data-day="wednesday">
-              <span class="schedule-type">Zumba</span>
-              <h3>Party Cardio</h3>
-              <p>Wed | 6:30 PM</p>
-            </article>
-            <article class="schedule-card" data-day="friday">
-              <span class="schedule-type">CrossFit</span>
-              <h3>Power Circuit</h3>
-              <p>Fri | 5:45 PM</p>
-            </article>
-            <article class="schedule-card" data-day="weekend">
-              <span class="schedule-type">Cardio</span>
-              <h3>Interval Burn</h3>
-              <p>Sat | 9:00 AM</p>
-            </article>
-            <article class="schedule-card" data-day="monday">
-              <span class="schedule-type">Strength</span>
-              <h3>Iron Lab</h3>
-              <p>Mon | 6:00 PM</p>
-            </article>
-            <article class="schedule-card" data-day="wednesday">
-              <span class="schedule-type">Yoga</span>
-              <h3>Evening Reset</h3>
-              <p>Wed | 8:00 PM</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="dashboard" class="section accent-bg">
-        <div class="container">
-          <div class="section-head">
-            <span class="eyebrow">FITNESS DASHBOARD</span>
-            <h2>Track your progress</h2>
-          </div>
-
-          <div class="dashboard-grid">
-            <aside class="dashboard-panel profile-card">
-              <h3>User Profile</h3>
-              <div class="profile-avatar">AF</div>
-              <p><strong>Alex Foster</strong></p>
-              <p>Premium Member</p>
-              <ul>
-                <li>Selected membership: <span id="selected-membership">Premium</span></li>
-                <li>Goal: Muscle gain</li>
-              </ul>
-            </aside>
-
-            <div class="dashboard-panel">
-              <h3>Workout Progress</h3>
-              <div class="progress-bars">
-                <div>
-                  <label>Weekly goal</label>
-                  <div class="bar"><span style="width: 78%"></span></div>
-                </div>
-                <div>
-                  <label>Workout consistency</label>
-                  <div class="bar"><span style="width: 86%"></span></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-panel">
-              <h3>BMI History</h3>
-              <div class="mini-history">
-                <span>Jan 24.8</span>
-                <span>Mar 23.6</span>
-                <span>May 22.9</span>
-                <span>Now 22.1</span>
-              </div>
-            </div>
-
-            <div class="dashboard-panel tracker-panel">
-              <h3>Workout Tracker</h3>
-              <div class="exercise-table-wrap">
-                <table class="exercise-table">
-                  <thead>
-                    <tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Weight</th><th>Done</th></tr>
-                  </thead>
-                  <tbody id="exercise-list"></tbody>
-                </table>
-              </div>
-              <form id="exercise-form" class="inline-form">
-                <input type="text" id="exercise-name" placeholder="Exercise" required />
-                <input type="number" id="exercise-sets" placeholder="Sets" min="1" max="12" required />
-                <input type="number" id="exercise-reps" placeholder="Reps" min="1" max="30" required />
-                <input type="number" id="exercise-weight" placeholder="Weight" min="0" max="500" required />
-                <button type="submit" class="btn btn-primary small">Save</button>
-              </form>
-            </div>
-
-            <div class="dashboard-panel water-panel">
-              <h3>Water Intake</h3>
-              <div class="water-topline">
-                <span id="water-count">0</span>
-                <span>/ 8 glasses</span>
-              </div>
-              <div class="water-bar"><span id="water-progress"></span></div>
-              <div class="water-controls">
-                <button class="btn btn-secondary small" id="add-water">+ Add glass</button>
-                <button class="btn btn-secondary small" id="reset-water">Reset</button>
-              </div>
-            </div>
-
-            <div class="dashboard-panel timer-panel">
-              <h3>Workout Timer</h3>
-              <div id="timer-display">20:00</div>
-              <div class="timer-controls">
-                <button class="btn btn-primary small" id="start-timer">Start</button>
-                <button class="btn btn-secondary small" id="pause-timer">Pause</button>
-                <button class="btn btn-secondary small" id="reset-timer">Reset</button>
-              </div>
-            </div>
-
-            <div class="dashboard-panel chart-panel">
-              <h3>Progress Tracker</h3>
-              <canvas id="progress-chart" width="460" height="200"></canvas>
-              <div class="chart-actions">
-                <input type="number" id="new-weight" placeholder="Weight kg" min="40" max="300" />
-                <button class="btn btn-primary small" id="add-weight">Add Goal</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section testimonials-faq">
-        <div class="container split-grid">
-          <div>
-            <div class="section-head left">
-              <span class="eyebrow">TESTIMONIALS</span>
-              <h2>What our members say</h2>
-            </div>
-            <div class="testimonial-carousel">
-              <div class="testimonial active">
-                <p>“I joined for strength training and I’m stronger, leaner, and more confident than ever.”</p>
-                <h4>— Julia S.</h4>
-              </div>
-              <div class="testimonial">
-                <p>“The community and coaching here genuinely changed my routine and my mindset.”</p>
-                <h4>— Marcus T.</h4>
-              </div>
-              <div class="testimonial">
-                <p>“The classes and trainer support made my fitness journey sustainable.”</p>
-                <h4>— Priya N.</h4>
-              </div>
-            </div>
-            <div class="testimonial-controls">
-              <button class="dot testimonial-dot active" aria-label="Testimonial 1"></button>
-              <button class="dot testimonial-dot" aria-label="Testimonial 2"></button>
-              <button class="dot testimonial-dot" aria-label="Testimonial 3"></button>
-            </div>
-          </div>
-
-          <div>
-            <div class="section-head left">
-              <span class="eyebrow">FAQ</span>
-              <h2>Questions answered</h2>
-            </div>
-            <div class="faq-list">
-              <div class="faq-item active">
-                <button class="faq-question">Do you offer beginner-friendly programs?</button>
-                <div class="faq-answer"><p>Yes, we have introductory programs and personal coaches to help new members build confidence.</p></div>
-              </div>
-              <div class="faq-item">
-                <button class="faq-question">Can I cancel my membership anytime?</button>
-                <div class="faq-answer"><p>Yes, we offer flexible monthly terms with straightforward cancellation guidelines.</p></div>
-              </div>
-              <div class="faq-item">
-                <button class="faq-question">Is there a personal training option?</button>
-                <div class="faq-answer"><p>Absolutely. Personal training is available in all membership levels, with premium upgrade options.</p></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="register" class="section form-section">
-        <div class="container register-grid">
-          <div>
-            <span class="eyebrow">ONLINE REGISTRATION</span>
-            <h2>Start your journey today</h2>
-            <p>Sign up to reserve your spot and choose the membership that fits your goals.</p>
-          </div>
-
-          <form id="registration-form" class="register-form" novalidate>
-            <div class="field-row">
-              <label>
-                Name
-                <input type="text" id="name" placeholder="Full name" required />
-              </label>
-              <label>
-                Email
-                <input type="email" id="email" placeholder="Email address" required />
-              </label>
-            </div>
-
-            <div class="field-row">
-              <label>
-                Phone
-                <input type="tel" id="phone" placeholder="Phone number" required />
-              </label>
-              <label>
-                Membership
-                <select id="membership-select" required>
-                  <option value="">Select plan</option>
-                  <option value="Basic">Basic</option>
-                  <option value="Premium">Premium</option>
-                  <option value="VIP">VIP</option>
-                </select>
-              </label>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Register Now</button>
-          </form>
         </div>
       </section>
 
@@ -674,13 +190,15 @@
         <div class="container contact-grid">
           <div class="contact-details">
             <span class="eyebrow">CONTACT US</span>
-            <h2>Let’s build your success plan.</h2>
+            <h2>Let's build your success plan.</h2>
             <ul>
               <li>✉️ hello@flexformgym.com</li>
+              <li>📞 (555) 010-2938</li>
+              <li>📍 482 Ironwood Ave, Springfield</li>
             </ul>
           </div>
 
-          <form id="contact-form" class="contact-form">
+          <form id="contact-form" class="contact-form" novalidate>
             <label>
               Name
               <input type="text" id="contact-name" placeholder="Your name" required />
@@ -700,48 +218,38 @@
     </main>
 
     <footer class="footer">
-      <div class="container footer-inner">
-        <p>© 2026 FlexForm Gym. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="#home">Home</a>
-          <a href="#plans">Plans</a>
-          <a href="#contact">Contact</a>
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">FLEX<span>FORM</span></div>
+          <p>A gym built around your goals — strength, conditioning, mobility, and a coaching team that keeps you accountable.</p>
         </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features-tools.html">Tools</a></li>
+            <li><a href="features-training.html">Training</a></li>
+            <li><a href="features-plans.html">Plans</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <ul>
+            <li>✉️ hello@flexformgym.com</li>
+            <li>📞 (555) 010-2938</li>
+            <li>📍 482 Ironwood Ave, Springfield</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        © <span id="footer-year"></span> FlexForm Gym. All rights reserved.
       </div>
     </footer>
 
     <button class="scroll-top" aria-label="Scroll to top">↑</button>
 
-    <div class="modal" id="plan-modal" aria-hidden="true">
-      <div class="modal-content">
-        <button class="modal-close" aria-label="Close">×</button>
-        <h3 id="modal-title">Membership Details</h3>
-        <p id="modal-body">Detailed plan information will appear here.</p>
-      </div>
-    </div>
-
-    <div class="modal" id="auth-modal" aria-hidden="true">
-      <div class="modal-content auth-modal-content">
-        <button class="modal-close auth-close" aria-label="Close">×</button>
-        <h3 id="auth-modal-title">Login</h3>
-        <form id="auth-form" class="auth-form">
-          <label id="auth-name-field" class="auth-field hidden">
-            Full name
-            <input type="text" id="auth-name" placeholder="Your name" />
-          </label>
-          <label>
-            Email
-            <input type="email" id="auth-email" placeholder="Email address" required />
-          </label>
-          <label>
-            Password
-            <input type="password" id="auth-password" placeholder="Password" required />
-          </label>
-          <button type="submit" class="btn btn-primary" id="auth-submit-btn">Login</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- <script src="script.js"></script> -->
+    <script src="auth.js"></script>
+    <script src="nav.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

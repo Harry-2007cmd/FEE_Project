@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FlexForm Gym services, BMI calculator, and calorie calculator." />
+    <title>FlexForm Gym | Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container navbar">
+        <a href="index.html" class="logo">FLEX<span>FORM</span></a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="nav" aria-label="Main navigation">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features-tools.html">Tools</a></li>
+            <li><a href="features-training.html">Training</a></li>
+            <li><a href="features-plans.html">Plans</a></li>
+          </ul>
+          <div class="nav-auth">
+            <a href="login.html" class="btn btn-secondary small" data-auth-action="login">Login</a>
+            <a href="signup.html" class="btn btn-primary small" data-auth-action="signup">Signup</a>
+            <button class="btn btn-secondary small hidden" data-auth-action="logout">Logout</button>
+          </div>
+        </nav>
+
+        <span id="auth-user-badge" class="auth-user-badge hidden"></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" style="padding-bottom: 0;">
+        <div class="container section-head">
+          <span class="eyebrow">TOOLS</span>
+          <h2>Featured services & calculators</h2>
+        </div>
+      </section>
+
+      <section class="featured-services container section" style="padding-top: 24px;">
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="icon">🏋️</div>
+            <h3>Personal Training</h3>
+            <p>One-on-one coaching for faster progress and accountability.</p>
+          </article>
+          <article class="service-card">
+            <div class="icon">🥗</div>
+            <h3>Nutrition Guidance</h3>
+            <p>Customized nutrition plans to fuel performance and recovery.</p>
+          </article>
+          <article class="service-card">
+            <div class="icon">💪</div>
+            <h3>Strength Programs</h3>
+            <p>Progressive training that builds power, lean muscle, and confidence.</p>
+          </article>
+          <article class="service-card">
+            <div class="icon">🧘</div>
+            <h3>Recovery & Yoga</h3>
+            <p>Mobility, flexibility, and recovery sessions for long-term health.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="bmi" class="section accent-bg">
+        <div class="container bmi-grid">
+          <div class="calculator-panel">
+            <span class="eyebrow">BMI CALCULATOR</span>
+            <h2>Check your body mass index</h2>
+            <form id="bmi-form" class="calc-form">
+              <label>
+                Height (cm)
+                <input type="number" id="height" min="50" max="250" required />
+              </label>
+              <label>
+                Weight (kg)
+                <input type="number" id="weight" min="20" max="300" required />
+              </label>
+              <button type="submit" class="btn btn-primary">Calculate</button>
+            </form>
+          </div>
+          <div class="result-panel">
+            <h3>Your BMI</h3>
+            <div class="bmi-score" id="bmi-result">--</div>
+            <p id="bmi-category">Your category will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="calories" class="section">
+        <div class="container calorie-grid">
+          <div class="calculator-panel">
+            <span class="eyebrow">CALORIE CALCULATOR</span>
+            <h2>Estimate your daily needs</h2>
+            <form id="calorie-form" class="calc-form">
+              <label>
+                Age
+                <input type="number" id="age" min="10" max="100" required />
+              </label>
+              <label>
+                Gender
+                <select id="gender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </label>
+              <label>
+                Height (cm)
+                <input type="number" id="calorie-height" min="100" max="250" required />
+              </label>
+              <label>
+                Weight (kg)
+                <input type="number" id="calorie-weight" min="20" max="300" required />
+              </label>
+              <label>
+                Activity level
+                <select id="activity-level">
+                  <option value="1.2">Sedentary</option>
+                  <option value="1.375">Lightly active</option>
+                  <option value="1.55">Moderately active</option>
+                  <option value="1.725">Very active</option>
+                  <option value="1.9">Extra active</option>
+                </select>
+              </label>
+              <button type="submit" class="btn btn-primary">Calculate</button>
+            </form>
+          </div>
+          <div class="result-panel">
+            <h3>Estimated Calories</h3>
+            <div class="calorie-score" id="calorie-result">--</div>
+            <p id="calorie-summary">Daily calorie goal will appear here.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">FLEX<span>FORM</span></div>
+          <p>A gym built around your goals — strength, conditioning, mobility, and a coaching team that keeps you accountable.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features-tools.html">Tools</a></li>
+            <li><a href="features-training.html">Training</a></li>
+            <li><a href="features-plans.html">Plans</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <ul>
+            <li>✉️ hello@flexformgym.com</li>
+            <li>📞 (555) 010-2938</li>
+            <li>📍 482 Ironwood Ave, Springfield</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        © <span id="footer-year"></span> FlexForm Gym. All rights reserved.
+      </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+
+    <script src="auth.js"></script>
+    <script src="nav.js"></script>
+    <script src="calculators.js"></script>
+  </body>
+</html>
