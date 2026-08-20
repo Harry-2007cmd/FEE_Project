@@ -29,7 +29,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="features-tools.html">Tools</a></li>
             <li><a href="features-training.html">Training</a></li>
-            <li><a href="features-plans.html">Plans</a></li>
+            <li><a href="features-trainers.html">Find a Trainer</a></li>
           </ul>
           <div class="nav-auth">
             <a href="login.html" class="btn btn-secondary small" data-auth-action="login">Login</a>
@@ -50,7 +50,33 @@
         </div>
       </section>
 
-      <section id="programs" class="section">
+      <section id="what-to-expect" class="section">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">WHAT TO EXPECT</span>
+            <h2>How our training approach works</h2>
+          </div>
+          <div class="steps-grid">
+            <div class="step-card">
+              <span class="step-number">1</span>
+              <h3>Assess your goals</h3>
+              <p>We start with your current fitness level, schedule, and what you actually want to achieve — no generic templates.</p>
+            </div>
+            <div class="step-card">
+              <span class="step-number">2</span>
+              <h3>Match with a program</h3>
+              <p>Based on your goals, we point you toward the program and trainer best suited to get you there safely.</p>
+            </div>
+            <div class="step-card">
+              <span class="step-number">3</span>
+              <h3>Train with support</h3>
+              <p>Every program includes trainer check-ins, schedule flexibility, and adjustments as you progress.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="programs" class="section accent-bg">
         <div class="container">
           <div class="section-head">
             <span class="eyebrow">WORKOUT PROGRAMS</span>
@@ -64,6 +90,8 @@
             <button class="filter-btn" data-filter="strength">Strength</button>
             <button class="filter-btn" data-filter="cardio">Cardio</button>
             <button class="filter-btn" data-filter="yoga">Yoga</button>
+            <button class="filter-btn" data-filter="functional">Functional</button>
+            <button class="filter-btn" data-filter="athletic">Athletic</button>
             <button class="filter-btn" data-filter="beginner">Beginner</button>
           </div>
 
@@ -71,38 +99,48 @@
             <article class="program-card" data-category="weight-loss">
               <span class="tag">Weight Loss</span>
               <h3>Fat Burn Blast</h3>
-              <p>High-energy interval training to improve stamina and burn calories.</p>
+              <p>High-energy interval training paired with nutrition check-ins to improve stamina and burn calories sustainably — most members see visible changes within 6 weeks.</p>
             </article>
             <article class="program-card" data-category="muscle-building">
               <span class="tag">Muscle</span>
               <h3>Lean Gains</h3>
-              <p>Build muscle with progressive overload and smart recovery cycles.</p>
+              <p>Build muscle with progressive overload, smart recovery cycles, and a trainer tracking your lifts week over week.</p>
             </article>
             <article class="program-card" data-category="strength">
               <span class="tag">Strength</span>
               <h3>Power Lift</h3>
-              <p>Structured lifts focused on maximal strength and safe execution.</p>
+              <p>Structured compound lifts focused on maximal strength, safe execution, and form correction from certified coaches.</p>
             </article>
             <article class="program-card" data-category="cardio">
               <span class="tag">Cardio</span>
               <h3>Heart Pulse</h3>
-              <p>Endurance-focused training designed to improve heart health and stamina.</p>
+              <p>Endurance-focused training with heart-rate zone coaching designed to improve cardiovascular health and stamina.</p>
             </article>
             <article class="program-card" data-category="yoga">
               <span class="tag">Yoga</span>
               <h3>Flow & Balance</h3>
-              <p>Stretch, stabilize, and recover with mindful movement and breathwork.</p>
+              <p>Stretch, stabilize, and recover with mindful movement, breathwork, and guided sessions for long-term mobility.</p>
+            </article>
+            <article class="program-card" data-category="functional">
+              <span class="tag">Functional</span>
+              <h3>Everyday Strong</h3>
+              <p>Functional movement patterns — carrying, lifting, twisting — that translate directly to daily life and injury prevention.</p>
+            </article>
+            <article class="program-card" data-category="athletic">
+              <span class="tag">Athletic</span>
+              <h3>Peak Performance</h3>
+              <p>Speed, agility, and power training designed for athletes and anyone chasing a specific performance goal.</p>
             </article>
             <article class="program-card" data-category="beginner">
               <span class="tag">Beginner</span>
               <h3>Start Strong</h3>
-              <p>Build confidence with beginner-friendly workouts and step-by-step guidance.</p>
+              <p>Build confidence with beginner-friendly workouts, step-by-step guidance, and a trainer who checks your form every session.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="trainers" class="section accent-bg">
+      <section id="trainers" class="section">
         <div class="container">
           <div class="section-head">
             <span class="eyebrow">OUR TRAINERS</span>
@@ -136,11 +174,29 @@
                 <button class="btn btn-secondary book-trainer" data-trainer="Adrian Lee">Book Trainer</button>
               </div>
             </article>
+            <article class="trainer-card">
+              <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=700&q=80" alt="Coach Sofia" />
+              <div class="trainer-body">
+                <h3>Sofia Chen</h3>
+                <span>Nutrition & Weight Loss</span>
+                <p>Combines training plans with nutrition guidance for lasting results.</p>
+                <button class="btn btn-secondary book-trainer" data-trainer="Sofia Chen">Book Trainer</button>
+              </div>
+            </article>
+            <article class="trainer-card">
+              <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=700&q=80" alt="Coach Marcus" />
+              <div class="trainer-body">
+                <h3>Marcus Bell</h3>
+                <span>Athletic Performance</span>
+                <p>Trains competitive athletes on speed, agility, and explosive power.</p>
+                <button class="btn btn-secondary book-trainer" data-trainer="Marcus Bell">Book Trainer</button>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      <section id="schedule" class="section">
+      <section id="schedule" class="section accent-bg">
         <div class="container">
           <div class="section-head">
             <span class="eyebrow">CLASS SCHEDULE</span>
@@ -189,13 +245,22 @@
           </div>
         </div>
       </section>
+
+      <section class="section">
+        <div class="container section-head" style="margin-bottom: 0;">
+          <span class="eyebrow">NOT SURE WHERE TO START?</span>
+          <h2>Get matched with the right trainer</h2>
+          <p style="margin-top: 12px;">Tell us your goals and we'll connect you with a coach for a free consultation.</p>
+          <a href="features-trainers.html" class="btn btn-primary" style="margin-top: 20px;">Find a Trainer</a>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
       <div class="container footer-grid">
         <div class="footer-col">
           <div class="footer-brand">FLEX<span>FORM</span></div>
-          <p>A gym built around your goals — strength, conditioning, mobility, and a coaching team that keeps you accountable.</p>
+          <p>A fitness consultancy connecting you with expert trainers — strength, conditioning, mobility, and a coaching team that keeps you accountable.</p>
         </div>
         <div class="footer-col">
           <h3>Quick Links</h3>
@@ -203,7 +268,8 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="features-tools.html">Tools</a></li>
             <li><a href="features-training.html">Training</a></li>
-            <li><a href="features-plans.html">Plans</a></li>
+            <li><a href="features-trainers.html">Find a Trainer</a></li>
+            <li><a href="free-class.html">Free Class</a></li>
           </ul>
         </div>
         <div class="footer-col">
