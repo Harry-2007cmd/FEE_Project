@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Login to your FlexForm Gym account." />
+    <title>FlexForm Gym | Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container navbar">
+        <a href="index.html" class="logo">FLEX<span>FORM</span></a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="nav" aria-label="Main navigation">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features-tools.html">Tools</a></li>
+            <li><a href="features-training.html">Training</a></li>
+            <li><a href="features-plans.html">Plans</a></li>
+          </ul>
+          <div class="nav-auth">
+            <a href="login.html" class="btn btn-secondary small" data-auth-action="login">Login</a>
+            <a href="signup.html" class="btn btn-primary small" data-auth-action="signup">Signup</a>
+            <button class="btn btn-secondary small hidden" data-auth-action="logout">Logout</button>
+          </div>
+        </nav>
+
+        <span id="auth-user-badge" class="auth-user-badge hidden"></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="auth-page">
+        <div class="container">
+          <div class="auth-card">
+            <span class="eyebrow">WELCOME BACK</span>
+            <h1>Log in</h1>
+            <p class="auth-sub">Enter your details to access your FlexForm account.</p>
+
+            <form id="login-form" class="auth-form" novalidate>
+              <label>
+                Email
+                <input type="email" id="login-email" placeholder="you@example.com" required />
+                <span class="field-error hidden" data-error-for="login-email"></span>
+              </label>
+              <label>
+                Password
+                <input type="password" id="login-password" placeholder="Your password" required />
+                <span class="field-error hidden" data-error-for="login-password"></span>
+              </label>
+              <button type="submit" class="btn btn-primary full">Login</button>
+            </form>
+
+            <p class="auth-switch">Don't have an account? <a href="signup.html">Sign up</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">FLEX<span>FORM</span></div>
+          <p>A gym built around your goals — strength, conditioning, mobility, and a coaching team that keeps you accountable.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features-tools.html">Tools</a></li>
+            <li><a href="features-training.html">Training</a></li>
+            <li><a href="features-plans.html">Plans</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <ul>
+            <li>✉️ hello@flexformgym.com</li>
+            <li>📞 (555) 010-2938</li>
+            <li>📍 482 Ironwood Ave, Springfield</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        © <span id="footer-year"></span> FlexForm Gym. All rights reserved.
+      </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+
+    <script src="auth.js"></script>
+    <script src="nav.js"></script>
+    <script src="auth-forms.js"></script>
+  </body>
+</html>

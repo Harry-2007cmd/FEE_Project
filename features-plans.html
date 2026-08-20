@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FlexForm Gym membership pricing, testimonials, and FAQ." />
+    <title>FlexForm Gym | Plans</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container navbar">
+        <a href="index.html" class="logo">FLEX<span>FORM</span></a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="nav" aria-label="Main navigation">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features-tools.html">Tools</a></li>
+            <li><a href="features-training.html">Training</a></li>
+            <li><a href="features-plans.html">Plans</a></li>
+          </ul>
+          <div class="nav-auth">
+            <a href="login.html" class="btn btn-secondary small" data-auth-action="login">Login</a>
+            <a href="signup.html" class="btn btn-primary small" data-auth-action="signup">Signup</a>
+            <button class="btn btn-secondary small hidden" data-auth-action="logout">Logout</button>
+          </div>
+        </nav>
+
+        <span id="auth-user-badge" class="auth-user-badge hidden"></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" style="padding-bottom: 0;">
+        <div class="container section-head">
+          <span class="eyebrow">PLANS</span>
+          <h2>Pricing, testimonials & FAQ</h2>
+        </div>
+      </section>
+
+      <section id="plans" class="section accent-bg">
+        <div class="container">
+          <div class="pricing-grid">
+            <article class="price-card">
+              <div class="plan-badge">Basic</div>
+              <h3>Starter</h3>
+              <div class="price">$29<span>/mo</span></div>
+              <ul>
+                <li>Gym floor access</li>
+                <li>1 group class per week</li>
+                <li>Locker room access</li>
+                <li>Fitness assessment</li>
+              </ul>
+              <button class="btn btn-secondary choose-plan" data-plan="Basic">Choose Plan</button>
+            </article>
+
+            <article class="price-card featured-plan">
+              <div class="plan-badge">Popular</div>
+              <h3>Premium</h3>
+              <div class="price">$59<span>/mo</span></div>
+              <ul>
+                <li>Everything in Basic</li>
+                <li>Unlimited classes</li>
+                <li>1 personal training session</li>
+                <li>Nutrition support</li>
+              </ul>
+              <button class="btn btn-primary choose-plan" data-plan="Premium">Choose Plan</button>
+            </article>
+
+            <article class="price-card">
+              <div class="plan-badge">VIP</div>
+              <h3>Elite</h3>
+              <div class="price">$99<span>/mo</span></div>
+              <ul>
+                <li>Everything in Premium</li>
+                <li>3 PT sessions</li>
+                <li>Priority scheduling</li>
+                <li>Recovery lounge access</li>
+              </ul>
+              <button class="btn btn-secondary choose-plan" data-plan="VIP">Choose Plan</button>
+            </article>
+          </div>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Features</th>
+                  <th>Basic</th>
+                  <th>Premium</th>
+                  <th>VIP</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Gym access</td><td>✔</td><td>✔</td><td>✔</td></tr>
+                <tr><td>Group classes</td><td>1/week</td><td>Unlimited</td><td>Unlimited</td></tr>
+                <tr><td>Personal training</td><td>✘</td><td>1/mo</td><td>3/mo</td></tr>
+                <tr><td>Nutrition plan</td><td>✘</td><td>✔</td><td>✔</td></tr>
+                <tr><td>Recovery lounge</td><td>✘</td><td>✘</td><td>✔</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section testimonials-faq">
+        <div class="container split-grid">
+          <div>
+            <div class="section-head left">
+              <span class="eyebrow">TESTIMONIALS</span>
+              <h2>What our members say</h2>
+            </div>
+            <div class="testimonial-carousel">
+              <div class="testimonial active">
+                <p>"I joined for strength training and I'm stronger, leaner, and more confident than ever."</p>
+                <h4>— Julia S.</h4>
+              </div>
+              <div class="testimonial">
+                <p>"The community and coaching here genuinely changed my routine and my mindset."</p>
+                <h4>— Marcus T.</h4>
+              </div>
+              <div class="testimonial">
+                <p>"The classes and trainer support made my fitness journey sustainable."</p>
+                <h4>— Priya N.</h4>
+              </div>
+            </div>
+            <div class="testimonial-controls">
+              <button class="dot testimonial-dot active" aria-label="Testimonial 1"></button>
+              <button class="dot testimonial-dot" aria-label="Testimonial 2"></button>
+              <button class="dot testimonial-dot" aria-label="Testimonial 3"></button>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-head left">
+              <span class="eyebrow">FAQ</span>
+              <h2>Questions answered</h2>
+            </div>
+            <div class="faq-list">
+              <div class="faq-item active">
+                <button class="faq-question">Do you offer beginner-friendly programs?</button>
+                <div class="faq-answer"><p>Yes, we have introductory programs and personal coaches to help new members build confidence.</p></div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Can I cancel my membership anytime?</button>
+                <div class="faq-answer"><p>Yes, we offer flexible monthly terms with straightforward cancellation guidelines.</p></div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Is there a personal training option?</button>
+                <div class="faq-answer"><p>Absolutely. Personal training is available in all membership levels, with premium upgrade options.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">FLEX<span>FORM</span></div>
+          <p>A gym built around your goals — strength, conditioning, mobility, and a coaching team that keeps you accountable.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features-tools.html">Tools</a></li>
+            <li><a href="features-training.html">Training</a></li>
+            <li><a href="features-plans.html">Plans</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <ul>
+            <li>✉️ hello@flexformgym.com</li>
+            <li>📞 (555) 010-2938</li>
+            <li>📍 482 Ironwood Ave, Springfield</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        © <span id="footer-year"></span> FlexForm Gym. All rights reserved.
+      </div>
+    </footer>
+
+    <div class="modal" id="plan-modal" aria-hidden="true">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close">×</button>
+        <h3 id="modal-title">Membership Details</h3>
+        <p id="modal-body">Detailed plan information will appear here.</p>
+        <a href="signup.html" class="btn btn-primary full" style="margin-top: 16px;">Sign up for this plan</a>
+      </div>
+    </div>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+
+    <script src="auth.js"></script>
+    <script src="nav.js"></script>
+    <script src="plans.js"></script>
+  </body>
+</html>

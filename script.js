@@ -538,6 +538,8 @@ function stopTimer() {
   timerId = null;
 }
 
+
+
 document.getElementById('start-timer').addEventListener('click', () => {
   if (timerRunning) return;
   timerRunning = true;
