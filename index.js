@@ -40,21 +40,11 @@ const updateAuthUI = () => {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  const loader = select("#loader");
-  const app = select("#app");
-  const hasSeenLoader = localStorage.getItem("flexformLoaderSeen") === "true";
+  const hasSeenEntry = localStorage.getItem("flexformEntrySeen") === "true";
 
-  if (hasSeenLoader) {
-    loader?.classList.add("hidden");
-    app?.classList.remove("hidden");
-  } else {
-    const showApp = () => {
-      localStorage.setItem("flexformLoaderSeen", "true");
-      loader?.classList.add("hidden");
-      app?.classList.remove("hidden");
-    };
-
-    setTimeout(showApp, 1100);
+  if (!hasSeenEntry && (window.location.pathname.endsWith("index.html") || window.location.pathname === "/" || window.location.pathname.endsWith("/"))) {
+    window.location.href = "load.html";
+    return;
   }
 
   updateAuthUI();

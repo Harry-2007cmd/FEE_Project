@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flexform. — Start your rhythm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #292825;
+        --cream: #f7f3ec;
+        --paper: #fffaf0;
+        --line: #ded9cd;
+        --stone: #8b877e;
+        --coral: #ff665d;
+        --sun: #ffd33d;
+        --mint: #b9ddc6;
+        --purple: #d8cce8;
+        --display: "Space Grotesk", sans-serif;
+        --body: "DM Sans", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: var(--body);
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        padding: 32px 20px;
+      }
+
+      .loader-card {
+        width: min(640px, 100%);
+        background: rgba(255, 255, 255, 0.28);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 52px 40px 40px;
+        text-align: center;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font: 700 30px var(--display);
+        letter-spacing: -0.06em;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: var(--sun);
+        color: var(--ink);
+        font-size: 24px;
+      }
+
+      .brand span {
+        color: var(--coral);
+      }
+
+      .eyebrow {
+        margin: 42px 0 16px;
+        color: var(--coral);
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: var(--display);
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 0.96;
+        letter-spacing: -0.08em;
+      }
+
+      .tagline {
+        margin: 22px auto 0;
+        max-width: 500px;
+        color: var(--stone);
+        font-size: 1.08rem;
+        line-height: 1.7;
+      }
+
+      .loader-wrap {
+        margin-top: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .loader-bar {
+        width: min(210px, 45%);
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(41, 40, 37, 0.2);
+        overflow: hidden;
+      }
+
+      .loader-bar i {
+        display: block;
+        width: 42%;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--sun);
+        animation: load 1.15s ease-in-out infinite;
+      }
+
+      .loading-text {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      @keyframes load {
+        50% { transform: translateX(160%); }
+      }
+
+      @media (max-width: 640px) {
+        .loader-card {
+          padding: 36px 24px 28px;
+        }
+
+        .loader-wrap {
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .loader-bar {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader-card">
+      <div class="brand"><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></div>
+
+      <p class="eyebrow">Build your rhythm</p>
+      <h1>Start in a way that feels good.</h1>
+      <p class="tagline">
+        Meet your coach, shape your plan, and create a routine that supports the life you already live.
+      </p>
+
+      <div class="loader-wrap" aria-label="Loading your home page">
+        <div class="loader-bar"><i></i></div>
+        <span class="loading-text">Preparing…</span>
+      </div>
+    </div>
+
+    <script>
+      const redirectToHome = () => {
+        localStorage.setItem('flexformEntrySeen', 'true');
+        localStorage.setItem('flexformLoaderSeen', 'true');
+        window.location.href = 'index.html';
+      };
+
+      setTimeout(redirectToHome, 1600);
+    </script>
+  </body>
+</html>
