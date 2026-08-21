@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Track your flexform progress and upcoming bookings."
+    />
+    <title>My progress · flexform.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body data-page="profile">
+    <div id="app" class="app hidden">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"
+          ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+        >
+        <p class="side-label">Your rhythm</p>
+        <nav class="side-nav">
+          <a href="index.html">⌂ <span>Today</span></a
+          ><a href="trainers.html">♧ <span>Find a coach</span></a
+          ><a href="courses.html">▤ <span>Courses</span></a
+          ><a href="tools.html">⌗ <span>Tools</span></a>
+        </nav>
+        <p class="side-label keep-label">Keep going</p>
+        <a class="side-link active" href="profile.html"
+          >♙ <span>My progress</span></a
+        >
+        <div class="side-prompt">
+          <strong>Your next good choice is one tap away.</strong
+          ><a href="trainers.html">Meet a coach →</a>
+        </div>
+        <a class="side-link" href="login.html">⚙ <span>Sign in</span></a>
+      </aside>
+      <div class="main-column">
+        <header class="topbar">
+          <a class="brand desktop-brand" href="index.html"
+            ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+          >
+          <div class="top-message"><i></i> Your wellness, on your terms</div>
+          <div class="top-actions">
+            <button
+              id="notificationButton"
+              class="icon-button"
+              aria-label="Show notifications"
+            >
+              ♧</button
+            ><button type="button" class="logout-button auth-only hidden" data-logout>
+              Log out
+            </button>
+          </div>
+          <div id="notification" class="notification">
+            You’re all caught up.
+          </div>
+        </header>
+        <main id="pages">
+          <section class="page active" id="page-profile">
+            <div class="page-intro split">
+              <div>
+                <p class="eyebrow">A record of showing up</p>
+                <h1>My <em>progress.</em></h1>
+                <p class="lede">Notice what’s changing, inside and out.</p>
+              </div>
+              <button class="outline-button" id="editProfile">
+                ⚙ Edit profile
+              </button>
+            </div>
+            <div class="profile-grid">
+              <article class="dark-card profile-card">
+                <div class="profile-head">
+                  <span class="avatar sun">AL</span>
+                  <div>
+                    <h2>Alex Lee</h2>
+                    <p>Member since May 2024</p>
+                  </div>
+                </div>
+                <div class="intention">
+                  <small>MY INTENTION</small
+                  ><b>Feel stronger and sleep better.</b>
+                </div>
+                <div class="profile-stats">
+                  <div><b>47.2</b><small>move hours</small></div>
+                  <div><b>06</b><small>day streak</small></div>
+                  <div><b>12</b><small>sessions</small></div>
+                </div>
+              </article>
+              <article class="cream-card progress-card">
+                <p class="eyebrow">Over the last 30 days</p>
+                <h2>A steadier you</h2>
+                <div class="mini-stats">
+                  <div>ϟ<strong>18</strong><small>ACTIVE DAYS</small></div>
+                  <div>◷<strong>426</strong><small>MOVE MINUTES</small></div>
+                  <div>♡<strong>21</strong><small>MOOD CHECK-INS</small></div>
+                </div>
+                <div class="progress-copy">
+                  <span>Weekly goal</span><b>4 / 5 moments</b>
+                </div>
+                <div class="progress"><i style="width: 80%"></i></div>
+              </article>
+            </div>
+            <div class="profile-lower-grid">
+              <article class="cream-card track-card">
+                <p class="eyebrow">Your track</p>
+                <h2>Consistency is the win.</h2>
+                <ul class="feature-list">
+                  <li>6 active days this week</li>
+                  <li>128 minutes of movement logged</li>
+                  <li>3 sessions completed this month</li>
+                </ul>
+              </article>
+              <article class="dark-card user-card">
+                <p class="eyebrow sun-text">Your profile</p>
+                <h2>Account details</h2>
+                <div class="user-meta">
+                  <div><small>Email</small><b>alex@flexform.com</b></div>
+                  <div><small>Membership</small><b>Active</b></div>
+                </div>
+                <button class="outline-button logout-button" type="button" data-logout>
+                  Log out
+                </button>
+              </article>
+            </div>
+            <div class="section-heading upcoming-heading">
+              <div>
+                <p class="eyebrow">On your calendar</p>
+                <h2>Upcoming bookings</h2>
+              </div>
+              <a href="trainers.html">Book another +</a>
+            </div>
+            <div class="upcoming">
+              <div>
+                <span class="avatar coral">MC</span>
+                <p>
+                  <b>Strength foundations</b
+                  ><small>with Maya Chen · Today</small>
+                </p>
+                <time>6:30<br /><b>PM</b></time>
+              </div>
+              <div>
+                <span class="avatar lilac">AP</span>
+                <p>
+                  <b>Recovery check-in</b
+                  ><small>with Arjun Patel · Friday</small>
+                </p>
+                <time>12:15<br /><b>PM</b></time>
+              </div>
+            </div>
+          </section>
+        </main>
+        <footer class="site-footer">
+          <div class="footer-grid">
+            <div class="footer-block">
+              <h3>About us</h3>
+              <p>
+                flexform is a thoughtful wellness studio helping people build better
+                rhythms through movement, coaching, and simple routines that fit
+                real life.</p>
+            </div>
+            <div class="footer-block">
+              <h3>Contact us</h3>
+              <p>
+                Contact our care team at hello@flexform.com or +1 (415) 555-0148 for
+                coaching support and account questions.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">⌂<small>Today</small></a
+        ><a href="trainers.html">♧<small>Find a coach</small></a
+        ><a href="courses.html">▤<small>Courses</small></a
+        ><a href="tools.html">⌗<small>Tools</small></a
+        ><a class="active" href="profile.html">♙<small>Profile</small></a>
+      </nav>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="profile.js"></script>
+  </body>
+</html>

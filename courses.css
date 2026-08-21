@@ -1,0 +1,139 @@
+.free-class {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  background: var(--sun);
+  color: var(--ink);
+  margin-bottom: 35px;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.free-class > div:first-child {
+  padding: 34px;
+}
+
+.free-class h2 {
+  font-size: 34px;
+  max-width: 450px;
+}
+
+.free-class p {
+  color: #6e6654;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.free-class .eyebrow {
+  color: var(--ink);
+}
+
+.abstract-photo {
+  min-height: 220px;
+  position: relative;
+  background: linear-gradient(140deg, #cfc1aa, #7c776b 60%, #ad9786);
+}
+
+.abstract-photo:before {
+  content: "";
+  position: absolute;
+  inset: 25% 20%;
+  border-radius: 50%;
+  border: 35px solid #312f2a66;
+  transform: rotate(-25deg);
+}
+
+.abstract-photo span {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.dark-button {
+  background: var(--ink);
+  color: var(--cream);
+  margin-top: 14px;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.course-card {
+  padding: 20px;
+  border-radius: 22px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  background: var(--sun);
+}
+
+.course-card:nth-child(2) {
+  background: var(--lilac);
+}
+
+.course-card:nth-child(3) {
+  background: var(--mint);
+}
+
+.course-card:nth-child(4) {
+  background: #ffd5d1;
+}
+
+.course-card h3 {
+  font: 700 29px var(--display);
+  letter-spacing: -0.06em;
+  margin-top: auto;
+}
+
+.course-card p {
+  color: #5f5a50;
+  line-height: 1.5;
+}
+
+.course-meta {
+  color: #5f5a50;
+  font-size: 11px;
+}
+
+.course-card .progress {
+  margin-top: 15px;
+}
+
+.course-card .progress i {
+  background: var(--ink);
+}
+
+.course-card button {
+  margin-top: 15px;
+  border: 0;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .free-class {
+    grid-template-columns: 1fr;
+  }
+
+  .abstract-photo {
+    min-height: 180px;
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+}

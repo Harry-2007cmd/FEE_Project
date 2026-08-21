@@ -1,0 +1,277 @@
+.filter-box {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  background: var(--paper);
+  padding: 16px;
+  border-radius: 22px;
+  box-shadow: 0 10px 25px #29282509;
+  margin-bottom: 24px;
+}
+
+.filter-box input,
+.filter-box select {
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--cream);
+  padding: 0 14px;
+  min-width: 150px;
+  outline-color: var(--coral);
+}
+
+.filters {
+  display: flex;
+  gap: 7px;
+  overflow: auto;
+}
+
+.filter {
+  white-space: nowrap;
+  border: 0;
+  padding: 10px 13px;
+  border-radius: 12px;
+  background: #ebe5dc;
+  color: var(--stone);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.filter.active {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.filter-box small {
+  grid-column: 1/-1;
+  color: var(--stone);
+}
+
+.trainer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.trainer-card {
+  background: var(--paper);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 12px 30px #29282509;
+}
+
+.trainer-card .card-top {
+  align-items: center;
+}
+
+.trainer-card h3 {
+  font: 700 21px var(--display);
+  letter-spacing: -0.05em;
+  margin: 20px 0 5px;
+}
+
+.trainer-card p {
+  color: var(--stone);
+  margin: 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 16px 0;
+}
+
+.tags span {
+  padding: 7px 9px;
+  border-radius: 20px;
+  background: #ece7de;
+  color: var(--stone);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.rating {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.rating span {
+  float: right;
+  color: #4d8d69;
+  font-size: 10px;
+}
+
+.book-button {
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  background: var(--coral);
+  padding: 12px;
+  margin-top: 15px;
+  font-weight: 700;
+}
+
+.book-button.booked {
+  background: var(--mint);
+}
+
+.match-banner {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  background: var(--ink);
+  color: var(--cream);
+  margin-top: 28px;
+}
+
+.match-banner > div:first-child {
+  padding: 34px;
+}
+
+.match-banner h2 {
+  font-size: 34px;
+  max-width: 450px;
+}
+
+.match-banner p {
+  color: #aaa69d;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.sun-button {
+  background: var(--sun);
+  color: var(--ink);
+  margin-top: 14px;
+}
+
+.abstract-photo {
+  min-height: 220px;
+  position: relative;
+  background: linear-gradient(140deg, #cfc1aa, #7c776b 60%, #ad9786);
+}
+
+.abstract-photo:before {
+  content: "";
+  position: absolute;
+  inset: 25% 20%;
+  border-radius: 50%;
+  border: 35px solid #312f2a66;
+  transform: rotate(-25deg);
+}
+
+.abstract-photo span {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.chat {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 360px;
+  background: var(--paper);
+  border-radius: 22px;
+  box-shadow: 0 20px 60px #29282533;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--cream);
+  padding: 14px;
+}
+
+.chat-head div {
+  flex: 1;
+}
+
+.chat-head small {
+  display: block;
+  color: #aaa69d;
+  margin-top: 3px;
+}
+
+.chat-head button {
+  border: 0;
+  background: none;
+  color: var(--cream);
+  font-size: 22px;
+}
+
+.chat-body {
+  height: 240px;
+  padding: 16px;
+}
+
+.chat-body p {
+  background: #eee8df;
+  padding: 12px;
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+  line-height: 1.5;
+}
+
+.chat form {
+  border-top: 1px solid var(--line);
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.chat input {
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--cream);
+}
+
+.chat form button {
+  border: 0;
+  border-radius: 9px;
+  background: var(--ink);
+  color: var(--cream);
+  width: 38px;
+}
+
+@media (max-width: 900px) {
+  .trainer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filter-box {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-box small {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .trainer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .match-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .chat {
+    left: 12px;
+    right: 12px;
+    bottom: 84px;
+    width: auto;
+  }
+}

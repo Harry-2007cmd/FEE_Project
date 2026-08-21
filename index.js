@@ -1,75 +1,90 @@
-// index.js — behavior scoped only to index.html (hero stat counters,
-// hero image slider, contact form validation).
+const select = (selector) => document.querySelector(selector);
+const isLoggedIn = () => localStorage.getItem("fitlyLoggedIn") === "true";
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Animated hero stat counters
-  function runCounters() {
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach((counter) => {
-      const target = Number(counter.dataset.target || 0);
-      let current = 0;
-      const step = target / 60;
-      const isPercent = target === 95;
-      const update = () => {
-        current += step;
-        if (current < target) {
-          counter.textContent = Math.round(current);
-          requestAnimationFrame(() => setTimeout(update, 18));
-        } else {
-          counter.textContent = target + (isPercent ? '%' : '');
-        }
-      };
-      update();
-    });
-  }
-  runCounters();
+const updateAuthUI = () => {
+  const loggedIn = isLoggedIn();
 
-  // Hero image slider
-  const slides = document.querySelectorAll('.slide');
-  const slideDots = document.querySelectorAll('.slider-dots .dot');
-  let slideIndex = 0;
+  const isProfilePage = window.location.pathname.endsWith("profile.html");
 
-  function showSlide(index) {
-    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-    slideDots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-  }
-
-  slideDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      slideIndex = index;
-      showSlide(slideIndex);
-    });
+  document.querySelectorAll(".auth-only").forEach((element) => {
+    element.classList.toggle("hidden", !loggedIn || isProfilePage);
   });
 
-  if (slides.length > 1) {
-    setInterval(() => {
-      slideIndex = (slideIndex + 1) % slides.length;
-      showSlide(slideIndex);
-    }, 3500);
+  document.querySelectorAll(".guest-only").forEach((element) => {
+    element.classList.toggle("hidden", loggedIn || isProfilePage);
+  });
+
+  document.querySelectorAll(".user-chip--main").forEach((element) => {
+    element.classList.toggle("hidden", !loggedIn || isProfilePage);
+  });
+
+  document.querySelectorAll(".protected-link").forEach((element) => {
+    element.classList.toggle("hidden", !loggedIn);
+  });
+
+  document.querySelectorAll('a[href="login.html"], a[href="signup.html"]').forEach((element) => {
+    const onAuthPage = ["login.html", "signup.html"].includes(
+      window.location.pathname.split("/").pop(),
+    );
+    element.classList.toggle("hidden", loggedIn && !onAuthPage);
+  });
+
+  const isHomePage = window.location.pathname.endsWith("index.html") || window.location.pathname === "/" || window.location.pathname.endsWith("/");
+  const guestHome = document.getElementById("page-home-guest");
+  const memberHome = document.getElementById("page-home-member");
+
+  if (isHomePage) {
+    guestHome?.classList.toggle("hidden", loggedIn);
+    memberHome?.classList.toggle("hidden", !loggedIn);
+  }
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  const loader = select("#loader");
+  const app = select("#app");
+  const hasSeenLoader = localStorage.getItem("flexformLoaderSeen") === "true";
+
+  if (hasSeenLoader) {
+    loader?.classList.add("hidden");
+    app?.classList.remove("hidden");
+  } else {
+    const showApp = () => {
+      localStorage.setItem("flexformLoaderSeen", "true");
+      loader?.classList.add("hidden");
+      app?.classList.remove("hidden");
+    };
+
+    setTimeout(showApp, 1100);
   }
 
-  // Contact form (mock — no backend, just validates and confirms)
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', (event) => {
+  updateAuthUI();
+  select("#notificationButton")?.addEventListener("click", () => {
+    select("#notification")?.classList.toggle("show");
+  });
+
+  document.addEventListener("click", (event) => {
+    const protectedLink = event.target.closest('a[href="profile.html"]');
+    if (protectedLink && !isLoggedIn()) {
       event.preventDefault();
-      const name = document.getElementById('contact-name').value.trim();
-      const email = document.getElementById('contact-email').value.trim();
-      const message = document.getElementById('message').value.trim();
+      window.location.href = "login.html?return=profile.html";
+      return;
+    }
 
-      if (!name || !email || !message) {
-        showToast('Please fill in all contact form fields.');
-        return;
+    if (event.target.closest("[data-logout]")) {
+      localStorage.removeItem("fitlyLoggedIn");
+      window.location.href = "index.html";
+      return;
+    }
+
+    const completeButton = event.target.closest("[data-complete]");
+    if (completeButton) {
+      completeButton.innerHTML = "Flow marked complete ✓";
+      const toast = select("#toast");
+      if (toast) {
+        toast.textContent = "Your flow is complete. That counts.";
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2600);
       }
-
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!emailOk) {
-        showToast('Please enter a valid email address.');
-        return;
-      }
-
-      showToast('Your message has been sent successfully!');
-      contactForm.reset();
-    });
-  }
+    }
+  });
 });
