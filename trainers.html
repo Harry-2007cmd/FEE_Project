@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Find a flexform coach who meets you where you are."
+    />
+    <title>Find a coach · flexform.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="trainers.css" />
+  </head>
+  <body data-page="trainers">
+    <div id="app" class="app hidden">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"
+          ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+        >
+        <p class="side-label">Your rhythm</p>
+        <nav class="side-nav">
+          <a href="index.html">⌂ <span>Today</span></a
+          ><a class="active" href="trainers.html">♧ <span>Find a coach</span></a
+          ><a href="courses.html">▤ <span>Courses</span></a
+          ><a href="tools.html">⌗ <span>Tools</span></a>
+        </nav>
+        <p class="side-label keep-label">Keep going</p>
+        <a class="side-link protected-link" href="profile.html">♙ <span>My progress</span></a>
+        <div class="side-prompt">
+          <strong>Your next good choice is one tap away.</strong
+          ><a href="trainers.html">Meet a coach →</a>
+        </div>
+        <a class="side-link" href="login.html">⚙ <span>Sign in</span></a>
+      </aside>
+      <div class="main-column">
+        <header class="topbar">
+          <a class="brand mobile-brand" href="index.html"
+            ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+          >
+          <div class="top-message"><i></i> Your wellness, on your terms</div>
+          <div class="top-actions">
+            <button
+              id="notificationButton"
+              class="icon-button"
+              aria-label="Show notifications"
+            >
+              ♧</button
+            ><a class="top-auth-link guest-only" href="login.html">Log in</a
+            ><a class="top-auth-button guest-only" href="signup.html">Sign up</a
+            ><a href="profile.html" class="user-chip auth-only hidden user-chip--main"
+              ><span>AL</span><b>Alex Lee</b>⌄</a
+            ><button type="button" class="logout-button auth-only hidden" data-logout>
+              Log out
+            </button>
+          </div>
+          <div id="notification" class="notification">
+            You’re all caught up.
+          </div>
+        </header>
+        <main id="pages">
+          <section class="page active" id="page-trainers">
+            <div class="page-intro split">
+              <div>
+                <p class="eyebrow">The right support changes everything</p>
+                <h1>Find your <em>person.</em></h1>
+                <p class="lede">
+                  Vetted coaches who meet you where you are, then help you go
+                  further.
+                </p>
+              </div>
+              <div class="rhythm-pill">
+                ♧ <b>72 coaches</b> in the flexform circle
+              </div>
+            </div>
+            <div class="filter-box">
+              <input
+                id="trainerSearch"
+                type="search"
+                placeholder="⌕  Search by name or focus..."
+              />
+              <div class="filters">
+                <button class="filter active" data-filter="All coaches">
+                  All coaches</button
+                ><button class="filter" data-filter="Strength">Strength</button
+                ><button class="filter" data-filter="Performance">
+                  Performance</button
+                ><button class="filter" data-filter="Mindful movement">
+                  Mindful movement</button
+                ><button class="filter" data-filter="Nutrition">
+                  Nutrition
+                </button>
+              </div>
+              <select id="availability">
+                <option>Any time</option>
+                <option>Today</option>
+                <option>This week</option></select
+              ><small id="trainerCount">4 coaches match your search</small>
+            </div>
+            <div id="trainerList" class="trainer-grid"></div>
+            <div class="match-banner">
+              <div>
+                <p class="eyebrow sun-text">Not sure where to start?</p>
+                <h2>Take the guesswork out of your first step.</h2>
+                <p>
+                  Tell us what you want to feel more of. We’ll point you to a
+                  coach who gets it.
+                </p>
+                <button class="sun-button" data-filter-match>
+                  Find my match →
+                </button>
+              </div>
+              <div class="abstract-photo">
+                <span>MOVE IN YOUR OWN WAY</span>
+              </div>
+            </div>
+          </section>
+        </main>
+        <footer class="site-footer">
+          <div class="footer-grid">
+            <div class="footer-block">
+              <h3>About us</h3>
+              <p>
+                flexform is built for people who want expert guidance without the noise,
+                helping you create steady habits that support your routines and goals.
+              </p>
+            </div>
+            <div class="footer-block">
+              <h3>Contact us</h3>
+              <p>
+                Connect with us at hello@flexform.com or +1 (415) 555-0148 to ask about coaching and memberships.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">⌂<small>Today</small></a
+        ><a class="active" href="trainers.html">♧<small>Find a coach</small></a
+        ><a href="courses.html">▤<small>Courses</small></a
+        ><a href="tools.html">⌗<small>Tools</small></a
+        ><a class="protected-link" href="profile.html">♙<small>Profile</small></a>
+      </nav>
+    </div>
+    <div id="toast" class="toast"></div>
+    <div id="chat" class="chat hidden">
+      <div class="chat-head">
+        <span class="avatar coral">MC</span>
+        <div><b>Maya Chen</b><small>Usually replies in 10 min</small></div>
+        <button id="closeChat">×</button>
+      </div>
+      <div class="chat-body">
+        <p>
+          Hi Alex, I’m glad you’re here. What would you like to work toward?
+        </p>
+      </div>
+      <form id="chatForm">
+        <input id="chatInput" placeholder="Write a note..." /><button>→</button>
+      </form>
+    </div>
+    <script src="trainers.js"></script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 20px;
+}
+
+.tool-card,
+.goal-card {
+  min-height: 420px;
+}
+
+.tool-card h2,
+.goal-card h2 {
+  font-size: 32px;
+}
+
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 40px 0 20px;
+}
+
+.inputs label {
+  font-size: 11px;
+  color: #aaa69d;
+  font-weight: 700;
+}
+
+.inputs input {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  background: #ffffff10;
+  color: var(--cream);
+  border: 1px solid #ffffff22;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.inputs i {
+  font-style: normal;
+  position: relative;
+  float: right;
+  margin-top: -29px;
+  margin-right: 10px;
+  color: #aaa69d;
+  font-size: 10px;
+}
+
+.results {
+  border-top: 1px solid #ffffff22;
+  margin-top: 25px;
+  padding-top: 20px;
+  display: flex;
+  gap: 40px;
+}
+
+.results b {
+  display: block;
+  color: var(--sun);
+  font: 700 30px var(--display);
+}
+
+.goal-card > p:not(.eyebrow) {
+  color: var(--stone);
+  line-height: 1.6;
+  margin-top: 22px;
+}
+
+.goal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.goal-buttons button {
+  border: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #eee8df;
+  font-weight: 700;
+}
+
+.goal-buttons button.selected {
+  background: var(--coral);
+}
+
+.goal-note {
+  background: #eee8df;
+  border-radius: 16px;
+  padding: 15px;
+}
+
+.goal-note small {
+  display: block;
+  color: var(--stone);
+  margin-top: 5px;
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid var(--line);
+  padding: 20px;
+  border-radius: 20px;
+  margin-top: 22px;
+}
+
+.note > span {
+  font-size: 24px;
+}
+
+.note div {
+  flex: 1;
+}
+
+.note p {
+  color: var(--stone);
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+
+.note a {
+  color: var(--coral);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .inputs {
+    gap: 7px;
+  }
+
+  .inputs input {
+    padding: 10px;
+  }
+
+  .note {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .note a {
+    margin-left: 40px;
+  }
+}

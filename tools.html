@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="flexform everyday wellness tools." />
+    <title>Tools · flexform.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="tools.css" />
+  </head>
+  <body data-page="tools">
+    <div id="app" class="app hidden">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"
+          ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+        >
+        <p class="side-label">Your rhythm</p>
+        <nav class="side-nav">
+          <a href="index.html">⌂ <span>Today</span></a
+          ><a href="trainers.html">♧ <span>Find a coach</span></a
+          ><a href="courses.html">▤ <span>Courses</span></a
+          ><a class="active" href="tools.html">⌗ <span>Tools</span></a>
+        </nav>
+        <p class="side-label keep-label">Keep going</p>
+        <a class="side-link protected-link" href="profile.html">♙ <span>My progress</span></a>
+        <div class="side-prompt">
+          <strong>Your next good choice is one tap away.</strong
+          ><a href="trainers.html">Meet a coach →</a>
+        </div>
+        <a class="side-link" href="login.html">⚙ <span>Sign in</span></a>
+      </aside>
+      <div class="main-column">
+        <header class="topbar">
+          <a class="brand mobile-brand" href="index.html"
+            ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+          >
+          <div class="top-message"><i></i> Your wellness, on your terms</div>
+          <div class="top-actions">
+            <button
+              id="notificationButton"
+              class="icon-button"
+              aria-label="Show notifications"
+            >
+              ♧</button
+            ><a class="top-auth-link guest-only" href="login.html">Log in</a
+            ><a class="top-auth-button guest-only" href="signup.html">Sign up</a
+            ><a href="profile.html" class="user-chip auth-only hidden user-chip--main"
+              ><span>AL</span><b>Alex Lee</b>⌄</a
+            ><button type="button" class="logout-button auth-only hidden" data-logout>
+              Log out
+            </button>
+          </div>
+          <div id="notification" class="notification">
+            You’re all caught up.
+          </div>
+        </header>
+        <main id="pages">
+          <section class="page active" id="page-tools">
+            <div class="page-intro">
+              <p class="eyebrow">Small data, better decisions</p>
+              <h1>Your everyday <em>tools.</em></h1>
+              <p class="lede">
+                Useful estimates and gentle targets — never a scorecard.
+              </p>
+            </div>
+            <div class="tools-grid">
+              <article class="dark-card tool-card">
+                <p class="eyebrow sun-text">A useful baseline</p>
+                <h2>Body check-in</h2>
+                <div class="inputs">
+                  <label
+                    >Height<input id="height" type="number" value="170" />
+                    <i>cm</i></label
+                  ><label
+                    >Weight<input id="weight" type="number" value="68" />
+                    <i>kg</i></label
+                  ><label
+                    >Age<input id="age" type="number" value="31" />
+                    <i>yrs</i></label
+                  >
+                </div>
+                <button class="sun-button" id="calculate">
+                  Calculate my baseline →
+                </button>
+                <div id="results" class="results hidden"></div>
+              </article>
+              <article class="cream-card goal-card">
+                <p class="eyebrow">A weekly promise</p>
+                <h2>Set your goal.</h2>
+                <p>
+                  How many intentional movement moments would feel good this
+                  week?
+                </p>
+                <div class="goal-buttons">
+                  <button>1</button><button>2</button
+                  ><button class="selected">3</button><button>4</button
+                  ><button>5</button><button>6</button>
+                </div>
+                <div class="goal-note">
+                  <b id="goalValue">3 moments</b> is your intention.<small
+                    >One good choice every 2 days.</small
+                  >
+                </div>
+                <button class="outline-button" id="saveGoal">
+                  Save my weekly goal
+                </button>
+              </article>
+            </div>
+            <div class="note">
+              <span>ⓘ</span>
+              <div>
+                <b>A note from your coach</b>
+                <p>
+                  Estimates are helpful for noticing patterns, but they can’t
+                  describe the whole you. Use these numbers to start a
+                  conversation — not to make a judgement.
+                </p>
+              </div>
+              <a href="trainers.html">Talk it through →</a>
+            </div>
+          </section>
+        </main>
+        <footer class="site-footer">
+          <div class="footer-grid">
+            <div class="footer-block">
+              <h3>About us</h3>
+              <p>
+                flexform brings together practical habits, movement coaching, and a
+                calmer approach to everyday wellbeing so you can thrive without the pressure.
+              </p>
+            </div>
+            <div class="footer-block">
+              <h3>Contact us</h3>
+              <p>
+                Send us a note at hello@flexform.com or call +1 (415) 555-0148 for support.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">⌂<small>Today</small></a
+        ><a href="trainers.html">♧<small>Find a coach</small></a
+        ><a href="courses.html">▤<small>Courses</small></a
+        ><a class="active" href="tools.html">⌗<small>Tools</small></a
+        ><a class="protected-link" href="profile.html">♙<small>Profile</small></a>
+      </nav>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="tools.js"></script>
+  </body>
+</html>

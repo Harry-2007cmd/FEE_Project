@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Thoughtful flexform movement courses for real life."
+    />
+    <title>Courses · flexform.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="courses.css" />
+  </head>
+  <body data-page="courses">
+    <div id="app" class="app hidden">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"
+          ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+        >
+        <p class="side-label">Your rhythm</p>
+        <nav class="side-nav">
+          <a href="index.html">⌂ <span>Today</span></a
+          ><a href="trainers.html">♧ <span>Find a coach</span></a
+          ><a class="active" href="courses.html">▤ <span>Courses</span></a
+          ><a href="tools.html">⌗ <span>Tools</span></a>
+        </nav>
+        <p class="side-label keep-label">Keep going</p>
+        <a class="side-link protected-link" href="profile.html">♙ <span>My progress</span></a>
+        <div class="side-prompt">
+          <strong>Your next good choice is one tap away.</strong
+          ><a href="trainers.html">Meet a coach →</a>
+        </div>
+        <a class="side-link" href="login.html">⚙ <span>Sign in</span></a>
+      </aside>
+      <div class="main-column">
+        <header class="topbar">
+          <a class="brand mobile-brand" href="index.html"
+            ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+          >
+          <div class="top-message"><i></i> Your wellness, on your terms</div>
+          <div class="top-actions">
+            <button
+              id="notificationButton"
+              class="icon-button"
+              aria-label="Show notifications"
+            >
+              ♧</button
+            ><a class="top-auth-link guest-only" href="login.html">Log in</a
+            ><a class="top-auth-button guest-only" href="signup.html">Sign up</a
+            ><a href="profile.html" class="user-chip auth-only hidden user-chip--main"
+              ><span>AL</span><b>Alex Lee</b>⌄</a
+            ><button type="button" class="logout-button auth-only hidden" data-logout>
+              Log out
+            </button>
+          </div>
+          <div id="notification" class="notification">
+            You’re all caught up.
+          </div>
+        </header>
+        <main id="pages">
+          <section class="page active" id="page-courses">
+            <div class="page-intro split">
+              <div>
+                <p class="eyebrow">A little structure goes a long way</p>
+                <h1>Your <em>library.</em></h1>
+                <p class="lede">
+                  Short, thoughtful programs for the days you have — not the
+                  days you wish you had.
+                </p>
+              </div>
+              <div class="rhythm-pill">▶ <b>1 free class</b> included</div>
+            </div>
+            <div class="free-class">
+              <div>
+                <p class="eyebrow">Start here · no commitment</p>
+                <h2>A free class to find your <em>pace.</em></h2>
+                <p>
+                  Press play on a 12-minute full-body reset. No equipment, no
+                  perfect form required.
+                </p>
+                <button class="dark-button" data-course="quiet-cardio">
+                  Try the free class ▶
+                </button>
+              </div>
+              <div class="abstract-photo"><span>12:04</span></div>
+            </div>
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Built for real life</p>
+                <h2>Move at your pace.</h2>
+              </div>
+            </div>
+            <div id="courseList" class="course-grid"></div>
+          </section>
+        </main>
+        <footer class="site-footer">
+          <div class="footer-grid">
+            <div class="footer-block">
+              <h3>About us</h3>
+              <p>
+                flexform helps people build a sustainable rhythm with practical
+                coaching, accessible classes, and routines designed for real life.
+              </p>
+            </div>
+            <div class="footer-block">
+              <h3>Contact us</h3>
+              <p>
+                Reach the flexform team at hello@flexform.com or +1 (415) 555-0148.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">⌂<small>Today</small></a
+        ><a href="trainers.html">♧<small>Find a coach</small></a
+        ><a class="active" href="courses.html">▤<small>Courses</small></a
+        ><a href="tools.html">⌗<small>Tools</small></a
+        ><a class="protected-link" href="profile.html">♙<small>Profile</small></a>
+      </nav>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="courses.js"></script>
+  </body>
+</html>
