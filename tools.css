@@ -6,7 +6,12 @@
 
 .tool-card,
 .goal-card {
-  min-height: 420px;
+  min-height: auto; /* allow content to determine height to avoid large gaps */
+}
+
+/* Keep the BMI/tool card visually dominant and span two rows so recommendation and goal stack to the right */
+.tool-card {
+  grid-row: span 2;
 }
 
 .tool-card h2,
@@ -22,7 +27,7 @@
 }
 
 .inputs label {
-  font-size: 11px;
+  font-size: 20px;
   color: #aaa69d;
   font-weight: 700;
 }
@@ -40,10 +45,13 @@
 
 /* Keep readable inputs when placed on dark surfaces */
 .dark-card .inputs input {
-  background: rgba(255,255,255,0.06);
-  color: var(--cream);
-  border: 1px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.12);
+  color: black;
+  border: 1px solid rgba(255,255,255,0.18);
+  caret-color: var(--cream);
 }
+.dark-card .inputs input::placeholder { color: rgba(255,255,255,0.8); }
+.dark-card .inputs input:focus { outline: 2px solid rgba(255,255,255,0.06); box-shadow: 0 4px 18px rgba(0,0,0,0.25) inset; }
 
 /* Recommendation card styles */
 .recommendation-card {
