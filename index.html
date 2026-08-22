@@ -56,7 +56,7 @@
             ><a class="top-auth-link guest-only" href="login.html">Log in</a
             ><a class="top-auth-button guest-only" href="signup.html">Sign up</a
             ><a href="profile.html" class="user-chip protected-link auth-only hidden user-chip--main"
-              ><span>AL</span><b>Alex Lee</b>⌄</a
+              ><span class="user-avatar-text">AL</span><b class="user-name-display">Alex Lee</b>⌄</a
             ><button type="button" class="logout-button auth-only hidden" data-logout>
               Log out
             </button>
@@ -178,7 +178,7 @@
             <div class="page-intro split">
               <div>
                 <p class="eyebrow">Tuesday, October 24 · Week 6</p>
-                <h1>Good morning,<br /><em>Alex.</em></h1>
+                <h1>Good morning,<br /><em data-greeting-name>Alex.</em></h1>
                 <p class="lede">
                   A little movement, a little intention. That’s enough to change
                   the shape of your day.
@@ -217,6 +217,15 @@
                 </button>
               </article>
             </div>
+            <article class="cream-card schedule-card">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Today</p>
+                  <h2>Your schedule</h2>
+                </div>
+              </div>
+              <div id="todaySchedule" class="schedule-list"></div>
+            </article>
             <div class="stats-row">
               <div>
                 <span class="stat-icon coral">ϟ</span><small>ACTIVE DAYS</small

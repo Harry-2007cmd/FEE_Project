@@ -31,11 +31,51 @@
   display: block;
   width: 100%;
   margin-top: 8px;
-  background: #ffffff10;
-  color: var(--cream);
-  border: 1px solid #ffffff22;
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid var(--line);
   border-radius: 10px;
   padding: 12px;
+}
+
+/* Keep readable inputs when placed on dark surfaces */
+.dark-card .inputs input {
+  background: rgba(255,255,255,0.06);
+  color: var(--cream);
+  border: 1px solid rgba(255,255,255,0.13);
+}
+
+/* Recommendation card styles */
+.recommendation-card {
+  min-height: 260px;
+}
+
+.recommendation-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.recommendation-form label {
+  font-size: 11px;
+  color: var(--stone);
+  font-weight: 700;
+}
+
+.recommendation-form select,
+.recommendation-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+#recommendationResult {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #f4efe9;
+  border: 1px solid var(--line);
 }
 
 .inputs i {

@@ -90,6 +90,36 @@
                 </button>
                 <div id="results" class="results hidden"></div>
               </article>
+
+              <!-- Recommendation card inserted to bridge spacing between BMI and weekly goal -->
+              <article class="cream-card recommendation-card">
+                <p class="eyebrow">A gentle nudge</p>
+                <h2>What suits you?</h2>
+                <p class="lede">Tell us a bit about your lifestyle and how much free time you typically have, and we’ll recommend an exercise or course that fits.</p>
+                <div class="recommendation-form">
+                  <label>
+                    Lifestyle
+                    <select id="lifestyle">
+                      <option value="sedentary">Sedentary (desk-based)</option>
+                      <option value="light">Lightly active</option>
+                      <option value="active">Active</option>
+                      <option value="very">Very active</option>
+                    </select>
+                  </label>
+                  <label>
+                    Free time per day
+                    <select id="freeTime">
+                      <option value="10">~10 minutes</option>
+                      <option value="20">~20 minutes</option>
+                      <option value="30">~30 minutes</option>
+                      <option value="45">30+ minutes</option>
+                    </select>
+                  </label>
+                  <button class="outline-button" id="suggestBtn">Suggest for me</button>
+                  <div id="recommendationResult" aria-live="polite" hidden></div>
+                </div>
+              </article>
+
               <article class="cream-card goal-card">
                 <p class="eyebrow">A weekly promise</p>
                 <h2>Set your goal.</h2>

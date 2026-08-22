@@ -143,6 +143,95 @@
   gap: 20px;
 }
 
+.schedule-card {
+  margin-top: 20px;
+}
+
+.schedule-list,
+.history-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.schedule-item,
+.history-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  background: #f4efe9;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+
+.schedule-item strong,
+.history-item strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 18px;
+}
+
+.schedule-item small,
+.history-item small {
+  color: var(--stone);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.schedule-time,
+.history-time {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--sun);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.history-item {
+  grid-template-columns: auto 1fr auto;
+}
+
+.history-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: #eae3d8;
+  color: var(--ink);
+  font: 700 13px var(--display);
+}
+
+.history-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.history-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: #ebe2d5;
+  color: var(--ink);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .dark-card,
 .cream-card,
 .challenge-card,

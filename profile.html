@@ -76,9 +76,9 @@
             <div class="profile-grid">
               <article class="dark-card profile-card">
                 <div class="profile-head">
-                  <span class="avatar sun">AL</span>
+                  <span class="avatar sun" id="profileAvatar">AL</span>
                   <div>
-                    <h2>Alex Lee</h2>
+                    <h2 class="profile-name-display">Alex Lee</h2>
                     <p>Member since May 2024</p>
                   </div>
                 </div>
@@ -120,7 +120,7 @@
                 <p class="eyebrow sun-text">Your profile</p>
                 <h2>Account details</h2>
                 <div class="user-meta">
-                  <div><small>Email</small><b>alex@flexform.com</b></div>
+                  <div><small>Email</small><b id="profileEmail">alex@flexform.com</b></div>
                   <div><small>Membership</small><b>Active</b></div>
                 </div>
                 <button class="outline-button logout-button" type="button" data-logout>
@@ -128,6 +128,13 @@
                 </button>
               </article>
             </div>
+            <div class="section-heading upcoming-heading">
+              <div>
+                <p class="eyebrow">Your recent workouts</p>
+                <h2>Workout history</h2>
+              </div>
+            </div>
+            <div id="workoutHistory" class="history-list"></div>
             <div class="section-heading upcoming-heading">
               <div>
                 <p class="eyebrow">On your calendar</p>
