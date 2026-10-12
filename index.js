@@ -103,11 +103,9 @@ const updateAuthUI = () => {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  const hasSeenEntry = localStorage.getItem("flexformEntrySeen") === "true";
-
-  if (!hasSeenEntry && (window.location.pathname.endsWith("index.html") || window.location.pathname === "/" || window.location.pathname.endsWith("/"))) {
-    window.location.href = "load.html";
-    return;
+  const siteLoader = document.getElementById("siteLoader");
+  if (siteLoader) {
+    window.setTimeout(() => siteLoader.remove(), 1600);
   }
 
   updateAuthUI();
