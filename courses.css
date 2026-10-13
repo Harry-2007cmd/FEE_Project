@@ -27,30 +27,6 @@
   color: var(--ink);
 }
 
-.abstract-photo {
-  min-height: 220px;
-  position: relative;
-  background: linear-gradient(140deg, #cfc1aa, #7c776b 60%, #ad9786);
-}
-
-.abstract-photo:before {
-  content: "";
-  position: absolute;
-  inset: 25% 20%;
-  border-radius: 50%;
-  border: 35px solid #312f2a66;
-  transform: rotate(-25deg);
-}
-
-.abstract-photo span {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-}
-
 .dark-button {
   background: var(--ink);
   color: var(--cream);

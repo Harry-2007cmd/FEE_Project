@@ -46,7 +46,7 @@
 /* Keep readable inputs when placed on dark surfaces */
 .dark-card .inputs input {
   background: rgba(255,255,255,0.12);
-  color: black;
+  color: var(--cream);
   border: 1px solid rgba(255,255,255,0.18);
   caret-color: var(--cream);
 }
