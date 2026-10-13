@@ -45,6 +45,26 @@ const toast = (message) => {
   element.classList.add("show");
   setTimeout(() => element.classList.remove("show"), 2600);
 };
+/* ---- Saved / booked coaches, persisted per user in localStorage (mock, frontend-only) ---- */
+const coachStateKey = (kind) =>
+  `flexform:${localStorage.getItem("flexformUserEmail") || "guest"}:${kind}`;
+const loadCoachSet = (kind) => {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(coachStateKey(kind)) || "[]"));
+  } catch {
+    return new Set();
+  }
+};
+const storeCoachSet = (kind, set) => {
+  try {
+    localStorage.setItem(coachStateKey(kind), JSON.stringify([...set]));
+  } catch {
+    /* storage unavailable: state just won't persist */
+  }
+};
+const savedCoaches = loadCoachSet("savedCoaches");
+const bookedCoaches = loadCoachSet("bookedCoaches");
+
 function renderTrainers() {
   const query = (select("#trainerSearch")?.value || "").toLowerCase();
   const active = select(".filter.active")?.dataset.filter || "All coaches";
@@ -60,7 +80,7 @@ function renderTrainers() {
     filtered
       .map(
         (trainer) =>
-          `<article class="trainer-card"><div class="card-top"><span class="avatar ${trainer.tone}">${trainer.initials}</span><button class="icon-button save">♡</button></div><h3>${trainer.name}</h3><p>${trainer.role}</p><div class="tags">${trainer.tags.map((tag) => `<span>${tag}</span>`).join("")}</div><div class="rating">★ ${trainer.rating} <span>● Available</span></div><button class="book-button" data-book="${trainer.name}">Book a session</button><button class="outline-button chat-button" data-chat="${trainer.name}">Chat with ${trainer.name.split(" ")[0]}</button></article>`,
+          `<article class="trainer-card"><div class="card-top"><span class="avatar ${trainer.tone}">${trainer.initials}</span><button class="icon-button save" data-save="${trainer.name}" aria-pressed="${savedCoaches.has(trainer.name)}" aria-label="Save ${trainer.name}"${savedCoaches.has(trainer.name) ? ' style="color:var(--coral)"' : ""}>${savedCoaches.has(trainer.name) ? "♥" : "♡"}</button></div><h3>${trainer.name}</h3><p>${trainer.role}</p><div class="tags">${trainer.tags.map((tag) => `<span>${tag}</span>`).join("")}</div><div class="rating">★ ${trainer.rating} <span>● Available</span></div><button class="book-button${bookedCoaches.has(trainer.name) ? " booked" : ""}" data-book="${trainer.name}">${bookedCoaches.has(trainer.name) ? "✓ Request sent" : "Book a session"}</button><button class="outline-button chat-button" data-chat="${trainer.name}">Chat with ${trainer.name.split(" ")[0]}</button></article>`,
       )
       .join("") ||
     `<div class="cream-card"><h2>No one by that name yet.</h2><button class="sun-button" data-reset>Reset filters</button></div>`;
@@ -135,17 +155,25 @@ window.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (event) => {
     const book = event.target.closest("[data-book]");
     if (book) {
+      bookedCoaches.add(book.dataset.book);
+      storeCoachSet("bookedCoaches", bookedCoaches);
       book.textContent = "✓ Request sent";
       book.classList.add("booked");
       toast(`Session request sent to ${book.dataset.book}`);
     }
     const chatButton = event.target.closest("[data-chat]");
     if (chatButton) openChat(chatButton.dataset.chat);
-    const save = event.target.closest(".save");
+    const save = event.target.closest("[data-save]");
     if (save) {
-      save.textContent = "♥";
-      save.style.color = "var(--coral)";
-      toast("Saved to your coaches");
+      const name = save.dataset.save;
+      const nowSaved = !savedCoaches.has(name);
+      if (nowSaved) savedCoaches.add(name);
+      else savedCoaches.delete(name);
+      storeCoachSet("savedCoaches", savedCoaches);
+      save.textContent = nowSaved ? "♥" : "♡";
+      save.style.color = nowSaved ? "var(--coral)" : "";
+      save.setAttribute("aria-pressed", String(nowSaved));
+      toast(nowSaved ? "Saved to your coaches" : "Removed from your coaches");
     }
     if (event.target.closest("[data-filter-match]")) {
       select(".filter[data-filter='Strength']")?.click();

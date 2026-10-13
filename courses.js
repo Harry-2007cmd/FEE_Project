@@ -33,6 +33,15 @@ window.addEventListener("DOMContentLoaded", () => {
     )
     .join("");
   document.addEventListener("click", (event) => {
+    // The free class banner starts the "Quiet cardio" course.
+    if (event.target.closest("[data-free-class]")) {
+      const card = [...document.querySelectorAll("#courseList [data-course]")].find(
+        (item) => item.dataset.course === "Quiet cardio",
+      );
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+      card?.click();
+      return;
+    }
     const button = event.target.closest("[data-course]");
     if (!button) return;
     const courseButton = button
