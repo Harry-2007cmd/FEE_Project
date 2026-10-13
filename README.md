@@ -75,6 +75,7 @@ Fonts load from Google Fonts, so the first load needs an internet connection. Wi
 ├── auth.css             Styles for login.html and signup.html
 │
 ├── common.js            Shared app-shell behaviour (auth UI, logout, notifications)
+├── user-store.js        Mock per-email user records (remembers names, migrates data on email change)
 ├── index.js             Home page: guest/member view, schedule, "complete flow"
 ├── trainers.js          Coach list, search, filters, save/book, mock chat
 ├── trainers-data.js     MOCK DATA: coaches and their scripted chat content
@@ -93,8 +94,8 @@ Each page loads `styles.css` first, then its own stylesheet. Pages with the app 
 | `trainers.html` | `styles.css`, `trainers.css` | `common.js`, `trainers-data.js`, `trainers.js` |
 | `courses.html` | `styles.css`, `courses.css` | `common.js`, `courses.js`               |
 | `tools.html`  | `styles.css`, `tools.css` | `common.js`, `tools.js`                   |
-| `profile.html` | `styles.css`, `profile.css` | `common.js`, `profile.js`               |
-| `login.html`, `signup.html` | `styles.css`, `auth.css` | `login.js` / `signup.js`        |
+| `profile.html` | `styles.css`, `profile.css` | `common.js`, `user-store.js`, `profile.js` |
+| `login.html`, `signup.html` | `styles.css`, `auth.css` | `user-store.js`, then `login.js` / `signup.js` |
 
 ---
 
@@ -110,7 +111,7 @@ Two views in one page, switched by login state:
 - **Member view:** weekly rhythm, today's focus, a "mark flow complete" button, today's schedule, stats, a steps chart and upcoming sessions.
 
 ### `trainers.html` — Find a coach
-- Search by name or focus, plus filter chips: Strength, Performance, Mindful movement and Nutrition.
+- Search by name or focus, filter chips (Strength, Performance, Mindful movement, Nutrition) and an availability dropdown (Any time, Available today, Available this week). Availability is mock data; "this week" includes coaches free today.
 - **20 mock coaches** (5 per filter) rendered from `trainers-data.js`.
 - **Book a session** and **Save (heart)** on each card. Both persist per user.
 - **Chat with…** opens a mock chat panel (see [Mock coach chat](#mock-coach-chat)).
@@ -126,10 +127,10 @@ Two views in one page, switched by login state:
 - **Weekly goal:** pick 1 to 6 movement moments.
 
 ### `profile.html` — Profile
-Protected page. Shows name, initials, email, stats, workout history and upcoming bookings. If you are not logged in it redirects to `login.html?return=profile.html`.
+Protected page. Shows name, initials, email, stats, workout history and upcoming bookings. **Edit profile** opens an inline form to change name and email. If you are not logged in it redirects to `login.html?return=profile.html`.
 
 ### `login.html` / `signup.html`
-Mock forms. Any input is accepted. See [Authentication (mock)](#authentication-mock).
+Mock forms. Any input is accepted. Sign up saves your name against your email; logging in restores the name remembered for that email, or derives one from it (`sam.rao@x.com` becomes "Sam Rao"). See [Authentication (mock)](#authentication-mock).
 
 ---
 
@@ -191,7 +192,8 @@ Coach names, ratings and availability are made up.
 | -------------------------------------- | -------------------------------------------------------- |
 | `flexformLoggedIn`                     | `"true"` when logged in                                  |
 | `flexformUserName`                     | Display name                                             |
-| `flexformUserEmail`                    | Email, also used to scope saved/booked data              |
+| `flexformUserEmail`                    | Email (stored lowercase), also used to scope saved/booked data |
+| `flexformUsers`                        | JSON map of email to display name (mock user records)    |
 | `flexform:<email or guest>:savedCoaches`  | JSON array of saved coach names                       |
 | `flexform:<email or guest>:bookedCoaches` | JSON array of coaches with a booking request          |
 | `flexformEntrySeen`, `flexformLoaderSeen` | Set by the splash screen                              |
@@ -247,9 +249,10 @@ A full accessibility audit has not been done yet. Adding consistent `:focus-visi
 
 **Add a coach**
 1. Add an object to the `trainers` array in `trainers-data.js` with `name`, `role`, `specialty`, `initials`, `tone`, `rating`, `tags`, `greeting`, `prompts` and `fallback`.
-2. `specialty` must match one of the filter chips (`Strength`, `Performance`, `Mindful movement`, `Nutrition`) to appear under it.
-3. `tone` is one of `coral`, `sun`, `lilac`, `mint`.
-4. Update the "N coaches" pill and the initial "N coaches match your search" text in `trainers.html`.
+2. Set `availability` to `"today"` or `"week"`.
+3. `specialty` must match one of the filter chips (`Strength`, `Performance`, `Mindful movement`, `Nutrition`) to appear under it.
+4. `tone` is one of `coral`, `sun`, `lilac`, `mint`.
+5. Update the "N coaches" pill and the initial "N coaches match your search" text in `trainers.html`.
 
 **Add a course**
 Add an entry to the `courses` array in `courses.js` as `[title, subtitle, description, progress]`.
@@ -269,6 +272,7 @@ Clear the site's `localStorage` in your browser's dev tools.
 - **No real authentication.** Any email and password logs you in. Do not enter real credentials.
 - **The `return` parameter on `login.html` is not validated.** It is fine for a local mock, but must be restricted to same-site paths if real auth is ever added.
 - **No backend.** Booking, chat, goals and course progress are not sent anywhere. Course progress and the weekly goal are not remembered after a reload.
+- **Changing your email** on the profile moves your saved and booked coaches to the new email, but other emails' data is untouched.
 - **Mock data is fixed.** Stats, schedule and history are static.
 - **Google Fonts** need a network connection.
 - **Calorie and BMI figures are rough estimates**, not medical advice.

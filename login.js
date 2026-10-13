@@ -5,15 +5,13 @@ window.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
 
     const emailInput = form.querySelector('input[name="email"]');
-    const userEmail = emailInput?.value.trim();
-    if (userEmail) {
-      localStorage.setItem("flexformUserEmail", userEmail);
-    }
+    const userEmail = window.flexformUsers.normaliseEmail(emailInput?.value);
+    if (!userEmail) return;
 
-    const storedName = localStorage.getItem("flexformUserName");
-    if (!storedName) {
-      localStorage.setItem("flexformUserName", "Friend");
-    }
+    // Restore the name remembered for this email (or derive one from it),
+    // so a previous user's name is never carried over.
+    localStorage.setItem("flexformUserEmail", userEmail);
+    localStorage.setItem("flexformUserName", window.flexformUsers.getName(userEmail));
 
     localStorage.setItem("flexformLoggedIn", "true");
     const returnPage =

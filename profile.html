@@ -69,10 +69,40 @@
                 <h1>My <em>progress.</em></h1>
                 <p class="lede">Notice what’s changing, inside and out.</p>
               </div>
-              <button class="outline-button" id="editProfile">
+              <button
+                class="outline-button"
+                id="editProfile"
+                type="button"
+                aria-expanded="false"
+                aria-controls="editProfileForm"
+              >
                 ⚙ Edit profile
               </button>
             </div>
+            <form class="cream-card edit-profile hidden" id="editProfileForm">
+              <label
+                >Name<input
+                  id="editName"
+                  name="name"
+                  required
+                  maxlength="60"
+                  autocomplete="name"
+              /></label>
+              <label
+                >Email address<input
+                  id="editEmail"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+              /></label>
+              <div class="edit-profile-actions">
+                <button class="action-button" type="submit">Save changes</button>
+                <button class="outline-button" id="cancelEdit" type="button">
+                  Cancel
+                </button>
+              </div>
+            </form>
             <div class="profile-grid">
               <article class="dark-card profile-card">
                 <div class="profile-head">
@@ -190,6 +220,7 @@
     </div>
     <div id="toast" class="toast"></div>
     <script src="common.js"></script>
+    <script src="user-store.js"></script>
     <script src="profile.js"></script>
   </body>
 </html>

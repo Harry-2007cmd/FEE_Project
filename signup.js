@@ -7,14 +7,12 @@ window.addEventListener("DOMContentLoaded", () => {
     const nameInput = form.querySelector('input[name="name"]');
     const emailInput = form.querySelector('input[name="email"]');
     const fullName = nameInput?.value.trim();
-    const userEmail = emailInput?.value.trim();
+    const userEmail = window.flexformUsers.normaliseEmail(emailInput?.value);
+    if (!fullName || !userEmail) return;
 
-    if (fullName) {
-      localStorage.setItem("flexformUserName", fullName);
-    }
-    if (userEmail) {
-      localStorage.setItem("flexformUserEmail", userEmail);
-    }
+    window.flexformUsers.setName(userEmail, fullName);
+    localStorage.setItem("flexformUserName", fullName);
+    localStorage.setItem("flexformUserEmail", userEmail);
 
     localStorage.setItem("flexformLoggedIn", "true");
     window.location.href = "index.html";

@@ -30,9 +30,14 @@ const bookedCoaches = loadCoachSet("bookedCoaches");
 function renderTrainers() {
   const query = (select("#trainerSearch")?.value || "").toLowerCase();
   const active = select(".filter.active")?.dataset.filter || "All coaches";
+  const availability = select("#availability")?.value || "any";
   const filtered = trainers.filter(
     (trainer) =>
       (active === "All coaches" || trainer.specialty === active) &&
+      // "this week" includes coaches who are free today
+      (availability === "any" ||
+        availability === "week" ||
+        trainer.availability === "today") &&
       (trainer.name.toLowerCase().includes(query) ||
         trainer.role.toLowerCase().includes(query)),
   );
@@ -42,7 +47,7 @@ function renderTrainers() {
     filtered
       .map(
         (trainer) =>
-          `<article class="trainer-card"><div class="card-top"><span class="avatar ${trainer.tone}">${trainer.initials}</span><button class="icon-button save" data-save="${trainer.name}" aria-pressed="${savedCoaches.has(trainer.name)}" aria-label="Save ${trainer.name}"${savedCoaches.has(trainer.name) ? ' style="color:var(--coral)"' : ""}>${savedCoaches.has(trainer.name) ? "♥" : "♡"}</button></div><h3>${trainer.name}</h3><p>${trainer.role}</p><div class="tags">${trainer.tags.map((tag) => `<span>${tag}</span>`).join("")}</div><div class="rating">★ ${trainer.rating} <span>● Available</span></div><button class="book-button${bookedCoaches.has(trainer.name) ? " booked" : ""}" data-book="${trainer.name}">${bookedCoaches.has(trainer.name) ? "✓ Request sent" : "Book a session"}</button><button class="outline-button chat-button" data-chat="${trainer.name}">Chat with ${trainer.name.split(" ")[0]}</button></article>`,
+          `<article class="trainer-card"><div class="card-top"><span class="avatar ${trainer.tone}">${trainer.initials}</span><button class="icon-button save" data-save="${trainer.name}" aria-pressed="${savedCoaches.has(trainer.name)}" aria-label="Save ${trainer.name}"${savedCoaches.has(trainer.name) ? ' style="color:var(--coral)"' : ""}>${savedCoaches.has(trainer.name) ? "♥" : "♡"}</button></div><h3>${trainer.name}</h3><p>${trainer.role}</p><div class="tags">${trainer.tags.map((tag) => `<span>${tag}</span>`).join("")}</div><div class="rating">★ ${trainer.rating} <span>● ${trainer.availability === "today" ? "Available today" : "Available this week"}</span></div><button class="book-button${bookedCoaches.has(trainer.name) ? " booked" : ""}" data-book="${trainer.name}">${bookedCoaches.has(trainer.name) ? "✓ Request sent" : "Book a session"}</button><button class="outline-button chat-button" data-chat="${trainer.name}">Chat with ${trainer.name.split(" ")[0]}</button></article>`,
       )
       .join("") ||
     `<div class="cream-card"><h2>No one by that name yet.</h2><button class="sun-button" data-reset>Reset filters</button></div>`;
@@ -124,6 +129,7 @@ window.addEventListener("DOMContentLoaded", () => {
   renderTrainers();
   bindChat();
   select("#trainerSearch")?.addEventListener("input", renderTrainers);
+  select("#availability")?.addEventListener("change", renderTrainers);
   all(".filter").forEach((button) =>
     button.addEventListener("click", () => {
       all(".filter").forEach((item) => item.classList.remove("active"));
@@ -160,6 +166,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     if (event.target.closest("[data-reset]")) {
       select("#trainerSearch").value = "";
+      select("#availability").value = "any";
       select(".filter.active")?.classList.remove("active");
       select(".filter:first-of-type")?.classList.add("active");
       renderTrainers();

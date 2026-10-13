@@ -3,6 +3,7 @@
  * Dummy coaches and their scripted chat content. Load before trainers.js.
  *
  * Each coach has:
+ *  - availability: "today" or "week" (mock; drives the availability filter)
  *  - greeting: first chat message (reflects their personality)
  *  - prompts:  tappable questions with a scripted answer; `keywords` let
  *              typed messages match the same answer
@@ -16,6 +17,7 @@ const trainers = [
     initials: "MC",
     tone: "coral",
     rating: "4.9",
+    availability: "today",
     tags: ["Functional strength", "Mobility"],
     greeting:
       "Hi {user}, I'm so glad you're here! Strong doesn't have to mean exhausting. What would you like to work toward?",
@@ -55,6 +57,7 @@ const trainers = [
     initials: "NW",
     tone: "sun",
     rating: "4.8",
+    availability: "week",
     tags: ["Running form", "Core strength"],
     greeting:
       "Hey {user}! Noah here. Let's get you moving faster and feeling stronger. What's the goal?",
@@ -94,6 +97,7 @@ const trainers = [
     initials: "AP",
     tone: "lilac",
     rating: "5.0",
+    availability: "today",
     tags: ["Yoga foundations", "Recovery"],
     greeting:
       "Welcome, {user}. Take a slow breath. There's no rush here. What would feel good to explore?",
@@ -133,6 +137,7 @@ const trainers = [
     initials: "LO",
     tone: "mint",
     rating: "4.9",
+    availability: "today",
     tags: ["Eating well", "Habit design"],
     greeting:
       "Hi {user}! No diets, no guilt here. Just small habits that stick. What's on your mind?",
@@ -172,6 +177,7 @@ const trainers = [
     initials: "MR",
     tone: "sun",
     rating: "4.7",
+    availability: "week",
     tags: ["Heavy lifting", "Muscle building"],
     greeting:
       "What's up, {user}. Marcus here. Straightforward plans, heavy-ish weights, real results. Ready to lift?",
@@ -211,6 +217,7 @@ const trainers = [
     initials: "SA",
     tone: "coral",
     rating: "4.8",
+    availability: "today",
     tags: ["Endurance", "Trail running"],
     greeting:
       "Hola {user}! Sofia here. Long, happy miles are my thing. Let's find your rhythm. Where are you starting from?",
@@ -250,6 +257,7 @@ const trainers = [
     initials: "PN",
     tone: "lilac",
     rating: "4.9",
+    availability: "today",
     tags: ["Breathwork", "Flexibility"],
     greeting:
       "Hello {user}, I'm Priya. Let's slow down and reconnect with your breath. What brings you here today?",
@@ -289,6 +297,7 @@ const trainers = [
     initials: "KT",
     tone: "mint",
     rating: "4.8",
+    availability: "week",
     tags: ["Meal planning", "Sports fuelling"],
     greeting:
       "Hi {user}, Kenji here. Good food is simply good fuel. Tell me about your training and let's plan around it.",
@@ -328,6 +337,7 @@ const trainers = [
     initials: "DB",
     tone: "coral",
     rating: "4.8",
+    availability: "week",
     tags: ["Kettlebells", "Full-body power"],
     greeting:
       "Hey {user}! Dana here. Kettlebells, good music and zero judgement. Ready to swing?",
@@ -367,6 +377,7 @@ const trainers = [
     initials: "OH",
     tone: "sun",
     rating: "4.7",
+    availability: "today",
     tags: ["Bodyweight", "Pull-ups"],
     greeting:
       "Hey {user}, Omar here. No gym needed, just you and a bit of gravity. What skill do you want to unlock?",
@@ -406,6 +417,7 @@ const trainers = [
     initials: "GL",
     tone: "mint",
     rating: "4.9",
+    availability: "week",
     tags: ["Time-efficient", "Consistency"],
     greeting:
       "Hi {user}, I'm Grace. Your time is precious, so let's make every minute of training count. What does your week look like?",
@@ -445,6 +457,7 @@ const trainers = [
     initials: "TS",
     tone: "coral",
     rating: "4.7",
+    availability: "today",
     tags: ["Cycling", "Cardio base"],
     greeting:
       "¡Hola {user}! Tomás here. Two wheels, big smiles. Where are you riding from?",
@@ -484,6 +497,7 @@ const trainers = [
     initials: "HF",
     tone: "sun",
     rating: "4.8",
+    availability: "today",
     tags: ["HIIT", "Conditioning"],
     greeting:
       "Hi {user}! Hannah here. Short, sharp and fun. Let's get your heart pumping. What's your goal?",
@@ -523,6 +537,7 @@ const trainers = [
     initials: "RM",
     tone: "lilac",
     rating: "4.9",
+    availability: "week",
     tags: ["Swimming", "Triathlon"],
     greeting:
       "Hello {user}, Ravi here. We'll work step by step, one length at a time. Where would you like to begin?",
@@ -562,6 +577,7 @@ const trainers = [
     initials: "ER",
     tone: "lilac",
     rating: "4.9",
+    availability: "week",
     tags: ["Pilates", "Core control"],
     greeting:
       "Ciao {user}! Elena here. Precision, breath and control. Let's meet your body where it is. What would you like to work on?",
@@ -601,6 +617,7 @@ const trainers = [
     initials: "DO",
     tone: "mint",
     rating: "5.0",
+    availability: "today",
     tags: ["Tai chi", "Balance"],
     greeting:
       "Good to meet you, {user}. I'm Daniel. Slow movement, steady breath. We have all the time we need. What brings you here?",
@@ -640,6 +657,7 @@ const trainers = [
     initials: "MW",
     tone: "coral",
     rating: "4.8",
+    availability: "week",
     tags: ["Restorative yoga", "Wind-down"],
     greeting:
       "Hi {user}, I'm Mei. Let's give your body permission to rest. How are you feeling today?",
@@ -679,6 +697,7 @@ const trainers = [
     initials: "AK",
     tone: "mint",
     rating: "4.8",
+    availability: "today",
     tags: ["Plant-based", "Protein planning"],
     greeting:
       "Hello {user}! Aisha here. Delicious, colourful food that loves you back. What would you like to explore?",
@@ -718,6 +737,7 @@ const trainers = [
     initials: "JM",
     tone: "sun",
     rating: "4.7",
+    availability: "today",
     tags: ["Home cooking", "Quick meals"],
     greeting:
       "Hey {user}, Jack here. If I can cook, you can cook. What's your biggest kitchen struggle?",
@@ -757,6 +777,7 @@ const trainers = [
     initials: "NP",
     tone: "lilac",
     rating: "4.9",
+    availability: "week",
     tags: ["Mindful eating", "Food habits"],
     greeting:
       "Hi {user}, I'm Nadia. No rules or guilt here, just curiosity. What would you like to understand about how you eat?",
