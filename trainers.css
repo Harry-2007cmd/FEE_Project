@@ -209,6 +209,32 @@
   border-bottom-right-radius: 4px;
 }
 
+.chat-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 12px;
+  max-height: 110px;
+  overflow-y: auto;
+}
+
+.chat-prompt {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.chat-prompt:hover,
+.chat-prompt:focus-visible {
+  background: var(--ink);
+  color: var(--cream);
+}
+
 .chat form {
   border-top: 1px solid var(--line);
   padding: 10px;

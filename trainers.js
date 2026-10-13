@@ -1,41 +1,3 @@
-const trainers = [
-  {
-    name: "Maya Chen",
-    role: "Strength & mobility coach",
-    specialty: "Strength",
-    initials: "MC",
-    tone: "coral",
-    rating: "4.9",
-    tags: ["Functional strength", "Mobility"],
-  },
-  {
-    name: "Noah Williams",
-    role: "Performance trainer",
-    specialty: "Performance",
-    initials: "NW",
-    tone: "sun",
-    rating: "4.8",
-    tags: ["Running form", "Core strength"],
-  },
-  {
-    name: "Arjun Patel",
-    role: "Mindful movement guide",
-    specialty: "Mindful movement",
-    initials: "AP",
-    tone: "lilac",
-    rating: "5.0",
-    tags: ["Yoga foundations", "Recovery"],
-  },
-  {
-    name: "Lena Ortiz",
-    role: "Nutrition & habit coach",
-    specialty: "Nutrition",
-    initials: "LO",
-    tone: "mint",
-    rating: "4.9",
-    tags: ["Everyday nutrition", "Habit design"],
-  },
-];
 const select = (selector) => document.querySelector(selector);
 const all = (selector) => [...document.querySelectorAll(selector)];
 const toast = (message) => {
@@ -85,14 +47,8 @@ function renderTrainers() {
       .join("") ||
     `<div class="cream-card"><h2>No one by that name yet.</h2><button class="sun-button" data-reset>Reset filters</button></div>`;
 }
-/* ---- Mock coach chat (frontend-only: scripted replies, nothing is sent) ---- */
-const mockChatReplies = [
-  "Thanks for sharing that. Could you tell me a bit about your current routine?",
-  "That makes sense. We can start small and build from there.",
-  "Great. Book a session and we can plan your first week together.",
-];
-let chatCoach = null;
-let chatReplyIndex = 0;
+/* ---- Mock coach chat (frontend-only: scripted replies from trainers-data.js) ---- */
+let activeCoach = null;
 
 function addChatMessage(text, fromUser = false) {
   const body = select("#chatBody");
@@ -103,20 +59,41 @@ function addChatMessage(text, fromUser = false) {
   body.scrollTop = body.scrollHeight;
 }
 
+function renderChatPrompts(coach) {
+  select("#chatPrompts").innerHTML = coach.prompts
+    .map(
+      (prompt, index) =>
+        `<button type="button" class="chat-prompt" data-prompt="${index}">${prompt.question}</button>`,
+    )
+    .join("");
+}
+
+/** Reply to a message: prefer a prompt whose keywords match, else the fallback. */
+function coachReply(coach, text) {
+  const lower = text.toLowerCase();
+  const match = coach.prompts.find((prompt) =>
+    prompt.keywords.some((keyword) => lower.includes(keyword)),
+  );
+  return match ? match.answer : coach.fallback;
+}
+
+function sendChatMessage(text, reply) {
+  addChatMessage(text, true);
+  setTimeout(() => addChatMessage(reply), 700);
+}
+
 function openChat(coachName) {
   const coach = trainers.find((trainer) => trainer.name === coachName);
   if (!coach) return;
-  if (chatCoach !== coach.name) {
-    chatCoach = coach.name;
-    chatReplyIndex = 0;
+  if (activeCoach?.name !== coach.name) {
+    activeCoach = coach;
     select("#chatBody").innerHTML = "";
     select("#chat .avatar").textContent = coach.initials;
     select("#chat .avatar").className = `avatar ${coach.tone}`;
     select("#chat .chat-head b").textContent = coach.name;
     const firstName = (window.flexform?.getStoredUserName() || "Friend").split(/\s+/)[0];
-    addChatMessage(
-      `Hi ${firstName}, I’m glad you’re here. What would you like to work toward?`,
-    );
+    addChatMessage(coach.greeting.replace("{user}", firstName));
+    renderChatPrompts(coach);
   }
   select("#chat").classList.remove("hidden");
   select("#chatInput").focus();
@@ -126,17 +103,19 @@ function bindChat() {
   select("#closeChat")?.addEventListener("click", () =>
     select("#chat").classList.add("hidden"),
   );
+  select("#chatPrompts")?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-prompt]");
+    if (!button || !activeCoach) return;
+    const prompt = activeCoach.prompts[Number(button.dataset.prompt)];
+    sendChatMessage(prompt.question, prompt.answer);
+  });
   select("#chatForm")?.addEventListener("submit", (event) => {
     event.preventDefault();
     const input = select("#chatInput");
     const text = input.value.trim();
-    if (!text) return;
-    addChatMessage(text, true);
+    if (!text || !activeCoach) return;
     input.value = "";
-    setTimeout(() => {
-      addChatMessage(mockChatReplies[chatReplyIndex % mockChatReplies.length]);
-      chatReplyIndex += 1;
-    }, 700);
+    sendChatMessage(text, coachReply(activeCoach, text));
   });
 }
 
