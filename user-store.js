@@ -57,7 +57,7 @@
     delete users[from];
     writeUsers(users);
 
-    ["savedCoaches", "bookedCoaches"].forEach((kind) => {
+    ["savedCoaches", "bookedCoaches", "courseProgress", "weeklyGoal"].forEach((kind) => {
       const oldKey = `flexform:${from}:${kind}`;
       const value = localStorage.getItem(oldKey);
       if (value !== null) {

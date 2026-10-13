@@ -96,7 +96,12 @@
     });
   };
 
+  /** localStorage key for per-user mock data, e.g. "flexform:sam@x.com:savedCoaches". */
+  const userKey = (kind) =>
+    `flexform:${localStorage.getItem("flexformUserEmail") || "guest"}:${kind}`;
+
   window.flexform = {
+    userKey,
     isLoggedIn,
     getStoredUserName,
     getUserInitials,

@@ -26,6 +26,18 @@
         <div class="loader-line" aria-hidden="true"><i></i></div>
       </div>
     </div>
+    <script>
+      // Show the splash once per tab session; skip it on later visits.
+      try {
+        if (sessionStorage.getItem("flexformSplashSeen")) {
+          document.getElementById("siteLoader")?.remove();
+        } else {
+          sessionStorage.setItem("flexformSplashSeen", "true");
+        }
+      } catch (error) {
+        /* storage unavailable: the splash simply shows each time */
+      }
+    </script>
     <div id="app" class="app">
       <aside class="sidebar">
         <a class="brand" href="index.html"

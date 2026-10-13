@@ -8,8 +8,7 @@ const toast = (message) => {
   setTimeout(() => element.classList.remove("show"), 2600);
 };
 /* ---- Saved / booked coaches, persisted per user in localStorage (mock, frontend-only) ---- */
-const coachStateKey = (kind) =>
-  `flexform:${localStorage.getItem("flexformUserEmail") || "guest"}:${kind}`;
+const coachStateKey = (kind) => window.flexform.userKey(kind);
 const loadCoachSet = (kind) => {
   try {
     return new Set(JSON.parse(localStorage.getItem(coachStateKey(kind)) || "[]"));

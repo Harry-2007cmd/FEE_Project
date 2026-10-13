@@ -68,17 +68,47 @@ window.addEventListener("DOMContentLoaded", () => {
       `;
     }
   });
-  document.querySelectorAll(".goal-buttons button").forEach((button) =>
+  // Weekly goal: saved per user in localStorage (mock, frontend-only).
+  const goalKey = () => window.flexform.userKey("weeklyGoal");
+  const goalButtons = [...document.querySelectorAll(".goal-buttons button")];
+  const saveGoalButton = document.querySelector("#saveGoal");
+  const SAVE_LABEL = "Save my weekly goal";
+
+  const selectGoal = (button) => {
+    goalButtons.forEach((item) => item.classList.remove("selected"));
+    button.classList.add("selected");
+    document.querySelector("#goalValue").textContent =
+      `${button.textContent} moments`;
+  };
+
+  let savedGoal = null;
+  try {
+    savedGoal = localStorage.getItem(goalKey());
+  } catch {
+    /* storage unavailable: start from the default goal */
+  }
+  const savedButton = goalButtons.find((item) => item.textContent === savedGoal);
+  if (savedButton) {
+    selectGoal(savedButton);
+    saveGoalButton.textContent = "Weekly goal saved";
+  }
+
+  goalButtons.forEach((button) =>
     button.addEventListener("click", () => {
-      document
-        .querySelectorAll(".goal-buttons button")
-        .forEach((item) => item.classList.remove("selected"));
-      button.classList.add("selected");
-      document.querySelector("#goalValue").textContent =
-        `${button.textContent} moments`;
+      selectGoal(button);
+      // A changed goal needs saving again.
+      saveGoalButton.textContent =
+        button.textContent === savedGoal ? "Weekly goal saved" : SAVE_LABEL;
     }),
   );
-  document.querySelector("#saveGoal")?.addEventListener("click", (event) => {
-    event.target.textContent = "Weekly goal saved";
+  saveGoalButton?.addEventListener("click", () => {
+    const selected = document.querySelector(".goal-buttons .selected");
+    savedGoal = selected?.textContent ?? null;
+    try {
+      if (savedGoal) localStorage.setItem(goalKey(), savedGoal);
+    } catch {
+      /* storage unavailable: goal just won't persist */
+    }
+    saveGoalButton.textContent = "Weekly goal saved";
   });
 });
