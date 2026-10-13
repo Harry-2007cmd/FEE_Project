@@ -44,6 +44,16 @@
   padding: 12px;
 }
 
+/* Inputs on the dark body check-in card */
+.dark-card .inputs input,
+.dark-card .inputs select {
+  background: rgba(255,255,255,0.12);
+  color: var(--cream);
+  border: 1px solid rgba(255,255,255,0.18);
+  caret-color: var(--cream);
+}
+.dark-card .inputs select option { color: var(--ink); }
+
 /* Recommendation card styles */
 .recommendation-card {
   min-height: 260px;

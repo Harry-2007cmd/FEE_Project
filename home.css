@@ -232,25 +232,11 @@
   text-transform: uppercase;
 }
 
-.dark-card,
-.cream-card,
 .challenge-card,
 .match-banner,
 .free-class {
   border-radius: 28px;
   overflow: hidden;
-}
-
-.dark-card {
-  background: var(--ink);
-  color: var(--cream);
-  padding: 28px;
-}
-
-.cream-card {
-  background: var(--paper);
-  padding: 28px;
-  box-shadow: 0 12px 30px #29282509;
 }
 
 .rhythm-card,
@@ -545,31 +531,6 @@
   border-radius: 16px;
 }
 
-.avatar {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  font-weight: 700;
-  flex: none;
-}
-
-.avatar.coral {
-  background: var(--coral);
-}
-
-.avatar.sun {
-  background: var(--sun);
-}
-
-.avatar.mint {
-  background: var(--mint);
-}
-
-.avatar.lilac {
-  background: var(--lilac);
-}
 
 .upcoming p {
   flex: 1;

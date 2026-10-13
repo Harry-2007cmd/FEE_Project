@@ -449,3 +449,43 @@ h2 { font-size: 28px; line-height: 1; }
   .page-intro h1 { font-size: 48px; }
   .auth-wrap h1 { font-size: 38px; }
 }
+
+/* Shared cards and avatars (used on several pages) */
+.dark-card,
+.cream-card {
+  border-radius: 28px;
+  overflow: hidden;
+  padding: 28px;
+}
+
+.dark-card {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.cream-card {
+  background: var(--paper);
+  box-shadow: 0 12px 30px #29282509;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-weight: 700;
+  flex: none;
+}
+
+.avatar.coral { background: var(--coral); }
+.avatar.sun { background: var(--sun); }
+.avatar.mint { background: var(--mint); }
+.avatar.lilac { background: var(--lilac); }
+
+@media (max-width: 560px) {
+  .dark-card,
+  .cream-card {
+    padding: 22px;
+  }
+}
