@@ -43,7 +43,7 @@
 }
 
 .auth-switch a {
-  color: var(--coral);
+  color: var(--coral-text);
   font-weight: 700;
 }
 

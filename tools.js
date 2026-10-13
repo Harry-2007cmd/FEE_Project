@@ -1,29 +1,4 @@
-const isLoggedIn = () => localStorage.getItem("fitlyLoggedIn") === "true";
-
-const updateAuthUI = () => {
-  const loggedIn = isLoggedIn();
-  const isProfilePage = window.location.pathname.endsWith("profile.html");
-
-  document.querySelectorAll(".auth-only").forEach((element) => {
-    element.classList.toggle("hidden", !loggedIn || isProfilePage);
-  });
-  document.querySelectorAll(".guest-only").forEach((element) => {
-    element.classList.toggle("hidden", loggedIn || isProfilePage);
-  });
-  document.querySelectorAll(".user-chip--main").forEach((element) => {
-    element.classList.toggle("hidden", !loggedIn || isProfilePage);
-  });
-
-  document.querySelectorAll('a[href="login.html"], a[href="signup.html"]').forEach((element) => {
-    const onAuthPage = ["login.html", "signup.html"].includes(
-      window.location.pathname.split("/").pop(),
-    );
-    element.classList.toggle("hidden", loggedIn && !onAuthPage);
-  });
-};
-
 window.addEventListener("DOMContentLoaded", () => {
-  updateAuthUI();
   document.querySelector("#app").classList.remove("hidden");
   document.querySelector("#calculate")?.addEventListener("click", () => {
     const height = Number(document.querySelector("#height").value) || 0;
@@ -39,7 +14,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     const bmi = weight / Math.pow(height / 100, 2);
-    const calories = Math.round(10 * weight + 6.25 * height - 5 * age + 5);
+    // Mifflin-St Jeor: +5 for male, -161 for female
+    const sexConstant = document.querySelector("#sex")?.value === "female" ? -161 : 5;
+    const calories = Math.round(10 * weight + 6.25 * height - 5 * age + sexConstant);
     results.classList.remove("hidden");
     results.innerHTML = `<div><small>ESTIMATED BMI</small><b>${bmi.toFixed(1)}</b></div><div><small>DAILY ENERGY GUIDE</small><b>${calories.toLocaleString()}</b></div>`;
   });
@@ -91,23 +68,47 @@ window.addEventListener("DOMContentLoaded", () => {
       `;
     }
   });
-  document.querySelectorAll(".goal-buttons button").forEach((button) =>
+  // Weekly goal: saved per user in localStorage (mock, frontend-only).
+  const goalKey = () => window.flexform.userKey("weeklyGoal");
+  const goalButtons = [...document.querySelectorAll(".goal-buttons button")];
+  const saveGoalButton = document.querySelector("#saveGoal");
+  const SAVE_LABEL = "Save my weekly goal";
+
+  const selectGoal = (button) => {
+    goalButtons.forEach((item) => item.classList.remove("selected"));
+    button.classList.add("selected");
+    document.querySelector("#goalValue").textContent =
+      `${button.textContent} moments`;
+  };
+
+  let savedGoal = null;
+  try {
+    savedGoal = localStorage.getItem(goalKey());
+  } catch {
+    /* storage unavailable: start from the default goal */
+  }
+  const savedButton = goalButtons.find((item) => item.textContent === savedGoal);
+  if (savedButton) {
+    selectGoal(savedButton);
+    saveGoalButton.textContent = "Weekly goal saved";
+  }
+
+  goalButtons.forEach((button) =>
     button.addEventListener("click", () => {
-      document
-        .querySelectorAll(".goal-buttons button")
-        .forEach((item) => item.classList.remove("selected"));
-      button.classList.add("selected");
-      document.querySelector("#goalValue").textContent =
-        `${button.textContent} moments`;
+      selectGoal(button);
+      // A changed goal needs saving again.
+      saveGoalButton.textContent =
+        button.textContent === savedGoal ? "Weekly goal saved" : SAVE_LABEL;
     }),
   );
-  document.querySelector("#saveGoal")?.addEventListener("click", (event) => {
-    event.target.textContent = "Weekly goal saved";
-  });
-  document.addEventListener("click", (event) => {
-    if (event.target.closest("[data-logout]")) {
-      localStorage.removeItem("fitlyLoggedIn");
-      window.location.href = "index.html";
+  saveGoalButton?.addEventListener("click", () => {
+    const selected = document.querySelector(".goal-buttons .selected");
+    savedGoal = selected?.textContent ?? null;
+    try {
+      if (savedGoal) localStorage.setItem(goalKey(), savedGoal);
+    } catch {
+      /* storage unavailable: goal just won't persist */
     }
+    saveGoalButton.textContent = "Weekly goal saved";
   });
 });

@@ -1,21 +1,6 @@
-const isLoggedIn = () => localStorage.getItem("fitlyLoggedIn") === "true";
+const { isLoggedIn, getStoredUserName, getUserInitials } = window.flexform;
 
-const getStoredUserName = () => {
-  const storedName = localStorage.getItem("flexformUserName")?.trim();
-  return storedName || "Friend";
-};
-
-const getUserInitials = (name = getStoredUserName()) => {
-  const initials = name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() || "")
-    .join("");
-
-  return initials || "F";
-};
-
+// Mock workout history (frontend-only, not from a backend).
 const workoutHistory = [
   { title: "Strength foundations", date: "Tue 6:30 PM", label: "Completed", badge: "SF" },
   { title: "Desk reset", date: "Mon 8 min", label: "Completed", badge: "DR" },
@@ -60,28 +45,53 @@ const updateProfileDetails = () => {
   }
 };
 
-const updateAuthUI = () => {
-  const loggedIn = isLoggedIn();
+const showToast = (message) => {
+  const toast = document.querySelector("#toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2600);
+};
 
-  const isProfilePage = window.location.pathname.endsWith("profile.html");
+const bindEditProfile = () => {
+  const button = document.querySelector("#editProfile");
+  const form = document.querySelector("#editProfileForm");
+  if (!button || !form) return;
 
-  document.querySelectorAll(".auth-only").forEach((element) => {
-    element.classList.toggle("hidden", !loggedIn || isProfilePage);
+  const setOpen = (open) => {
+    form.classList.toggle("hidden", !open);
+    button.setAttribute("aria-expanded", String(open));
+    if (open) {
+      form.elements.name.value = getStoredUserName();
+      form.elements.email.value =
+        localStorage.getItem("flexformUserEmail") || "";
+      form.elements.name.focus();
+    }
+  };
+
+  button.addEventListener("click", () => setOpen(form.classList.contains("hidden")));
+  document.querySelector("#cancelEdit")?.addEventListener("click", () => {
+    setOpen(false);
+    button.focus();
   });
 
-  document.querySelectorAll(".guest-only").forEach((element) => {
-    element.classList.toggle("hidden", loggedIn || isProfilePage);
-  });
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const name = form.elements.name.value.trim();
+    const email = window.flexformUsers.normaliseEmail(form.elements.email.value);
+    if (!name || !email) return;
 
-  document.querySelectorAll(".user-chip--main").forEach((element) => {
-    element.classList.toggle("hidden", !loggedIn || isProfilePage);
-  });
+    const oldEmail = localStorage.getItem("flexformUserEmail") || "";
+    window.flexformUsers.renameEmail(oldEmail, email);
+    window.flexformUsers.setName(email, name);
+    localStorage.setItem("flexformUserName", name);
+    localStorage.setItem("flexformUserEmail", email);
 
-  document.querySelectorAll('a[href="login.html"], a[href="signup.html"]').forEach((element) => {
-    const onAuthPage = ["login.html", "signup.html"].includes(
-      window.location.pathname.split("/").pop(),
-    );
-    element.classList.toggle("hidden", loggedIn && !onAuthPage);
+    updateProfileDetails();
+    window.flexform.updateUserLabels();
+    setOpen(false);
+    button.focus();
+    showToast("Profile updated");
   });
 };
 
@@ -91,19 +101,9 @@ window.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  updateAuthUI();
   updateProfileDetails();
   renderWorkoutHistory();
+  bindEditProfile();
 
   document.querySelector("#app").classList.remove("hidden");
-  document
-    .querySelector("#notificationButton")
-    ?.addEventListener("click", () =>
-      document.querySelector("#notification")?.classList.toggle("show"),
-    );
-
-  document.querySelector("[data-logout]")?.addEventListener("click", () => {
-    localStorage.removeItem("fitlyLoggedIn");
-    window.location.href = "index.html";
-  });
 });

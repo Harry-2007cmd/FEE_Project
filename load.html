@@ -167,8 +167,12 @@
 
     <script>
       const redirectToHome = () => {
-        localStorage.setItem('flexformEntrySeen', 'true');
-        localStorage.setItem('flexformLoaderSeen', 'true');
+        // load.html is the splash, so index.html should not show its own loader.
+        try {
+          sessionStorage.setItem('flexformSplashSeen', 'true');
+        } catch (error) {
+          /* storage unavailable: index.html will show its loader instead */
+        }
         window.location.href = 'index.html';
       };
 

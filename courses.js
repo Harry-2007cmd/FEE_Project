@@ -24,40 +24,43 @@ const courses = [
     0,
   ],
 ];
-const isLoggedIn = () => localStorage.getItem("fitlyLoggedIn") === "true";
-
-const updateAuthUI = () => {
-  const loggedIn = isLoggedIn();
-  const isProfilePage = window.location.pathname.endsWith("profile.html");
-
-  document.querySelectorAll(".auth-only").forEach((element) => {
-    element.classList.toggle("hidden", !loggedIn || isProfilePage);
-  });
-  document.querySelectorAll(".guest-only").forEach((element) => {
-    element.classList.toggle("hidden", loggedIn || isProfilePage);
-  });
-  document.querySelectorAll(".user-chip--main").forEach((element) => {
-    element.classList.toggle("hidden", !loggedIn || isProfilePage);
-  });
-
-  document.querySelectorAll('a[href="login.html"], a[href="signup.html"]').forEach((element) => {
-    const onAuthPage = ["login.html", "signup.html"].includes(
-      window.location.pathname.split("/").pop(),
+/* Started courses are remembered per user in localStorage (mock, frontend-only). */
+const loadStartedCourses = () => {
+  try {
+    return new Set(
+      JSON.parse(localStorage.getItem(window.flexform.userKey("courseProgress")) || "[]"),
     );
-    element.classList.toggle("hidden", loggedIn && !onAuthPage);
-  });
+  } catch {
+    return new Set();
+  }
+};
+const storeStartedCourses = (set) => {
+  try {
+    localStorage.setItem(window.flexform.userKey("courseProgress"), JSON.stringify([...set]));
+  } catch {
+    /* storage unavailable: progress just won't persist */
+  }
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  updateAuthUI();
   document.querySelector("#app").classList.remove("hidden");
+  const startedCourses = loadStartedCourses();
   document.querySelector("#courseList").innerHTML = courses
     .map(
       ([title, subtitle, description, progress], index) =>
-        `<article class="course-card"><small>${subtitle}</small><h3>${title}</h3><p>${description}</p><small class="course-meta">${index + 7} lessons · ${44 + index * 12} min</small><div class="progress"><i style="width:${progress}%"></i></div><button data-course="${title}">${progress ? "Continue course" : "Start course"} →</button></article>`,
+        `<article class="course-card"><small>${subtitle}</small><h3>${title}</h3><p>${description}</p><small class="course-meta">${index + 7} lessons · ${44 + index * 12} min</small><div class="progress"><i style="width:${progress}%"></i></div><button data-course="${title}"${startedCourses.has(title) ? ' style="background:var(--coral)"' : ""}>${startedCourses.has(title) ? "✓ Progress saved" : progress ? "Continue course →" : "Start course →"}</button></article>`,
     )
     .join("");
   document.addEventListener("click", (event) => {
+    // The free class banner starts the "Quiet cardio" course.
+    if (event.target.closest("[data-free-class]")) {
+      const card = [...document.querySelectorAll("#courseList [data-course]")].find(
+        (item) => item.dataset.course === "Quiet cardio",
+      );
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+      card?.click();
+      return;
+    }
     const button = event.target.closest("[data-course]");
     if (!button) return;
     const courseButton = button
@@ -66,18 +69,14 @@ window.addEventListener("DOMContentLoaded", () => {
     if (courseButton) {
       courseButton.textContent = "✓ Progress saved";
       courseButton.style.background = "var(--coral)";
-    }
-
-    if (event.target.closest("[data-logout]")) {
-      localStorage.removeItem("fitlyLoggedIn");
-      window.location.href = "index.html";
-      return;
+      startedCourses.add(courseButton.dataset.course);
+      storeStartedCourses(startedCourses);
     }
 
     const toast = document.querySelector("#toast");
     if (toast) {
       toast.textContent =
-        "Nice work. Your course progress is saved for this visit.";
+        "Nice work. Your course progress is saved.";
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 2600);
     }

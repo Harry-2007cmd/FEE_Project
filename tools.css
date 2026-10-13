@@ -32,7 +32,8 @@
   font-weight: 700;
 }
 
-.inputs input {
+.inputs input,
+.inputs select {
   display: block;
   width: 100%;
   margin-top: 8px;
@@ -43,15 +44,15 @@
   padding: 12px;
 }
 
-/* Keep readable inputs when placed on dark surfaces */
-.dark-card .inputs input {
+/* Inputs on the dark body check-in card */
+.dark-card .inputs input,
+.dark-card .inputs select {
   background: rgba(255,255,255,0.12);
-  color: black;
+  color: var(--cream);
   border: 1px solid rgba(255,255,255,0.18);
   caret-color: var(--cream);
 }
-.dark-card .inputs input::placeholder { color: rgba(255,255,255,0.8); }
-.dark-card .inputs input:focus { outline: 2px solid rgba(255,255,255,0.06); box-shadow: 0 4px 18px rgba(0,0,0,0.25) inset; }
+.dark-card .inputs select option { color: var(--ink); }
 
 /* Recommendation card styles */
 .recommendation-card {
@@ -172,7 +173,7 @@
 }
 
 .note a {
-  color: var(--coral);
+  color: var(--coral-text);
   font-weight: 700;
   font-size: 12px;
 }

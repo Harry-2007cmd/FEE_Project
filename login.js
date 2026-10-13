@@ -5,19 +5,18 @@ window.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
 
     const emailInput = form.querySelector('input[name="email"]');
-    const userEmail = emailInput?.value.trim();
-    if (userEmail) {
-      localStorage.setItem("flexformUserEmail", userEmail);
-    }
+    const userEmail = window.flexformUsers.normaliseEmail(emailInput?.value);
+    if (!userEmail) return;
 
-    const storedName = localStorage.getItem("flexformUserName");
-    if (!storedName) {
-      localStorage.setItem("flexformUserName", "Friend");
-    }
+    // Restore the name remembered for this email (or derive one from it),
+    // so a previous user's name is never carried over.
+    localStorage.setItem("flexformUserEmail", userEmail);
+    localStorage.setItem("flexformUserName", window.flexformUsers.getName(userEmail));
 
-    localStorage.setItem("fitlyLoggedIn", "true");
-    const returnPage =
-      new URLSearchParams(window.location.search).get("return") || "index.html";
-    window.location.href = returnPage;
+    localStorage.setItem("flexformLoggedIn", "true");
+    // Only same-site pages are allowed as a return target.
+    const allowedPages = ["index.html", "trainers.html", "courses.html", "tools.html", "profile.html"];
+    const requested = new URLSearchParams(window.location.search).get("return");
+    window.location.href = allowedPages.includes(requested) ? requested : "index.html";
   });
 });

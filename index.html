@@ -26,6 +26,18 @@
         <div class="loader-line" aria-hidden="true"><i></i></div>
       </div>
     </div>
+    <script>
+      // Show the splash once per tab session; skip it on later visits.
+      try {
+        if (sessionStorage.getItem("flexformSplashSeen")) {
+          document.getElementById("siteLoader")?.remove();
+        } else {
+          sessionStorage.setItem("flexformSplashSeen", "true");
+        }
+      } catch (error) {
+        /* storage unavailable: the splash simply shows each time */
+      }
+    </script>
     <div id="app" class="app">
       <aside class="sidebar">
         <a class="brand" href="index.html"
@@ -115,7 +127,7 @@
               <div class="trainer-preview-grid">
                 <article class="cream-card trainer-preview">
                   <span class="trainer-badge">Maya Chen</span>
-                  <h3>Strength coach</h3>
+                  <h3>Strength &amp; mobility coach</h3>
                   <p>
                     Brings structure, confidence, and smart progression for people who
                     want to feel stronger without burnout.
@@ -123,18 +135,18 @@
                 </article>
                 <article class="cream-card trainer-preview">
                   <span class="trainer-badge">Arjun Patel</span>
-                  <h3>Recovery specialist</h3>
+                  <h3>Mindful movement guide</h3>
                   <p>
-                    Helps you build mobility and rest habits that support long-term
-                    energy and consistency.
+                    Helps you build calm movement and recovery habits that support
+                    long-term energy and consistency.
                   </p>
                 </article>
                 <article class="cream-card trainer-preview">
-                  <span class="trainer-badge">Leah Brooks</span>
-                  <h3>Mindful movement guide</h3>
+                  <span class="trainer-badge">Lena Ortiz</span>
+                  <h3>Nutrition &amp; habit coach</h3>
                   <p>
-                    Creates calming routines for stress relief, posture, and everyday
-                    confidence.
+                    Makes everyday nutrition simple and helps you design habits that
+                    stick.
                   </p>
                 </article>
               </div>
@@ -259,7 +271,6 @@
                     <p class="eyebrow">Your numbers</p>
                     <h2>The bigger picture</h2>
                   </div>
-                  <button class="icon-button">···</button>
                 </div>
                 <div class="steps">
                   <b>11,240</b><span>steps this week</span>
@@ -343,6 +354,8 @@
       </nav>
     </div>
     <div id="toast" class="toast"></div>
+    <script src="notifications-data.js"></script>
+    <script src="common.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
