@@ -26,7 +26,16 @@ const storeCoachSet = (kind, set) => {
 const savedCoaches = loadCoachSet("savedCoaches");
 const bookedCoaches = loadCoachSet("bookedCoaches");
 
+const TRAINERS_PER_PAGE = 8;
+let trainerPage = 1;
+
+/** Filters changed: go back to the first page and redraw. */
 function renderTrainers() {
+  trainerPage = 1;
+  drawTrainers();
+}
+
+function drawTrainers() {
   const query = (select("#trainerSearch")?.value || "").toLowerCase();
   const active = select(".filter.active")?.dataset.filter || "All coaches";
   const availability = select("#availability")?.value || "any";
@@ -40,10 +49,19 @@ function renderTrainers() {
       (trainer.name.toLowerCase().includes(query) ||
         trainer.role.toLowerCase().includes(query)),
   );
+  const totalPages = Math.max(1, Math.ceil(filtered.length / TRAINERS_PER_PAGE));
+  trainerPage = Math.min(trainerPage, totalPages);
+  const start = (trainerPage - 1) * TRAINERS_PER_PAGE;
+  const pageItems = filtered.slice(start, start + TRAINERS_PER_PAGE);
+
   select("#trainerCount").textContent =
-    `${filtered.length} coaches match your search`;
+    `${filtered.length} ${filtered.length === 1 ? "coach matches" : "coaches match"} your search` +
+    (totalPages > 1
+      ? ` · showing ${start + 1}–${start + pageItems.length}`
+      : "");
+  renderPagination(totalPages);
   select("#trainerList").innerHTML =
-    filtered
+    pageItems
       .map(
         (trainer) =>
           `<article class="trainer-card"><div class="card-top"><span class="avatar ${trainer.tone}">${trainer.initials}</span><button class="icon-button save" data-save="${trainer.name}" aria-pressed="${savedCoaches.has(trainer.name)}" aria-label="Save ${trainer.name}"${savedCoaches.has(trainer.name) ? ' style="color:var(--coral)"' : ""}>${savedCoaches.has(trainer.name) ? "♥" : "♡"}</button></div><h3>${trainer.name}</h3><p>${trainer.role}</p><div class="tags">${trainer.tags.map((tag) => `<span>${tag}</span>`).join("")}</div><div class="rating">★ ${trainer.rating} <span>● ${trainer.availability === "today" ? "Available today" : "Available this week"}</span></div><button class="book-button${bookedCoaches.has(trainer.name) ? " booked" : ""}" data-book="${trainer.name}">${bookedCoaches.has(trainer.name) ? "✓ Request sent" : "Book a session"}</button><button class="outline-button chat-button" data-chat="${trainer.name}">Chat with ${trainer.name.split(" ")[0]}</button></article>`,
@@ -51,6 +69,25 @@ function renderTrainers() {
       .join("") ||
     `<div class="cream-card"><h2>No one by that name yet.</h2><button class="sun-button" data-reset>Reset filters</button></div>`;
 }
+function renderPagination(totalPages) {
+  const nav = select("#trainerPagination");
+  if (!nav) return;
+  if (totalPages <= 1) {
+    nav.innerHTML = "";
+    return;
+  }
+  const numbers = Array.from({ length: totalPages }, (_, index) => index + 1)
+    .map(
+      (number) =>
+        `<button type="button" class="page-button${number === trainerPage ? " active" : ""}" data-page="${number}" aria-label="Page ${number}"${number === trainerPage ? ' aria-current="page"' : ""}>${number}</button>`,
+    )
+    .join("");
+  nav.innerHTML =
+    `<button type="button" class="page-button" data-page="${trainerPage - 1}" aria-label="Previous page"${trainerPage === 1 ? " disabled" : ""}>←</button>` +
+    numbers +
+    `<button type="button" class="page-button" data-page="${trainerPage + 1}" aria-label="Next page"${trainerPage === totalPages ? " disabled" : ""}>→</button>`;
+}
+
 /* ---- Mock coach chat (frontend-only: scripted replies from trainers-data.js) ---- */
 let activeCoach = null;
 
@@ -202,6 +239,12 @@ window.addEventListener("DOMContentLoaded", () => {
       save.style.color = nowSaved ? "var(--coral)" : "";
       save.setAttribute("aria-pressed", String(nowSaved));
       toast(nowSaved ? "Saved to your coaches" : "Removed from your coaches");
+    }
+    const pageButton = event.target.closest(".page-button[data-page]");
+    if (pageButton && !pageButton.disabled) {
+      trainerPage = Number(pageButton.dataset.page);
+      drawTrainers();
+      select("#trainerList").scrollIntoView({ behavior: "smooth", block: "start" });
     }
     if (event.target.closest("[data-filter-match]")) {
       select("#matchForm").reset();
