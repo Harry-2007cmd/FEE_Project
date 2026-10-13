@@ -102,7 +102,7 @@ Each page loads `styles.css` first, then its own stylesheet. Pages with the app 
 ## Pages
 
 ### `load.html` — splash
-Shows a loader and redirects to `index.html` after about 1.6 seconds.
+Shows a loader and redirects to `index.html` after about 1.6 seconds. The splash shows once per browser tab session (tracked with `sessionStorage`). `index.html` has its own loader for direct visits and skips it if the splash was already shown in this tab.
 
 ### `index.html` — Today
 Two views in one page, switched by login state:
@@ -115,7 +115,7 @@ Two views in one page, switched by login state:
 - **20 mock coaches** (5 per filter) rendered from `trainers-data.js`.
 - **Book a session** and **Save (heart)** on each card. Both persist per user.
 - **Chat with…** opens a mock chat panel (see [Mock coach chat](#mock-coach-chat)).
-- A "Find my match" banner that selects the Strength filter.
+- A **Find my match** dialog asks two questions (what you want to feel more of, and when you want to start), then sets the matching specialty filter and availability. If nobody in that specialty is free today, it falls back to "this week" and says so.
 
 ### `courses.html` — Courses
 - A free class banner. "Try the free class" starts the *Quiet cardio* course: it scrolls to the card and marks it started.
@@ -196,7 +196,9 @@ Coach names, ratings and availability are made up.
 | `flexformUsers`                        | JSON map of email to display name (mock user records)    |
 | `flexform:<email or guest>:savedCoaches`  | JSON array of saved coach names                       |
 | `flexform:<email or guest>:bookedCoaches` | JSON array of coaches with a booking request          |
-| `flexformEntrySeen`, `flexformLoaderSeen` | Set by the splash screen                              |
+| `flexform:<email or guest>:courseProgress` | JSON array of started course titles                  |
+| `flexform:<email or guest>:weeklyGoal`    | The saved weekly goal (1 to 6)                        |
+| `flexformSplashSeen` (`sessionStorage`)   | Set once the splash has been shown in this tab         |
 
 All storage access is wrapped so that the site still works if storage is unavailable (for example in a private window), although state will not persist.
 
@@ -271,8 +273,8 @@ Clear the site's `localStorage` in your browser's dev tools.
 
 - **No real authentication.** Any email and password logs you in. Do not enter real credentials.
 - **The `return` parameter on `login.html` is not validated.** It is fine for a local mock, but must be restricted to same-site paths if real auth is ever added.
-- **No backend.** Booking, chat, goals and course progress are not sent anywhere. Course progress and the weekly goal are not remembered after a reload.
-- **Changing your email** on the profile moves your saved and booked coaches to the new email, but other emails' data is untouched.
+- **No backend.** Booking, chat, goals and course progress are not sent anywhere; they live only in this browser's `localStorage`.
+- **Changing your email** on the profile moves your saved and booked coaches, course progress and weekly goal to the new email, but other emails' data is untouched.
 - **Mock data is fixed.** Stats, schedule and history are static.
 - **Google Fonts** need a network connection.
 - **Calorie and BMI figures are rough estimates**, not medical advice.

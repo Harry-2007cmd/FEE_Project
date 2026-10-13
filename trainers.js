@@ -103,6 +103,49 @@ function openChat(coachName) {
   select("#chatInput").focus();
 }
 
+/** Apply the "Find my match" answers to the filters and show the results. */
+function applyMatch(goal, time) {
+  const matches = (availability) =>
+    trainers.filter(
+      (trainer) =>
+        trainer.specialty === goal &&
+        (availability === "week" || trainer.availability === "today"),
+    ).length;
+
+  let availability = time;
+  let message;
+  if (time === "today" && matches("today") === 0) {
+    availability = "week";
+    message = `No ${goal.toLowerCase()} coach is free today. Showing coaches free this week.`;
+  } else {
+    message = `${matches(availability)} ${goal.toLowerCase()} coaches match you.`;
+  }
+
+  select("#trainerSearch").value = "";
+  select("#availability").value = availability;
+  all(".filter").forEach((item) =>
+    item.classList.toggle("active", item.dataset.filter === goal),
+  );
+  renderTrainers();
+  select("#trainerList").scrollIntoView({ behavior: "smooth", block: "start" });
+  toast(message);
+}
+
+function bindMatchDialog() {
+  const dialog = select("#matchDialog");
+  select("#matchCancel")?.addEventListener("click", () => dialog.close());
+  select("#matchForm")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    dialog.close();
+    applyMatch(data.get("goal"), data.get("time"));
+  });
+  // Clicking the backdrop closes the dialog.
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+}
+
 function bindChat() {
   select("#closeChat")?.addEventListener("click", () =>
     select("#chat").classList.add("hidden"),
@@ -127,6 +170,7 @@ window.addEventListener("DOMContentLoaded", () => {
   select("#app").classList.remove("hidden");
   renderTrainers();
   bindChat();
+  bindMatchDialog();
   select("#trainerSearch")?.addEventListener("input", renderTrainers);
   select("#availability")?.addEventListener("change", renderTrainers);
   all(".filter").forEach((button) =>
@@ -160,8 +204,8 @@ window.addEventListener("DOMContentLoaded", () => {
       toast(nowSaved ? "Saved to your coaches" : "Removed from your coaches");
     }
     if (event.target.closest("[data-filter-match]")) {
-      select(".filter[data-filter='Strength']")?.click();
-      toast("We found a strong starting point for you.");
+      select("#matchForm").reset();
+      select("#matchDialog").showModal();
     }
     if (event.target.closest("[data-reset]")) {
       select("#trainerSearch").value = "";

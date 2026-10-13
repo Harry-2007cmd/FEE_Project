@@ -160,6 +160,28 @@
         <input id="chatInput" placeholder="Write a note..." /><button>→</button>
       </form>
     </div>
+    <dialog id="matchDialog" class="match-dialog" aria-labelledby="matchTitle">
+      <form id="matchForm" method="dialog">
+        <h2 id="matchTitle">Find your match</h2>
+        <p class="match-sub">Two quick questions and we'll filter the coaches for you.</p>
+        <fieldset>
+          <legend>What do you want to feel more of?</legend>
+          <label><input type="radio" name="goal" value="Strength" required /><span>Stronger</span></label>
+          <label><input type="radio" name="goal" value="Performance" /><span>Faster &amp; fitter</span></label>
+          <label><input type="radio" name="goal" value="Mindful movement" /><span>Calmer &amp; more flexible</span></label>
+          <label><input type="radio" name="goal" value="Nutrition" /><span>Better about food</span></label>
+        </fieldset>
+        <fieldset>
+          <legend>When would you like to start?</legend>
+          <label><input type="radio" name="time" value="today" required /><span>Today</span></label>
+          <label><input type="radio" name="time" value="week" /><span>This week</span></label>
+        </fieldset>
+        <div class="match-actions">
+          <button type="button" class="outline-button" id="matchCancel">Cancel</button>
+          <button type="submit" class="sun-button">Show my coaches →</button>
+        </div>
+      </form>
+    </dialog>
     <script src="common.js"></script>
     <script src="trainers-data.js"></script>
     <script src="trainers.js"></script>
