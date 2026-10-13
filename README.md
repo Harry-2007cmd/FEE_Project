@@ -75,6 +75,7 @@ Fonts load from Google Fonts, so the first load needs an internet connection. Wi
 ├── auth.css             Styles for login.html and signup.html
 │
 ├── common.js            Shared app-shell behaviour (auth UI, logout, notifications)
+├── notifications-data.js MOCK DATA: sample notifications for the bell panel
 ├── user-store.js        Mock per-email user records (remembers names, migrates data on email change)
 ├── index.js             Home page: guest/member view, schedule, "complete flow"
 ├── trainers.js          Coach list, search, filters, save/book, mock chat
@@ -90,11 +91,11 @@ Each page loads `styles.css` first, then its own stylesheet. Pages with the app 
 
 | Page          | Stylesheets               | Scripts                                   |
 | ------------- | ------------------------- | ----------------------------------------- |
-| `index.html`  | `styles.css`, `home.css`  | `common.js`, `index.js`                   |
-| `trainers.html` | `styles.css`, `trainers.css` | `common.js`, `trainers-data.js`, `trainers.js` |
-| `courses.html` | `styles.css`, `courses.css` | `common.js`, `courses.js`               |
-| `tools.html`  | `styles.css`, `tools.css` | `common.js`, `tools.js`                   |
-| `profile.html` | `styles.css`, `profile.css` | `common.js`, `user-store.js`, `profile.js` |
+| `index.html`  | `styles.css`, `home.css`  | `notifications-data.js`, `common.js`, `index.js` |
+| `trainers.html` | `styles.css`, `trainers.css` | `notifications-data.js`, `common.js`, `trainers-data.js`, `trainers.js` |
+| `courses.html` | `styles.css`, `courses.css` | `notifications-data.js`, `common.js`, `courses.js` |
+| `tools.html`  | `styles.css`, `tools.css` | `notifications-data.js`, `common.js`, `tools.js` |
+| `profile.html` | `styles.css`, `profile.css` | `notifications-data.js`, `common.js`, `user-store.js`, `profile.js` |
 | `login.html`, `signup.html` | `styles.css`, `auth.css` | `user-store.js`, then `login.js` / `signup.js` |
 
 ---
@@ -155,7 +156,7 @@ Most pages share the same shell: a fixed sidebar on desktop, a floating bottom n
 - `.user-name-display`, `.user-avatar-text` and `[data-greeting-name]` are filled from the stored name.
 
 ### Notifications
-`#notificationButton` toggles `#notification` (the `show` class). Handled in `common.js`, so it works on every shell page.
+`#notificationButton` toggles `#notification` (the `show` class). Handled in `common.js`, so it works on every shell page. Logged-in users see three sample notifications from `notifications-data.js`; guests see "You're all caught up." The panel closes on an outside click or Escape (focus returns to the bell), and the button exposes `aria-expanded`.
 
 ### Coach save and book
 `trainers.js` keeps two sets of coach names, **saved** and **booked**, and writes them to `localStorage` per user (keyed by email, or `guest`). They survive searching, filtering and reloads. The heart toggles on and off; a booking stays as "✓ Request sent".
@@ -214,8 +215,9 @@ Defined as CSS custom properties in `styles.css`.
 | `--cream`   | `#f7f3ec` | Page background        |
 | `--paper`   | `#fffaf0` | Cards                  |
 | `--line`    | `#ded9cd` | Borders                |
-| `--stone`   | `#8b877e` | Muted text             |
+| `--stone`   | `#66625a` | Muted text (switches to `#aaa69d` on dark cards) |
 | `--coral`   | `#ff665d` | Primary accent         |
+| `--coral-text` | `#c9382f` | Small coral text and focus rings (AA contrast on cream) |
 | `--sun`     | `#ffd33d` | Highlight accent       |
 | `--mint`    | `#b9ddc6` | Success/accent         |
 | `--lilac`   | `#d8cce8` | Accent                 |
@@ -239,11 +241,11 @@ Breakpoints in `styles.css`:
 ## Accessibility
 
 - Semantic HTML, with `lang` set on every page.
-- Interactive elements are native `<button>` and `<a>` elements, so they are keyboard-operable. Custom focus styles exist only for the chat prompt chips; other controls use the browser default focus ring.
+- Interactive elements are native `<button>` and `<a>` elements, so they are keyboard-operable. All links, buttons, inputs and selects share a 2px coral `:focus-visible` outline (the darker `--coral-text` on light surfaces, lighter coral on dark ones).
 - Chat messages are in an `aria-live` region; the chat close button and heart buttons have `aria-label`s, and hearts expose `aria-pressed`.
 - Form controls are wrapped in labels.
 
-A full accessibility audit has not been done yet. Adding consistent `:focus-visible` styles is a good next step.
+A full accessibility audit has not been done. A text-contrast scan found these remaining items: the large coral headline accents (about 2.6:1, brand colour kept), the yellow stat numbers on beige tiles and the cream initials on the yellow avatar on the profile page, and the green "Available" labels on coach cards (about 3.8:1).
 
 ---
 
@@ -272,7 +274,7 @@ Clear the site's `localStorage` in your browser's dev tools.
 ## Known limitations
 
 - **No real authentication.** Any email and password logs you in. Do not enter real credentials.
-- **The `return` parameter on `login.html` is not validated.** It is fine for a local mock, but must be restricted to same-site paths if real auth is ever added.
+- **The `return` parameter on `login.html` is limited to an allow-list** of this site's pages (anything else goes to `index.html`). Keep that restriction if real auth is ever added.
 - **No backend.** Booking, chat, goals and course progress are not sent anywhere; they live only in this browser's `localStorage`.
 - **Changing your email** on the profile moves your saved and booked coaches, course progress and weekly goal to the new email, but other emails' data is untouched.
 - **Mock data is fixed.** Stats, schedule and history are static.

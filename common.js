@@ -74,12 +74,62 @@
     });
   };
 
+  /** Fill the bell panel: sample notifications for members, "all caught up" for guests. */
+  const renderNotifications = () => {
+    const panel = document.querySelector("#notification");
+    if (!panel) return;
+    const items = isLoggedIn() ? window.flexformNotifications || [] : [];
+    if (!items.length) {
+      panel.textContent = "You’re all caught up.";
+      return;
+    }
+    const list = document.createElement("ul");
+    list.className = "notification-list";
+    items.forEach(({ title, time }) => {
+      const item = document.createElement("li");
+      const strong = document.createElement("b");
+      strong.textContent = title;
+      const small = document.createElement("small");
+      small.textContent = time;
+      item.append(strong, small);
+      list.append(item);
+    });
+    panel.replaceChildren(list);
+  };
+
+  const bindNotifications = () => {
+    const button = document.querySelector("#notificationButton");
+    const panel = document.querySelector("#notification");
+    if (!button || !panel) return;
+
+    button.setAttribute("aria-controls", "notification");
+    button.setAttribute("aria-expanded", "false");
+
+    const setOpen = (open) => {
+      panel.classList.toggle("show", open);
+      button.setAttribute("aria-expanded", String(open));
+    };
+
+    button.addEventListener("click", () =>
+      setOpen(!panel.classList.contains("show")),
+    );
+    // Close on outside click or Escape.
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest("#notification, #notificationButton")) {
+        setOpen(false);
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && panel.classList.contains("show")) {
+        setOpen(false);
+        button.focus();
+      }
+    });
+  };
+
   const bindShellEvents = () => {
-    document
-      .querySelector("#notificationButton")
-      ?.addEventListener("click", () => {
-        document.querySelector("#notification")?.classList.toggle("show");
-      });
+    renderNotifications();
+    bindNotifications();
 
     document.addEventListener("click", (event) => {
       if (event.target.closest("[data-logout]")) {

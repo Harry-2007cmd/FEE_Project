@@ -14,8 +14,9 @@ window.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("flexformUserName", window.flexformUsers.getName(userEmail));
 
     localStorage.setItem("flexformLoggedIn", "true");
-    const returnPage =
-      new URLSearchParams(window.location.search).get("return") || "index.html";
-    window.location.href = returnPage;
+    // Only same-site pages are allowed as a return target.
+    const allowedPages = ["index.html", "trainers.html", "courses.html", "tools.html", "profile.html"];
+    const requested = new URLSearchParams(window.location.search).get("return");
+    window.location.href = allowedPages.includes(requested) ? requested : "index.html";
   });
 });

@@ -3,8 +3,9 @@
   --cream: #f7f3ec;
   --paper: #fffaf0;
   --line: #ded9cd;
-  --stone: #8b877e;
+  --stone: #66625a;
   --coral: #ff665d;
+  --coral-text: #c9382f; /* darker coral for small text and focus rings (AA contrast on cream) */
   --sun: #ffd33d;
   --mint: #b9ddc6;
   --lilac: #d8cce8;
@@ -60,11 +61,11 @@ a { color: inherit; text-decoration: none; }
 }
 .loader-logo span,
 .brand span,
-.eyebrow,
 em {
   color: var(--coral);
   font-style: normal;
 }
+.eyebrow { color: var(--coral-text); }
 .loader p { color: #aaa69d; }
 .loader-line {
   width: 96px;
@@ -236,6 +237,8 @@ em {
   position: absolute;
   right: 100px;
   top: 60px;
+  width: 280px;
+  max-width: calc(100vw - 32px);
   background: var(--paper);
   padding: 13px;
   border: 1px solid var(--line);
@@ -246,6 +249,11 @@ em {
   display: none;
 }
 .notification.show { display: block; }
+.notification-list { list-style: none; margin: 0; padding: 0; }
+.notification-list li { padding: 8px 0; }
+.notification-list li + li { border-top: 1px solid var(--line); }
+.notification-list b { display: block; }
+.notification-list small { color: var(--stone); font-weight: 500; }
 .mobile-brand { display: none; }
 main {
   max-width: 1400px;
@@ -290,7 +298,7 @@ h2 { font-size: 28px; line-height: 1; }
   color: var(--stone);
   font-size: 12px;
 }
-.rhythm-pill b { color: var(--coral); margin-left: 8px; }
+.rhythm-pill b { color: var(--coral-text); margin-left: 8px; }
 .action-button,
 .dark-button,
 .sun-button,
@@ -488,4 +496,35 @@ h2 { font-size: 28px; line-height: 1; }
   .cream-card {
     padding: 22px;
   }
+}
+
+/* Muted text on dark surfaces needs the lighter grey */
+.dark-card,
+.match-banner,
+.chat-head {
+  --stone: #aaa69d;
+}
+
+/* Keyboard focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--coral-text);
+  outline-offset: 2px;
+}
+
+/* On dark surfaces the lighter coral has better contrast */
+.dark-card :focus-visible,
+.match-banner :focus-visible,
+.chat-head :focus-visible {
+  outline-color: var(--coral);
+}
+
+/* Chips live in a scrolling row, so draw their focus ring inside to avoid clipping */
+.filter:focus-visible {
+  outline-offset: -2px;
 }
