@@ -14,7 +14,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     const bmi = weight / Math.pow(height / 100, 2);
-    const calories = Math.round(10 * weight + 6.25 * height - 5 * age + 5);
+    // Mifflin-St Jeor: +5 for male, -161 for female
+    const sexConstant = document.querySelector("#sex")?.value === "female" ? -161 : 5;
+    const calories = Math.round(10 * weight + 6.25 * height - 5 * age + sexConstant);
     results.classList.remove("hidden");
     results.innerHTML = `<div><small>ESTIMATED BMI</small><b>${bmi.toFixed(1)}</b></div><div><small>DAILY ENERGY GUIDE</small><b>${calories.toLocaleString()}</b></div>`;
   });

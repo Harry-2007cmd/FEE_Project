@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("flexformUserName", "Friend");
     }
 
-    localStorage.setItem("fitlyLoggedIn", "true");
+    localStorage.setItem("flexformLoggedIn", "true");
     const returnPage =
       new URLSearchParams(window.location.search).get("return") || "index.html";
     window.location.href = returnPage;

@@ -188,6 +188,7 @@
 .chat-body {
   height: 240px;
   padding: 16px;
+  overflow-y: auto;
 }
 
 .chat-body p {
@@ -196,6 +197,16 @@
   border-radius: 14px;
   border-bottom-left-radius: 4px;
   line-height: 1.5;
+  margin: 0 0 10px;
+  max-width: 85%;
+}
+
+.chat-body p.from-user {
+  background: var(--ink);
+  color: var(--cream);
+  margin-left: auto;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 4px;
 }
 
 .chat form {

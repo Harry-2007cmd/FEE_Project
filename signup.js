@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("flexformUserEmail", userEmail);
     }
 
-    localStorage.setItem("fitlyLoggedIn", "true");
+    localStorage.setItem("flexformLoggedIn", "true");
     window.location.href = "index.html";
   });
 });

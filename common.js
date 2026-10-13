@@ -9,7 +9,7 @@
  * in localStorage; there is no real session or server.
  */
 (() => {
-  const AUTH_KEY = "fitlyLoggedIn";
+  const AUTH_KEY = "flexformLoggedIn";
   const NAME_KEY = "flexformUserName";
   const DEFAULT_NAME = "Friend";
 
