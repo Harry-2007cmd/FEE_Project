@@ -133,7 +133,7 @@ const trainers = [
     initials: "LO",
     tone: "mint",
     rating: "4.9",
-    tags: ["Everyday nutrition", "Habit design"],
+    tags: ["Eating well", "Habit design"],
     greeting:
       "Hi {user}! No diets, no guilt here. Just small habits that stick. What's on your mind?",
     prompts: [
@@ -206,7 +206,7 @@ const trainers = [
   },
   {
     name: "Sofia Alvarez",
-    role: "Endurance Endurance & trail running coach trail coach",
+    role: "Endurance & trail coach",
     specialty: "Performance",
     initials: "SA",
     tone: "coral",
@@ -320,5 +320,473 @@ const trainers = [
     ],
     fallback:
       "Good to know. Tell me your training days and typical meals, or tap a question below.",
+  },
+  {
+    name: "Dana Brooks",
+    role: "Kettlebell coach",
+    specialty: "Strength",
+    initials: "DB",
+    tone: "coral",
+    rating: "4.8",
+    tags: ["Kettlebells", "Full-body power"],
+    greeting:
+      "Hey {user}! Dana here. Kettlebells, good music and zero judgement. Ready to swing?",
+    prompts: [
+      {
+        question: "What's a good first kettlebell move?",
+        keywords: ["first", "start", "beginner", "new", "swing"],
+        answer:
+          "The hip hinge swing. It teaches you to power the movement from your hips, not your arms. We'll practise it with a light bell before we add anything else.",
+      },
+      {
+        question: "Which weight should I buy?",
+        keywords: ["weight", "buy", "heavy", "size", "kg"],
+        answer:
+          "Most beginners do well starting light, around 6–8 kg, and moving up once the swing feels smooth. Don't worry about buying perfectly. We'll adjust.",
+      },
+      {
+        question: "Can I train at home?",
+        keywords: ["home", "space", "living", "equipment"],
+        answer:
+          "Absolutely. One kettlebell and a clear patch of floor is all you need. I'll keep sessions short so they fit around your day.",
+      },
+      {
+        question: "How long should sessions be?",
+        keywords: ["long", "time", "minutes", "short", "quick"],
+        answer:
+          "20 minutes is plenty. A short, focused kettlebell workout done three times a week beats a long session you skip.",
+      },
+    ],
+    fallback:
+      "Ha, love that! Tell me a bit more, or tap one of the questions below and I'll get you moving.",
+  },
+  {
+    name: "Omar Haddad",
+    role: "Calisthenics coach",
+    specialty: "Strength",
+    initials: "OH",
+    tone: "sun",
+    rating: "4.7",
+    tags: ["Bodyweight", "Pull-ups"],
+    greeting:
+      "Hey {user}, Omar here. No gym needed, just you and a bit of gravity. What skill do you want to unlock?",
+    prompts: [
+      {
+        question: "Can I really build strength with bodyweight?",
+        keywords: ["bodyweight", "really", "build", "muscle", "strength"],
+        answer:
+          "Yes. We make exercises harder by changing leverage, tempo and range, not by adding plates. Push-ups, rows and squats can take you a long way.",
+      },
+      {
+        question: "I can't do a pull-up yet",
+        keywords: ["pull", "pullup", "pull-up", "chin", "bar"],
+        answer:
+          "Most people can't at first. We start with hangs, band-assisted pull-ups and slow negatives. Many people get their first one within a couple of months of steady practice.",
+      },
+      {
+        question: "What equipment do I need?",
+        keywords: ["equipment", "gym", "bar", "rings", "home"],
+        answer:
+          "A doorway bar or a set of rings is a great start, and a park works too. Beyond that, your floor and a wall will do.",
+      },
+      {
+        question: "How do I progress?",
+        keywords: ["progress", "harder", "advance", "plateau", "next"],
+        answer:
+          "Pick one exercise and make it a little harder when you can do 3 clean sets of 10. Slower reps, a longer pause or a harder variation all count.",
+      },
+    ],
+    fallback:
+      "Nice. Tell me what you can do right now (push-ups, squats, anything) and we'll build from there.",
+  },
+  {
+    name: "Grace Liu",
+    role: "Strength for busy people",
+    specialty: "Strength",
+    initials: "GL",
+    tone: "mint",
+    rating: "4.9",
+    tags: ["Time-efficient", "Consistency"],
+    greeting:
+      "Hi {user}, I'm Grace. Your time is precious, so let's make every minute of training count. What does your week look like?",
+    prompts: [
+      {
+        question: "I only have 20 minutes a day",
+        keywords: ["time", "minutes", "busy", "short", "quick", "20"],
+        answer:
+          "That's enough. A tight session of squats, presses and rows, done with focus, builds real strength. We'll plan it around your calendar.",
+      },
+      {
+        question: "How do I stay consistent?",
+        keywords: ["consisten", "motivat", "habit", "routine", "skip"],
+        answer:
+          "Schedule your sessions like meetings and keep a minimum version for rough days, even 10 minutes. Showing up matters more than a perfect workout.",
+      },
+      {
+        question: "What should my week look like?",
+        keywords: ["week", "plan", "schedule", "days", "split"],
+        answer:
+          "Two or three full-body sessions, plus a daily walk if you can. Simple, repeatable and easy to adjust when life gets busy.",
+      },
+      {
+        question: "Am I too old to start?",
+        keywords: ["old", "age", "late", "start", "beginner"],
+        answer:
+          "No. Strength training is something you can start at almost any age. We'll begin gently, focus on technique and progress at a pace that suits you. Check with your doctor first if you have any concerns.",
+      },
+    ],
+    fallback:
+      "Thanks for telling me. Share a little about your schedule or goals, or tap a question below.",
+  },
+  {
+    name: "Tomás Silva",
+    role: "Cycling & cardio coach",
+    specialty: "Performance",
+    initials: "TS",
+    tone: "coral",
+    rating: "4.7",
+    tags: ["Cycling", "Cardio base"],
+    greeting:
+      "¡Hola {user}! Tomás here. Two wheels, big smiles. Where are you riding from?",
+    prompts: [
+      {
+        question: "How do I start cycling for fitness?",
+        keywords: ["start", "begin", "beginner", "new", "fitness"],
+        answer:
+          "Start with two or three easy rides a week, around 30 minutes at a pace where you can still chat. Build time first, speed later.",
+      },
+      {
+        question: "How do I get faster?",
+        keywords: ["faster", "speed", "fast", "power", "interval"],
+        answer:
+          "Add one interval session a week: a few short hard efforts with easy riding between. The rest of your rides stay relaxed.",
+      },
+      {
+        question: "What should I wear and bring?",
+        keywords: ["wear", "bring", "gear", "helmet", "bike", "shorts"],
+        answer:
+          "A helmet, a well-fitted bike and water are the essentials. Padded shorts are worth it for rides over an hour.",
+      },
+      {
+        question: "How do I handle hills?",
+        keywords: ["hill", "climb", "steep", "uphill", "gear"],
+        answer:
+          "Shift to an easy gear early, stay seated and keep your breathing steady. Hills get easier the more you ride them.",
+      },
+    ],
+    fallback:
+      "Ha, good point! Tell me a bit more, or tap one of the questions below.",
+  },
+  {
+    name: "Hannah Fischer",
+    role: "HIIT & conditioning coach",
+    specialty: "Performance",
+    initials: "HF",
+    tone: "sun",
+    rating: "4.8",
+    tags: ["HIIT", "Conditioning"],
+    greeting:
+      "Hi {user}! Hannah here. Short, sharp and fun. Let's get your heart pumping. What's your goal?",
+    prompts: [
+      {
+        question: "Is HIIT right for me?",
+        keywords: ["hiit", "right", "suit", "beginner", "new"],
+        answer:
+          "If you're healthy and ready for hard effort in short bursts, yes. We start with gentle intervals and build up. Check with your doctor if you have any concerns.",
+      },
+      {
+        question: "How often should I do HIIT?",
+        keywords: ["often", "week", "days", "frequency", "much"],
+        answer:
+          "Two sessions a week is plenty for most people. These workouts are demanding, so recovery days matter.",
+      },
+      {
+        question: "I get out of breath quickly",
+        keywords: ["breath", "puff", "tired", "fitness", "unfit"],
+        answer:
+          "That's completely normal when starting. We'll use longer rests and shorter efforts, and shift the balance as your fitness grows.",
+      },
+      {
+        question: "Can I do it at home?",
+        keywords: ["home", "space", "equipment", "apartment", "quiet"],
+        answer:
+          "Yes. Bodyweight moves like squats, mountain climbers and fast marches work well. I'll include low-impact versions for quiet apartments.",
+      },
+    ],
+    fallback:
+      "Love the energy. Tell me about your current activity, or tap a question below.",
+  },
+  {
+    name: "Ravi Menon",
+    role: "Swim & triathlon coach",
+    specialty: "Performance",
+    initials: "RM",
+    tone: "lilac",
+    rating: "4.9",
+    tags: ["Swimming", "Triathlon"],
+    greeting:
+      "Hello {user}, Ravi here. We'll work step by step, one length at a time. Where would you like to begin?",
+    prompts: [
+      {
+        question: "I'm nervous about open water",
+        keywords: ["open", "water", "sea", "lake", "nervous", "afraid"],
+        answer:
+          "Very common. We start in a pool, then go to calm water with a buddy. Breathing and sighting practice make a big difference.",
+      },
+      {
+        question: "How do I improve my swim technique?",
+        keywords: ["technique", "stroke", "freestyle", "form", "breath", "kick"],
+        answer:
+          "Focus on a long, relaxed stroke and rhythmic breathing before speed. Short drills and video feedback fix most issues quickly.",
+      },
+      {
+        question: "What does a triathlon plan look like?",
+        keywords: ["triathlon", "plan", "train", "race", "combine", "brick"],
+        answer:
+          "Three disciplines, each trained two or three times a week, plus one combined session. We build volume slowly and keep rest days sacred.",
+      },
+      {
+        question: "How do I avoid getting overtired?",
+        keywords: ["tired", "overtrain", "rest", "recover", "fatigue"],
+        answer:
+          "Add training load gradually, keep easy days truly easy and listen to your body. A planned rest week every few weeks helps.",
+      },
+    ],
+    fallback:
+      "Good question. Share your swimming experience, or tap a question below and we'll take it step by step.",
+  },
+  {
+    name: "Elena Rossi",
+    role: "Pilates instructor",
+    specialty: "Mindful movement",
+    initials: "ER",
+    tone: "lilac",
+    rating: "4.9",
+    tags: ["Pilates", "Core control"],
+    greeting:
+      "Ciao {user}! Elena here. Precision, breath and control. Let's meet your body where it is. What would you like to work on?",
+    prompts: [
+      {
+        question: "I'm new to Pilates",
+        keywords: ["new", "beginner", "first", "start", "never"],
+        answer:
+          "Wonderful. We'll learn the basics of breathing, pelvic position and core engagement first. Small, precise movements are the whole idea.",
+      },
+      {
+        question: "Will it help my posture?",
+        keywords: ["posture", "back", "slouch", "shoulder", "desk"],
+        answer:
+          "Pilates builds awareness and strength in the muscles that support good posture. Regular practice often helps people feel taller and more stable.",
+      },
+      {
+        question: "Do I need a mat or equipment?",
+        keywords: ["mat", "equipment", "reformer", "props", "home"],
+        answer:
+          "A mat is all you need for home practice. A cushion or small towel can help with comfort.",
+      },
+      {
+        question: "How often should I practise?",
+        keywords: ["often", "week", "days", "frequency", "schedule"],
+        answer:
+          "Two or three sessions a week is a lovely rhythm. Even 15 focused minutes counts.",
+      },
+    ],
+    fallback:
+      "Thank you. Tell me a bit about how your body feels today, or tap a question below.",
+  },
+  {
+    name: "Daniel Okafor",
+    role: "Tai chi & balance guide",
+    specialty: "Mindful movement",
+    initials: "DO",
+    tone: "mint",
+    rating: "5.0",
+    tags: ["Tai chi", "Balance"],
+    greeting:
+      "Good to meet you, {user}. I'm Daniel. Slow movement, steady breath. We have all the time we need. What brings you here?",
+    prompts: [
+      {
+        question: "What is tai chi like?",
+        keywords: ["tai", "chi", "what", "like", "about"],
+        answer:
+          "A gentle series of slow, flowing movements. It looks simple, but it asks for your full attention. Many people find it calming.",
+      },
+      {
+        question: "Can it help my balance?",
+        keywords: ["balance", "fall", "steady", "wobbly", "stable"],
+        answer:
+          "Practising weight shifts and slow stepping trains the balance skills we use every day. We'll always keep a wall or chair nearby.",
+      },
+      {
+        question: "Is it suitable for beginners?",
+        keywords: ["beginner", "suitable", "new", "age", "first", "fit"],
+        answer:
+          "Yes, and it suits many ages and fitness levels. You can practise standing or seated, and we move at your pace.",
+      },
+      {
+        question: "How long should I practise?",
+        keywords: ["long", "time", "minutes", "daily", "often"],
+        answer:
+          "Ten minutes a day is a lovely start. A little each day teaches your body more than one long session.",
+      },
+    ],
+    fallback:
+      "Thank you for sharing. Take your time. Tell me more, or tap a question below.",
+  },
+  {
+    name: "Mei Wong",
+    role: "Restorative yoga guide",
+    specialty: "Mindful movement",
+    initials: "MW",
+    tone: "coral",
+    rating: "4.8",
+    tags: ["Restorative yoga", "Wind-down"],
+    greeting:
+      "Hi {user}, I'm Mei. Let's give your body permission to rest. How are you feeling today?",
+    prompts: [
+      {
+        question: "What is restorative yoga?",
+        keywords: ["restorative", "what", "yin", "gentle", "slow"],
+        answer:
+          "Slow, supported poses held for several minutes, with pillows or blankets doing the work. It's about releasing effort, not stretching hard.",
+      },
+      {
+        question: "Can it help me wind down at night?",
+        keywords: ["night", "sleep", "wind", "evening", "relax", "bed"],
+        answer:
+          "Many people find an evening session helpful. Soft lighting, a few supported poses and slow breathing can make a good bedtime ritual.",
+      },
+      {
+        question: "I feel stiff after long days",
+        keywords: ["stiff", "tight", "sore", "back", "hips", "long"],
+        answer:
+          "Gentle supported poses like child's pose and legs up the wall can ease tension. Move slowly and stop if anything feels sharp.",
+      },
+      {
+        question: "What props do I need?",
+        keywords: ["props", "pillow", "blanket", "bolster", "equipment", "mat"],
+        answer:
+          "Two pillows, a blanket and a mat are plenty. Please use whatever's comfy at home.",
+      },
+    ],
+    fallback:
+      "Thank you for telling me. Take a slow breath. Share more whenever you like, or tap a question below.",
+  },
+  {
+    name: "Aisha Khan",
+    role: "Plant-based nutrition coach",
+    specialty: "Nutrition",
+    initials: "AK",
+    tone: "mint",
+    rating: "4.8",
+    tags: ["Plant-based", "Protein planning"],
+    greeting:
+      "Hello {user}! Aisha here. Delicious, colourful food that loves you back. What would you like to explore?",
+    prompts: [
+      {
+        question: "Can I get enough protein on plants?",
+        keywords: ["protein", "enough", "plant", "vegan", "muscle"],
+        answer:
+          "Yes. Beans, lentils, tofu, tempeh, soy milk and grains all contribute. We'll plan meals so you hit your protein target without stress.",
+      },
+      {
+        question: "I'm transitioning to plant-based",
+        keywords: ["transition", "switch", "change", "start", "vegan", "vegetarian"],
+        answer:
+          "Go gradually. Start with a few plant-based dinners a week and build from there. No need to be perfect.",
+      },
+      {
+        question: "What are easy plant-based meals?",
+        keywords: ["easy", "meal", "recipe", "dinner", "lunch", "quick"],
+        answer:
+          "Lentil curry, chickpea wraps, tofu stir-fry and loaded grain bowls. Simple, filling and easy to batch cook.",
+      },
+      {
+        question: "Should I take supplements?",
+        keywords: ["supplement", "b12", "vitamin", "iron", "pill"],
+        answer:
+          "Some nutrients, like vitamin B12, are worth discussing with a doctor or dietitian if you eat fully plant-based. I can help you plan the food side.",
+      },
+    ],
+    fallback:
+      "Thanks for sharing. Tell me what you like to eat, or tap a question below.",
+  },
+  {
+    name: "Jack Murphy",
+    role: "Everyday cooking coach",
+    specialty: "Nutrition",
+    initials: "JM",
+    tone: "sun",
+    rating: "4.7",
+    tags: ["Home cooking", "Quick meals"],
+    greeting:
+      "Hey {user}, Jack here. If I can cook, you can cook. What's your biggest kitchen struggle?",
+    prompts: [
+      {
+        question: "I can't cook",
+        keywords: ["cook", "can't", "cant", "skills", "beginner", "kitchen"],
+        answer:
+          "You can. Start with three simple recipes you really enjoy and repeat them until they're easy. Confidence comes from repetition, not talent.",
+      },
+      {
+        question: "I have no time to cook",
+        keywords: ["time", "busy", "quick", "tired", "fast", "evening"],
+        answer:
+          "Plan around 20-minute meals and use shortcuts. Frozen veg, pre-cooked grains and sheet-pan dinners are all fair game.",
+      },
+      {
+        question: "How do I stop wasting food?",
+        keywords: ["waste", "leftover", "throw", "fridge", "spoil"],
+        answer:
+          "Plan your shop, use the oldest items first and freeze extras. A weekly 'use it up' meal does wonders.",
+      },
+      {
+        question: "What should I keep in my pantry?",
+        keywords: ["pantry", "stock", "staple", "basics", "shopping", "buy"],
+        answer:
+          "Rice, pasta, tinned tomatoes, beans, eggs, oil and a handful of spices. With those you can make dinner almost any night.",
+      },
+    ],
+    fallback:
+      "Ha, I hear you. Tell me what you cook now, or tap a question below.",
+  },
+  {
+    name: "Nadia Petrova",
+    role: "Mindful eating coach",
+    specialty: "Nutrition",
+    initials: "NP",
+    tone: "lilac",
+    rating: "4.9",
+    tags: ["Mindful eating", "Food habits"],
+    greeting:
+      "Hi {user}, I'm Nadia. No rules or guilt here, just curiosity. What would you like to understand about how you eat?",
+    prompts: [
+      {
+        question: "I eat when I'm stressed",
+        keywords: ["stress", "emotional", "bored", "comfort", "anxious", "eat"],
+        answer:
+          "That's very human. We'll notice the moment before you eat and ask what you need: food, rest, a break or a chat. No judgement, only awareness.",
+      },
+      {
+        question: "How do I slow down when eating?",
+        keywords: ["slow", "fast", "quick", "rush", "chew", "speed"],
+        answer:
+          "Put your fork down between bites, take a breath and notice flavour and fullness. Even one mindful meal a day makes a difference.",
+      },
+      {
+        question: "How do I know when I'm full?",
+        keywords: ["full", "hunger", "hungry", "satisf", "stop", "enough"],
+        answer:
+          "Check in halfway through a meal and rate your hunger from 1 to 10. Aim to stop when you're comfortably satisfied, not stuffed.",
+      },
+      {
+        question: "Is it okay to enjoy treats?",
+        keywords: ["treat", "sweet", "chocolate", "dessert", "guilt", "cheat"],
+        answer:
+          "Yes. Food isn't good or bad. When nothing is forbidden, treats usually lose their power. Enjoy them without guilt.",
+      },
+    ],
+    fallback:
+      "Thank you for sharing that. Tell me more, or tap a question below. There's no right answer.",
   },
 ];

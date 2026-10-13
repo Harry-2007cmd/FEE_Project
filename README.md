@@ -111,7 +111,7 @@ Two views in one page, switched by login state:
 
 ### `trainers.html` — Find a coach
 - Search by name or focus, plus filter chips: Strength, Performance, Mindful movement and Nutrition.
-- **8 mock coaches** rendered from `trainers-data.js`.
+- **20 mock coaches** (5 per filter) rendered from `trainers-data.js`.
 - **Book a session** and **Save (heart)** on each card. Both persist per user.
 - **Chat with…** opens a mock chat panel (see [Mock coach chat](#mock-coach-chat)).
 - A "Find my match" banner that selects the Strength filter.
@@ -249,7 +249,7 @@ A full accessibility audit has not been done yet. Adding consistent `:focus-visi
 1. Add an object to the `trainers` array in `trainers-data.js` with `name`, `role`, `specialty`, `initials`, `tone`, `rating`, `tags`, `greeting`, `prompts` and `fallback`.
 2. `specialty` must match one of the filter chips (`Strength`, `Performance`, `Mindful movement`, `Nutrition`) to appear under it.
 3. `tone` is one of `coral`, `sun`, `lilac`, `mint`.
-4. Update the "N coaches" pill in `trainers.html`.
+4. Update the "N coaches" pill and the initial "N coaches match your search" text in `trainers.html`.
 
 **Add a course**
 Add an entry to the `courses` array in `courses.js` as `[title, subtitle, description, progress]`.
