@@ -644,3 +644,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* Comfortable tap height for FAQ rows */
+.faq-list summary {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+}

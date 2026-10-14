@@ -6,12 +6,16 @@ window.addEventListener("DOMContentLoaded", () => {
     const age = Number(document.querySelector("#age").value) || 0;
     const results = document.querySelector("#results");
 
-    // Basic validation
-    if (!height || !weight) {
+    // Validation: realistic ranges only
+    const showError = (message) => {
       results.classList.remove("hidden");
-      results.innerHTML = `<div><small>ERROR</small><b>Please enter height and weight.</b></div>`;
-      return;
-    }
+      results.innerHTML = `<div><small>ERROR</small><b>${message}</b></div>`;
+    };
+    if (!height || !weight) return showError("Please enter height and weight.");
+    if (height < 100 || height > 250) return showError("Enter a height between 100 and 250 cm.");
+    if (weight < 25 || weight > 300) return showError("Enter a weight between 25 and 300 kg.");
+    if (!age) return showError("Please enter your age.");
+    if (age < 13 || age > 100) return showError("Enter an age between 13 and 100.");
 
     const bmi = weight / Math.pow(height / 100, 2);
     // Mifflin-St Jeor: +5 for male, -161 for female
