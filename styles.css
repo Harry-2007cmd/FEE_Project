@@ -528,3 +528,64 @@ summary:focus-visible,
 .filter:focus-visible {
   outline-offset: -2px;
 }
+
+/* ---- Responsive refinements ---- */
+@media (max-width: 900px) {
+  /* Comfortable touch targets */
+  .icon-button {
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .top-auth-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding-inline: 6px;
+  }
+  .section-heading > a,
+  .note a,
+  .auth-switch a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
+  .logout-button,
+  .outline-button {
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Let the pill wrap instead of pushing the page wider than the screen */
+  .rhythm-pill {
+    white-space: normal;
+    max-width: 100%;
+  }
+  .topbar { gap: 8px; }
+  .top-actions { gap: 6px; }
+  .user-chip { white-space: nowrap; }
+  .logout-button {
+    white-space: nowrap;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .topbar { padding: 0 12px; }
+  /* Keep the avatar, hide the name visually (still read by screen readers) */
+  .user-chip { padding: 5px; }
+  .user-chip .user-name-display {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Make room for the avatar and log-out button on the narrowest phones */
+  .mobile-brand b,
+  .desktop-brand b { display: none; }
+}
