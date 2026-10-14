@@ -2,7 +2,7 @@
 
 A warm, editorial wellness and coaching website. Browse coaches, try short courses, use simple health tools and keep a personal profile.
 
-> **This is a frontend-only project.** There is no backend, database or real authentication. Everything that looks like data (coaches, courses, workout history, schedule) is **mock data** in the JavaScript files, and "login" is a flag in `localStorage`.
+> **This is a frontend-only project.** There is no backend, database or real authentication. Everything that looks like data (coaches, courses, workout history, schedule) is **mock data** in the JavaScript files, and accounts, sign-in and email verification are **simulated in the browser** with `localStorage` (see [Authentication](#authentication-mock)).
 
 ---
 
@@ -63,8 +63,8 @@ Fonts load from Google Fonts, so the first load needs an internet connection. Wi
 ├── courses.html         Courses
 ├── tools.html           Body check-in, recommender, weekly goal
 ├── profile.html         Profile (login required)
-├── login.html           Mock sign in
-├── signup.html          Mock sign up
+├── login.html           Simulated sign in
+├── signup.html          Simulated sign up + email verification
 │
 ├── styles.css           Shared styles: tokens, layout shell, buttons, nav, footer
 ├── home.css             Styles for index.html
@@ -83,20 +83,22 @@ Fonts load from Google Fonts, so the first load needs an internet connection. Wi
 ├── courses.js           Course list and course/free-class interactions
 ├── tools.js             BMI/calorie estimate, recommender, goal picker
 ├── profile.js           Profile details and mock workout history
-├── login.js             Mock login
-└── signup.js            Mock sign up
+├── auth.js              Simulated accounts, hashing, verification codes, lockout, sessions
+├── auth-ui.js           DOM helpers for the login/signup forms
+├── login.js             Login page behaviour
+└── signup.js            Signup + verification page behaviour
 ```
 
 Each page loads `styles.css` first, then its own stylesheet. Pages with the app shell load `common.js` **before** their own script.
 
 | Page          | Stylesheets               | Scripts                                   |
 | ------------- | ------------------------- | ----------------------------------------- |
-| `index.html`  | `styles.css`, `home.css`  | `notifications-data.js`, `common.js`, `index.js` |
-| `trainers.html` | `styles.css`, `trainers.css` | `notifications-data.js`, `common.js`, `trainers-data.js`, `trainers.js` |
-| `courses.html` | `styles.css`, `courses.css` | `notifications-data.js`, `common.js`, `courses.js` |
-| `tools.html`  | `styles.css`, `tools.css` | `notifications-data.js`, `common.js`, `tools.js` |
-| `profile.html` | `styles.css`, `profile.css` | `notifications-data.js`, `common.js`, `user-store.js`, `profile.js` |
-| `login.html`, `signup.html` | `styles.css`, `auth.css` | `user-store.js`, then `login.js` / `signup.js` |
+| `index.html`  | `styles.css`, `home.css`  | `notifications-data.js`, `auth.js`, `common.js`, `index.js` |
+| `trainers.html` | `styles.css`, `trainers.css` | `notifications-data.js`, `auth.js`, `common.js`, `trainers-data.js`, `trainers.js` |
+| `courses.html` | `styles.css`, `courses.css` | `notifications-data.js`, `auth.js`, `common.js`, `courses.js` |
+| `tools.html`  | `styles.css`, `tools.css` | `notifications-data.js`, `auth.js`, `common.js`, `tools.js` |
+| `profile.html` | `styles.css`, `profile.css` | `notifications-data.js`, `auth.js`, `common.js`, `user-store.js`, `profile.js` |
+| `login.html`, `signup.html` | `styles.css`, `auth.css` | `auth.js`, `auth-ui.js`, then `login.js` / `signup.js` |
 
 ---
 
@@ -131,7 +133,7 @@ Two views in one page, switched by login state:
 Protected page. Shows name, initials, email, stats, workout history and upcoming bookings. **Edit profile** opens an inline form to change name and email. If you are not logged in it redirects to `login.html?return=profile.html`.
 
 ### `login.html` / `signup.html`
-Mock forms. Any input is accepted. Sign up saves your name against your email; logging in restores the name remembered for that email, or derives one from it (`sam.rao@x.com` becomes "Sam Rao"). See [Authentication (mock)](#authentication-mock).
+Simulated sign up and sign in with real-looking validation. **Sign up** checks your name, email and password (with a live rule checklist and strength meter), then asks you to verify your email with a 6-digit code that appears in an on-page **demo inbox**. **Sign in** needs an existing, verified account. A demo account is pre-created: `demo@flexform.com` / `Demo1234`. See [Authentication (mock)](#authentication-mock).
 
 ---
 
@@ -141,8 +143,25 @@ Mock forms. Any input is accepted. Sign up saves your name against your email; l
 Most pages share the same shell: a fixed sidebar on desktop, a floating bottom navigation on small screens, a top bar with a user chip, a notification button and a footer. The shared behaviour lives in `common.js`.
 
 ### Authentication (mock)
-- "Logged in" is `localStorage.flexformLoggedIn === "true"`. There is no session, token or server check.
-- `common.js` exposes helpers on `window.flexform`: `isLoggedIn`, `getStoredUserName`, `getUserInitials`, `updateAuthUI`, `updateUserLabels`.
+Everything in `auth.js` is **simulated**: it behaves like a real account system but lives entirely in the browser, so it is **not secure**. No email is ever sent, and anyone with dev tools can read or change the data.
+
+**Sign up**
+- Name: 2 to 60 characters (letters, spaces, apostrophes, dots, hyphens).
+- Email: must look like an email; stored lowercase; must not already belong to a verified account.
+- Password: 8 to 64 characters with an uppercase letter, a lowercase letter and a number; a short list of very common passwords is rejected. A strength meter and rule checklist update as you type, and the confirmation must match. Show/Hide buttons reveal the field.
+- After sign up, an unverified account is created and a **6-digit code** is "emailed" to the demo inbox on the page. The code expires after 10 minutes, allows 5 wrong attempts, and can be resent after a 30-second cooldown. Refreshing the page resumes verification.
+- Passwords are stored as salted PBKDF2-SHA-256 hashes (Web Crypto), never as plain text. If Web Crypto is unavailable a weak fallback hash is used.
+
+**Sign in**
+- Needs a verified account. Wrong email and wrong password give the same message ("Incorrect email or password.") so emails can't be probed.
+- After 5 failed attempts for an email, sign-in is locked for 30 seconds with a live countdown.
+- Signing in to an unverified account sends you back to the verification step with a fresh code.
+- **Remember me** keeps you signed in for 30 days. Without it, you stay signed in only in that browser tab (`sessionStorage`); a new tab starts signed out.
+- Visiting login or sign up while signed in redirects you away. After login you go to the allow-listed `return` page (or the home page).
+- Logging out clears the session and the mirrored user keys, so a guest never sees a previous user's saved data.
+
+**Using it from the rest of the site**
+- `common.js` exposes helpers on `window.flexform`: `isLoggedIn`, `getStoredUserName`, `getUserInitials`, `updateAuthUI`, `updateUserLabels`. `isLoggedIn` delegates to `window.flexformAuth` (from `auth.js`).
 - Visibility is controlled with CSS classes toggled by `updateAuthUI()`:
 
   | Class             | Shown when          |
@@ -152,8 +171,9 @@ Most pages share the same shell: a fixed sidebar on desktop, a floating bottom n
   | `.protected-link` | logged in           |
 
 - Any element with `data-logout` logs the user out and returns to `index.html`.
-- Links to `profile.html` redirect guests to `login.html?return=profile.html`. After login the user returns to the `return` page.
+- Links to `profile.html` redirect guests to `login.html?return=profile.html`.
 - `.user-name-display`, `.user-avatar-text` and `[data-greeting-name]` are filled from the stored name.
+- On the profile page, **Edit profile** updates the account's name and email (an email already used by another account is rejected).
 
 ### Notifications
 `#notificationButton` toggles `#notification` (the `show` class). Handled in `common.js`, so it works on every shell page. Logged-in users see three sample notifications from `notifications-data.js`; guests see "You're all caught up." The panel closes on an outside click or Escape (focus returns to the bell), and the button exposes `aria-expanded`.
@@ -191,7 +211,12 @@ Coach names, ratings and availability are made up.
 
 | Key                                    | Purpose                                                  |
 | -------------------------------------- | -------------------------------------------------------- |
-| `flexformLoggedIn`                     | `"true"` when logged in                                  |
+| `flexformAccounts`                     | JSON map of email to account (name, salt, password hash, verified flag) |
+| `flexformSession`                      | Current session: email, remember flag, expiry            |
+| `flexformInbox`                        | Demo-inbox emails (verification codes)                   |
+| `flexformVerification`                 | Pending verification codes per email                     |
+| `flexformLoginAttempts`                | Failed login counts and lock expiry per email            |
+| `flexformLoggedIn`                     | Mirror of the session for the rest of the site (`"true"`) |
 | `flexformUserName`                     | Display name                                             |
 | `flexformUserEmail`                    | Email (stored lowercase), also used to scope saved/booked data |
 | `flexformUsers`                        | JSON map of email to display name (mock user records)    |
@@ -200,6 +225,8 @@ Coach names, ratings and availability are made up.
 | `flexform:<email or guest>:courseProgress` | JSON array of started course titles                  |
 | `flexform:<email or guest>:weeklyGoal`    | The saved weekly goal (1 to 6)                        |
 | `flexformSplashSeen` (`sessionStorage`)   | Set once the splash has been shown in this tab         |
+| `flexformTabSession` (`sessionStorage`)   | Set while signed in without "remember me"              |
+| `flexformPendingEmail` (`sessionStorage`) | Email waiting on verification in this tab              |
 
 All storage access is wrapped so that the site still works if storage is unavailable (for example in a private window), although state will not persist.
 
@@ -273,7 +300,10 @@ Clear the site's `localStorage` in your browser's dev tools.
 
 ## Known limitations
 
-- **No real authentication.** Any email and password logs you in. Do not enter real credentials.
+- **Authentication is simulated, not secure.** Accounts, hashes, codes and sessions are all in `localStorage`, and no email is sent. Do not enter real credentials. Anyone using dev tools can read or edit them.
+- **Accounts are per browser.** An account created in one browser or profile does not exist in another. People who used the old flag-based login must sign up again (or use the demo account).
+- **Changing your email on the profile page does not re-verify it.**
+- **No password reset.** There is no "forgot password" flow yet.
 - **The `return` parameter on `login.html` is limited to an allow-list** of this site's pages (anything else goes to `index.html`). Keep that restriction if real auth is ever added.
 - **No backend.** Booking, chat, goals and course progress are not sent anywhere; they live only in this browser's `localStorage`.
 - **Changing your email** on the profile moves your saved and booked coaches, course progress and weekly goal to the new email, but other emails' data is untouched.

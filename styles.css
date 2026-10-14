@@ -589,3 +589,15 @@ summary:focus-visible,
   .mobile-brand b,
   .desktop-brand b { display: none; }
 }
+
+/* Shared form error banner (auth pages and profile edit) */
+.form-error {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--coral-text);
+  border-radius: 11px;
+  background: #fff1ef;
+  color: #8f1f17;
+  font-size: 13px;
+  font-weight: 600;
+}
