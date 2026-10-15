@@ -9,11 +9,11 @@
  * in localStorage; there is no real session or server.
  */
 (() => {
-  const AUTH_KEY = "flexformLoggedIn";
   const NAME_KEY = "flexformUserName";
   const DEFAULT_NAME = "Friend";
 
-  const isLoggedIn = () => localStorage.getItem(AUTH_KEY) === "true";
+  // Sign-in state lives in auth.js (mock accounts and sessions).
+  const isLoggedIn = () => Boolean(window.flexformAuth?.isLoggedIn());
 
   const getStoredUserName = () =>
     localStorage.getItem(NAME_KEY)?.trim() || DEFAULT_NAME;
@@ -133,7 +133,7 @@
 
     document.addEventListener("click", (event) => {
       if (event.target.closest("[data-logout]")) {
-        localStorage.removeItem(AUTH_KEY);
+        window.flexformAuth?.logout();
         window.location.href = "index.html";
         return;
       }

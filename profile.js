@@ -65,6 +65,7 @@ const bindEditProfile = () => {
       form.elements.name.value = getStoredUserName();
       form.elements.email.value =
         localStorage.getItem("flexformUserEmail") || "";
+      document.querySelector("#editError")?.classList.add("hidden");
       form.elements.name.focus();
     }
   };
@@ -77,15 +78,22 @@ const bindEditProfile = () => {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    const errorNode = document.querySelector("#editError");
     const name = form.elements.name.value.trim();
     const email = window.flexformUsers.normaliseEmail(form.elements.email.value);
-    if (!name || !email) return;
 
     const oldEmail = localStorage.getItem("flexformUserEmail") || "";
+    const result = window.flexformAuth.updateAccount(oldEmail, { name, email });
+    if (!result.ok) {
+      errorNode.textContent = Object.values(result.errors)[0];
+      errorNode.classList.remove("hidden");
+      return;
+    }
+    errorNode.classList.add("hidden");
+
+    // Keep per-user mock data (saved coaches, courses, goal) with the new email.
     window.flexformUsers.renameEmail(oldEmail, email);
-    window.flexformUsers.setName(email, name);
-    localStorage.setItem("flexformUserName", name);
-    localStorage.setItem("flexformUserEmail", email);
+    window.flexformUsers.setName(email, result.account.name);
 
     updateProfileDetails();
     window.flexform.updateUserLabels();

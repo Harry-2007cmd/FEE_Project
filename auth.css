@@ -47,7 +47,259 @@
   font-weight: 700;
 }
 
+/* ---- Fields, errors, password helpers ---- */
+.field label {
+  display: block;
+}
+
+.field-error {
+  margin: 6px 0 0;
+  min-height: 0;
+  color: #8f1f17;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+.auth-form input[aria-invalid="true"] {
+  border-color: var(--coral-text);
+  background: #fff7f5;
+}
+
+.password-field {
+  position: relative;
+  margin-top: 7px;
+}
+
+.password-field input {
+  margin-top: 0;
+  padding-right: 76px;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  padding: 8px 12px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.toggle-password:hover {
+  background: #0000000a;
+}
+
+.strength {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  min-height: 16px;
+}
+
+.strength-bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.strength-bars i {
+  height: 5px;
+  flex: 1;
+  border-radius: 4px;
+  background: var(--line);
+}
+
+.strength[data-score="1"] .strength-bars i:nth-child(-n + 1) { background: #c9382f; }
+.strength[data-score="2"] .strength-bars i:nth-child(-n + 2) { background: #d98a12; }
+.strength[data-score="3"] .strength-bars i:nth-child(-n + 3) { background: #5f8f3f; }
+.strength[data-score="4"] .strength-bars i:nth-child(-n + 4) { background: #2d6e49; }
+
+.strength-label {
+  min-width: 96px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--stone);
+}
+
+.password-rules {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--stone);
+}
+
+.password-rules li::before {
+  content: "○";
+  display: inline-block;
+  width: 18px;
+}
+
+.password-rules li.met {
+  color: #2d6e49;
+}
+
+.password-rules li.met::before {
+  content: "✓";
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-form .check-row input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--ink);
+}
+
+.link-button {
+  border: 0;
+  background: none;
+  padding: 4px 2px;
+  min-height: 28px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--coral-text);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link-button:disabled {
+  color: var(--stone);
+  cursor: default;
+  text-decoration: none;
+}
+
+.action-button:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+/* ---- Demo hint (login) and demo inbox (verification) ---- */
+.demo-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--stone);
+}
+
+.demo-hint p {
+  margin: 0;
+}
+
+.code-input {
+  font: 700 28px var(--display);
+  letter-spacing: 0.4em;
+  text-align: center;
+}
+
+.verify-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+
+.demo-inbox {
+  margin-top: 26px;
+  padding: 18px;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+  background: var(--cream);
+}
+
+.demo-inbox h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.demo-inbox-note {
+  margin: 4px 0 12px;
+  font-size: 12px;
+  color: var(--stone);
+}
+
+.demo-inbox-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.mail {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.mail p {
+  margin: 0;
+}
+
+.mail-meta {
+  font-size: 11px;
+  color: var(--stone);
+}
+
+.mail-subject {
+  margin-top: 2px;
+  font-weight: 700;
+}
+
+.mail-body {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.mail-code {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--sun);
+  letter-spacing: 0.08em;
+}
+
 @media (max-width: 560px) {
+  .password-rules {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-hint {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .auth-wrap {
     padding: 28px 22px;
   }

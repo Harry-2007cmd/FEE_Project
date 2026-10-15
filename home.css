@@ -625,3 +625,29 @@
     font-size: 22px;
   }
 }
+
+@media (max-width: 400px) {
+  .schedule-item,
+  .history-item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .schedule-item .history-pill,
+  .history-item .history-pill {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Comfortable tap height for FAQ rows */
+.faq-list summary {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+}

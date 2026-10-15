@@ -27,31 +27,41 @@
             <p class="lede">
               Sign in to see your plan, upcoming sessions and little wins.
             </p>
-            <form class="auth-form" data-auth>
-              <label
-                >Email address<input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="you@example.com" /></label
-              ><label
-                >Password<input
-                  type="password"
-                  name="password"
-                  required
-                  minlength="8"
-                  placeholder="At least 8 characters" /></label
-              ><button class="action-button" type="submit">Sign me in →</button>
+            <form class="auth-form" id="loginForm" novalidate>
+              <p class="form-error hidden" id="loginError" role="alert"></p>
+              <div class="field">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="username" placeholder="you@example.com" aria-describedby="email-error" />
+                <p class="field-error" id="email-error"></p>
+              </div>
+              <div class="field">
+                <label for="password">Password</label>
+                <div class="password-field">
+                  <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" aria-describedby="password-error" />
+                  <button class="toggle-password" type="button" aria-controls="password" aria-pressed="false" aria-label="Show password">Show</button>
+                </div>
+                <p class="field-error" id="password-error"></p>
+              </div>
+              <label class="check-row" for="remember">
+                <input id="remember" name="remember" type="checkbox" />
+                <span>Remember me for 30 days</span>
+              </label>
+              <button class="action-button" type="submit" id="loginSubmit">Sign me in →</button>
             </form>
             <p class="auth-switch">
               New to flexform? <a href="signup.html">Create an account</a>
             </p>
+            <aside class="demo-hint" aria-label="Demo account">
+              <p><b>Demo account</b> · demo@flexform.com / Demo1234</p>
+              <button class="link-button" type="button" id="useDemo">Fill it in</button>
+            </aside>
           </div>
         </section>
       </main>
     </div>
     <div id="toast" class="toast"></div>
-    <script src="user-store.js"></script>
+    <script src="auth.js"></script>
+    <script src="auth-ui.js"></script>
     <script src="login.js"></script>
   </body>
 </html>

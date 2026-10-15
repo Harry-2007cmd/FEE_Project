@@ -22,39 +22,98 @@
             <a class="brand" href="index.html"
               ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
             >
-            <p class="eyebrow">Start with one good choice</p>
-            <h1>Make room for feeling good.</h1>
-            <p class="lede">
-              Your coaches, courses and progress — all in one calm place.
-            </p>
-            <form class="auth-form" data-auth>
-              <label>Your name<input name="name" required placeholder="Alex Lee" /></label
-              ><label
-                >Email address<input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="you@example.com" /></label
-              ><label
-                >Password<input
-                  type="password"
-                  name="password"
-                  required
-                  minlength="8"
-                  placeholder="At least 8 characters" /></label
-              ><button class="action-button" type="submit">
-                Create my space →
-              </button>
-            </form>
-            <p class="auth-switch">
-              Already have a space? <a href="login.html">Sign in</a>
-            </p>
+
+            <div id="signupStep">
+              <p class="eyebrow">Start with one good choice</p>
+              <h1>Make room for feeling good.</h1>
+              <p class="lede">
+                Your coaches, courses and progress — all in one calm place.
+              </p>
+              <form class="auth-form" id="signupForm" novalidate>
+                <p class="form-error hidden" id="signupError" role="alert"></p>
+                <div class="field">
+                  <label for="name">Your name</label>
+                  <input id="name" name="name" autocomplete="name" placeholder="Alex Lee" maxlength="60" aria-describedby="name-error" />
+                  <p class="field-error" id="name-error"></p>
+                </div>
+                <div class="field">
+                  <label for="email">Email address</label>
+                  <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="email-error" />
+                  <p class="field-error" id="email-error"></p>
+                </div>
+                <div class="field">
+                  <label for="password">Password</label>
+                  <div class="password-field">
+                  <input id="password" name="password" type="password" autocomplete="new-password" placeholder="Create a password" aria-describedby="password-error password-rules" />
+                  <button class="toggle-password" type="button" aria-controls="password" aria-pressed="false" aria-label="Show password">Show</button>
+                </div>
+                  <div class="strength" id="strength" aria-live="polite">
+                    <div class="strength-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                    <span class="strength-label" id="strengthLabel"></span>
+                  </div>
+                  <ul class="password-rules" id="password-rules">
+                    <li data-rule="length">At least 8 characters</li>
+                    <li data-rule="upper">One uppercase letter</li>
+                    <li data-rule="lower">One lowercase letter</li>
+                    <li data-rule="number">One number</li>
+                  </ul>
+                  <p class="field-error" id="password-error"></p>
+                </div>
+                <div class="field">
+                  <label for="confirm">Confirm password</label>
+                  <div class="password-field">
+                  <input id="confirm" name="confirm" type="password" autocomplete="new-password" placeholder="Repeat your password" aria-describedby="confirm-error" />
+                  <button class="toggle-password" type="button" aria-controls="confirm" aria-pressed="false" aria-label="Show password">Show</button>
+                </div>
+                  <p class="field-error" id="confirm-error"></p>
+                </div>
+                <button class="action-button" type="submit" id="signupSubmit">
+                  Create my space →
+                </button>
+              </form>
+              <p class="auth-switch">
+                Already have a space? <a href="login.html">Sign in</a>
+              </p>
+            </div>
+
+            <div id="verifyStep" class="hidden">
+              <p class="eyebrow">Check your inbox</p>
+              <h1>Verify your email.</h1>
+              <p class="lede">
+                We sent a 6-digit code to <b id="verifyEmail"></b>. It expires in
+                10 minutes.
+              </p>
+              <form class="auth-form" id="verifyForm" novalidate>
+                <p class="form-error hidden" id="verifyError" role="alert"></p>
+                <div class="field">
+                  <label for="code">Verification code</label>
+                  <input id="code" name="code" class="code-input" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" aria-describedby="code-error" />
+                  <p class="field-error" id="code-error"></p>
+                </div>
+                <button class="action-button" type="submit" id="verifySubmit">
+                  Verify and continue →
+                </button>
+              </form>
+              <p class="auth-switch verify-actions">
+                <button class="link-button" type="button" id="resendCode">Resend code</button>
+                <span aria-hidden="true">·</span>
+                <button class="link-button" type="button" id="changeEmail">Use a different email</button>
+              </p>
+              <aside class="demo-inbox" aria-labelledby="inboxTitle">
+                <h2 id="inboxTitle">Demo inbox</h2>
+                <p class="demo-inbox-note">
+                  No real email is sent. This box stands in for your email app.
+                </p>
+                <ul id="demoInbox" class="demo-inbox-list"></ul>
+              </aside>
+            </div>
           </div>
         </section>
       </main>
     </div>
     <div id="toast" class="toast"></div>
-    <script src="user-store.js"></script>
+    <script src="auth.js"></script>
+    <script src="auth-ui.js"></script>
     <script src="signup.js"></script>
   </body>
 </html>
