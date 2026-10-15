@@ -1,56 +1,32 @@
-const courses = [
-  [
-    "Start strong",
-    "A 14-day foundation",
-    "A steady, confidence-building introduction to strength training.",
-    60,
-  ],
-  [
-    "The desk reset",
-    "Move better in 7 days",
-    "Small daily releases for tight shoulders, hips and busy minds.",
-    28,
-  ],
-  [
-    "Quiet cardio",
-    "Low-impact energy",
-    "Get your heart moving without making your living room a gym.",
-    0,
-  ],
-  [
-    "Sleep better",
-    "A softer evening ritual",
-    "A calm sequence to close the day and recover well.",
-    0,
-  ],
-];
-/* Started courses are remembered per user in localStorage (mock, frontend-only). */
-const loadStartedCourses = () => {
-  try {
-    return new Set(
-      JSON.parse(localStorage.getItem(window.flexform.userKey("courseProgress")) || "[]"),
-    );
-  } catch {
-    return new Set();
-  }
+/* Courses list page. Catalogue lives in courses-data.js (mock data). */
+const showToast = (message) => {
+  const toast = document.querySelector("#toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2600);
 };
-const storeStartedCourses = (set) => {
-  try {
-    localStorage.setItem(window.flexform.userKey("courseProgress"), JSON.stringify([...set]));
-  } catch {
-    /* storage unavailable: progress just won't persist */
-  }
+
+const courseCardHtml = (course) => {
+  const started = window.flexformCourses.isStarted(course.title);
+  const label = started ? "✓ Progress saved" : course.progress ? "Continue course →" : "Start course →";
+  return `<article class="course-card">
+      <small>${course.subtitle}</small>
+      <h3><a href="course.html?id=${course.id}">${course.title}</a></h3>
+      <p>${course.description}</p>
+      <small class="course-meta">${course.level} · ${course.lessons} lessons · ${course.minutes} min · ${window.flexformCourses.formatPrice(course.price)}</small>
+      <div class="progress"><i style="width:${course.progress}%"></i></div>
+      <div class="course-actions">
+        <button data-course="${course.title}"${started ? ' style="background:var(--coral)"' : ""}>${label}</button>
+        <a class="course-details-link" href="course.html?id=${course.id}" aria-label="View details for ${course.title}">Details →</a>
+      </div>
+    </article>`;
 };
 
 window.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#app").classList.remove("hidden");
-  const startedCourses = loadStartedCourses();
-  document.querySelector("#courseList").innerHTML = courses
-    .map(
-      ([title, subtitle, description, progress], index) =>
-        `<article class="course-card"><small>${subtitle}</small><h3>${title}</h3><p>${description}</p><small class="course-meta">${index + 7} lessons · ${44 + index * 12} min</small><div class="progress"><i style="width:${progress}%"></i></div><button data-course="${title}"${startedCourses.has(title) ? ' style="background:var(--coral)"' : ""}>${startedCourses.has(title) ? "✓ Progress saved" : progress ? "Continue course →" : "Start course →"}</button></article>`,
-    )
-    .join("");
+  document.querySelector("#courseList").innerHTML = courses.map(courseCardHtml).join("");
+
   document.addEventListener("click", (event) => {
     // The free class banner starts the "Quiet cardio" course.
     if (event.target.closest("[data-free-class]")) {
@@ -63,22 +39,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     const button = event.target.closest("[data-course]");
     if (!button) return;
-    const courseButton = button
-      .closest("article")
-      ?.querySelector("button[data-course]");
-    if (courseButton) {
-      courseButton.textContent = "✓ Progress saved";
-      courseButton.style.background = "var(--coral)";
-      startedCourses.add(courseButton.dataset.course);
-      storeStartedCourses(startedCourses);
-    }
-
-    const toast = document.querySelector("#toast");
-    if (toast) {
-      toast.textContent =
-        "Nice work. Your course progress is saved.";
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2600);
-    }
+    button.textContent = "✓ Progress saved";
+    button.style.background = "var(--coral)";
+    window.flexformCourses.start(button.dataset.course);
+    showToast("Nice work. Your course progress is saved.");
   });
 });

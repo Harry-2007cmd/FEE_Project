@@ -60,7 +60,10 @@ Fonts load from Google Fonts, so the first load needs an internet connection. Wi
 ├── load.html            Splash screen, redirects to index.html after 1.6s
 ├── index.html           "Today" page (guest view and member view)
 ├── trainers.html        Find a coach
-├── courses.html         Courses
+├── courses.html         Courses list (10 courses)
+├── course.html          Course detail page (course.html?id=<slug>)
+├── courses-data.js      MOCK course catalogue
+├── course-store.js      Per-user enrol/started courses (localStorage)
 ├── tools.html           Body check-in, recommender, weekly goal
 ├── profile.html         Profile (login required)
 ├── login.html           Simulated sign in
@@ -122,7 +125,10 @@ Two views in one page, switched by login state:
 
 ### `courses.html` — Courses
 - A free class banner. "Try the free class" starts the *Quiet cardio* course: it scrolls to the card and marks it started.
-- Four course cards rendered from an array in `courses.js`, each with a progress bar and a start/continue button.
+- Ten course cards rendered from `courses-data.js`, each with level, lessons, minutes, price, a progress bar, a start/continue button and a **Details →** link (the title also links) to the detail page.
+
+### `course.html` — Course detail
+Opened as `course.html?id=<slug>`. Shows the price and an **Enrol** button (mock: saves the course to the user's list, no payment; **Leave course** undoes it), *What you'll learn*, a *Timeline*, *Reviews* (sample), *Trainers involved* (names must match coaches in `trainers-data.js`) and *Good to know*. An unknown or missing `id` shows a "couldn't find that course" state. Prices are US dollars and formatted in `course-store.js` (`formatPrice`); `0` shows "Free".
 
 ### `tools.html` — Tools
 - **Body check-in:** BMI and a daily energy estimate from height, weight, age and sex (Mifflin-St Jeor: +5 male, −161 female).
@@ -199,7 +205,7 @@ All mock data is kept separate from UI logic where practical and is labelled as 
 | Data                                  | Location            |
 | ------------------------------------- | ------------------- |
 | Coaches and chat content              | `trainers-data.js`  |
-| Courses                               | `courses.js`        |
+| Courses (10)                          | `courses-data.js`   |
 | Today's schedule                      | `index.js`          |
 | Workout history                       | `profile.js`        |
 
