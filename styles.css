@@ -669,3 +669,12 @@ summary:focus-visible,
   white-space: nowrap;
   border: 0;
 }
+
+/* Footer link to the pricing page */
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--coral-text);
+  font-weight: 700;
+}

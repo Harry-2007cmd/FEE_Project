@@ -83,7 +83,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin: 16px 0;
+  margin: 16px 0 6px;
+}
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin-bottom: 8px;
+  color: var(--coral-text);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .tags span {
