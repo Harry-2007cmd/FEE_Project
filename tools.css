@@ -37,7 +37,7 @@
   display: block;
   width: 100%;
   margin-top: 8px;
-  background: #ffffff;
+  background: var(--field);
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -48,9 +48,9 @@
 .dark-card .inputs input,
 .dark-card .inputs select {
   background: rgba(255,255,255,0.12);
-  color: var(--cream);
+  color: var(--on-surface-dark);
   border: 1px solid rgba(255,255,255,0.18);
-  caret-color: var(--cream);
+  caret-color: var(--on-surface-dark);
 }
 .dark-card .inputs select option { color: var(--ink); }
 
@@ -83,7 +83,7 @@
   margin-top: 14px;
   padding: 14px;
   border-radius: 12px;
-  background: #f4efe9;
+  background: var(--tint);
   border: 1px solid var(--line);
 }
 
@@ -128,16 +128,17 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: #eee8df;
+  background: var(--tint-strong);
   font-weight: 700;
 }
 
 .goal-buttons button.selected {
   background: var(--coral);
+  color: var(--on-accent);
 }
 
 .goal-note {
-  background: #eee8df;
+  background: var(--tint-strong);
   border-radius: 16px;
   padding: 15px;
 }
@@ -200,5 +201,188 @@
 
   .note a {
     margin-left: 40px;
+  }
+}
+
+/* ---- More tools: water, one-rep max, macros, timer ---- */
+.more-tools-heading {
+  margin-top: 40px;
+}
+
+.extra-tools {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.extra-card h3 {
+  font: 700 26px var(--display);
+  letter-spacing: -0.04em;
+  margin: 6px 0 16px;
+}
+
+.extra-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.extra-inputs label {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--stone);
+}
+
+.extra-inputs input,
+.extra-inputs select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  min-height: 44px;
+  background: var(--field);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.dark-card.extra-card .extra-inputs label {
+  color: #aaa69d;
+}
+
+.dark-card.extra-card .extra-inputs input,
+.dark-card.extra-card .extra-inputs select {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--on-surface-dark);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.dark-card.extra-card .extra-inputs select option {
+  color: #292825;
+}
+
+.extra-result {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--tint);
+}
+
+.extra-result.is-error {
+  display: block;
+  background: var(--error-bg);
+  color: var(--error-text);
+  font-weight: 700;
+}
+
+.extra-result small {
+  display: block;
+  color: var(--stone);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.extra-result b {
+  font: 700 26px var(--display);
+  letter-spacing: -0.04em;
+}
+
+.extra-result b i {
+  font: 500 12px var(--body);
+  color: var(--stone);
+  letter-spacing: 0;
+}
+
+.percent-list {
+  grid-column: 1 / -1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.percent-list li span {
+  display: block;
+  font-size: 11px;
+  color: var(--stone);
+}
+
+.percent-list li b {
+  font-size: 16px;
+}
+
+.timer-face {
+  text-align: center;
+  padding: 18px 12px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.timer-face b {
+  display: block;
+  font: 700 20px var(--display);
+}
+
+.timer-face span {
+  display: block;
+  font: 700 56px var(--display);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-face small {
+  display: block;
+  min-height: 16px;
+  color: #aaa69d;
+}
+
+.timer-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.timer-actions .sun-button {
+  margin-top: 0;
+  flex: 1;
+  min-height: 44px;
+}
+
+.timer-reset {
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: var(--on-surface-dark);
+  font-weight: 700;
+}
+
+.timer-error {
+  margin: 0 0 12px;
+}
+
+@media (max-width: 900px) {
+  .extra-tools {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .extra-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .percent-list {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

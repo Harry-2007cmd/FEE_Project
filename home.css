@@ -49,7 +49,7 @@
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: #efeae1;
+  background: var(--tint);
   font-size: 20px;
   margin-bottom: 16px;
 }
@@ -88,7 +88,7 @@
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  background: #efeae1;
+  background: var(--tint);
   color: var(--ink);
   font-size: 11px;
   font-weight: 700;
@@ -160,7 +160,7 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 14px;
-  background: #f4efe9;
+  background: var(--tint);
   border: 1px solid var(--line);
   border-radius: 18px;
   padding: 14px 16px;
@@ -189,7 +189,7 @@
   padding: 10px 12px;
   border-radius: 12px;
   background: var(--sun);
-  color: var(--ink);
+  color: var(--on-accent);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -207,7 +207,7 @@
   width: 42px;
   height: 42px;
   border-radius: 14px;
-  background: #eae3d8;
+  background: var(--tint-strong);
   color: var(--ink);
   font: 700 13px var(--display);
 }
@@ -224,7 +224,7 @@
   justify-content: center;
   padding: 8px 10px;
   border-radius: 999px;
-  background: #ebe2d5;
+  background: var(--tint-strong);
   color: var(--ink);
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -314,6 +314,7 @@
   height: 100%;
   background: var(--sun);
   border-radius: inherit;
+  color: var(--on-accent);
 }
 
 .dot-orbit {
@@ -338,7 +339,7 @@
 
 .round-icon {
   background: var(--sun) !important;
-  color: var(--ink);
+  color: var(--on-accent);
   font-size: 18px !important;
   width: 36px;
   height: 36px;
@@ -354,7 +355,7 @@
 
 .stats-row > div {
   padding: 15px;
-  background: #efeae1;
+  background: var(--tint);
   border-radius: 16px;
 }
 
@@ -370,18 +371,22 @@
 
 .stat-icon.coral {
   background: #ffd5d1;
+  color: var(--on-accent);
 }
 
 .stat-icon.sun {
   background: var(--sun);
+  color: var(--on-accent);
 }
 
 .stat-icon.mint {
   background: var(--mint);
+  color: var(--on-accent);
 }
 
 .stat-icon.lilac {
   background: var(--lilac);
+  color: var(--on-accent);
 }
 
 .stats-row small,
@@ -476,7 +481,7 @@
   flex-direction: column;
   justify-content: flex-end;
   background: linear-gradient(transparent, #292825cc);
-  color: var(--cream);
+  color: var(--on-surface-dark);
 }
 
 .play {
@@ -486,7 +491,7 @@
   height: 32px;
   border-radius: 50%;
   background: var(--sun);
-  color: var(--ink);
+  color: var(--on-accent);
   font-size: 12px;
   margin-bottom: 9px;
 }

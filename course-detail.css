@@ -19,15 +19,15 @@
   padding: 34px;
   border-radius: 28px;
   background: var(--sun);
-  color: var(--ink);
+  color: var(--on-accent);
   margin-bottom: 24px;
 }
 
-.detail-hero[data-tone="lilac"] { background: var(--lilac); }
-.detail-hero[data-tone="mint"] { background: var(--mint); }
-.detail-hero[data-tone="pink"] { background: #ffd5d1; }
+.detail-hero[data-tone="lilac"] { background: var(--lilac); color: var(--on-accent); }
+.detail-hero[data-tone="mint"] { background: var(--mint); color: var(--on-accent); }
+.detail-hero[data-tone="pink"] { background: #ffd5d1; color: var(--on-accent); }
 
-.detail-hero .eyebrow { color: var(--ink); }
+.detail-hero .eyebrow { color: var(--on-accent); }
 .detail-hero h1 { margin: 6px 0 10px; }
 .detail-hero .lede { color: #4a4538; max-width: 520px; }
 
@@ -52,8 +52,8 @@
   align-self: start;
   padding: 22px;
   border-radius: 22px;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--surface-dark);
+  color: var(--on-surface-dark);
   text-align: center;
 }
 
@@ -70,7 +70,7 @@
   border-radius: 12px;
   padding: 12px;
   background: var(--coral);
-  color: var(--ink);
+  color: var(--on-accent);
   font-weight: 700;
   cursor: pointer;
 }
@@ -78,11 +78,12 @@
 .enrol-button:disabled {
   background: var(--mint);
   cursor: default;
+  color: var(--on-accent);
 }
 
 .enrol-card .link-button {
   margin-top: 8px;
-  color: var(--cream);
+  color: var(--on-surface-dark);
 }
 
 .enrol-note {
@@ -165,6 +166,7 @@
   border-radius: 50%;
   background: var(--coral);
   border: 2px solid var(--paper);
+  color: var(--on-accent);
 }
 
 .timeline small {
@@ -211,13 +213,13 @@
   height: 44px;
   border-radius: 50%;
   background: var(--sun);
-  color: var(--ink);
+  color: var(--on-accent);
   font-weight: 700;
 }
 
-.detail-avatar[data-tone="coral"] { background: #ffd5d1; }
-.detail-avatar[data-tone="mint"] { background: var(--mint); }
-.detail-avatar[data-tone="lilac"] { background: var(--lilac); }
+.detail-avatar[data-tone="coral"] { background: #ffd5d1; color: var(--on-accent); }
+.detail-avatar[data-tone="mint"] { background: var(--mint); color: var(--on-accent); }
+.detail-avatar[data-tone="lilac"] { background: var(--lilac); color: var(--on-accent); }
 
 .side-cta {
   display: inline-block;
