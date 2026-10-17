@@ -9,15 +9,18 @@ const showToast = (message) => {
 
 const courseCardHtml = (course) => {
   const started = window.flexformCourses.isStarted(course.title);
-  const label = started ? "✓ Progress saved" : course.progress ? "Continue course →" : "Start course →";
+  const completed = window.flexformActivity.completedLessons(course.id).length;
+  const progress = Math.round((completed / course.lessons) * 100);
+  const label = started ? "✓ Progress saved" : "Start course →";
   return `<article class="course-card">
       <small>${course.subtitle}</small>
       <h3><a href="course.html?id=${course.id}">${course.title}</a></h3>
       <p>${course.description}</p>
       <small class="course-meta">${course.level} · ${course.lessons} lessons · ${course.minutes} min · ${window.flexformCourses.formatPrice(course.price)}</small>
-      <div class="progress"><i style="width:${course.progress}%"></i></div>
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progress}" aria-label="${course.title} progress"><i style="width:${progress}%"></i></div>
+      <small class="course-meta">${completed} of ${course.lessons} lessons done</small>
       <div class="course-actions">
-        <button data-course="${course.title}"${started ? ' style="background:var(--coral)"' : ""}>${label}</button>
+        <button data-course="${course.title}"${started ? ' style="background:var(--coral);color:var(--on-accent)"' : ""}>${label}</button>
         <a class="course-details-link" href="course.html?id=${course.id}" aria-label="View details for ${course.title}">Details →</a>
       </div>
     </article>`;
@@ -41,6 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (!button) return;
     button.textContent = "✓ Progress saved";
     button.style.background = "var(--coral)";
+    button.style.color = "var(--on-accent)";
     window.flexformCourses.start(button.dataset.course);
     showToast("Nice work. Your course progress is saved.");
   });

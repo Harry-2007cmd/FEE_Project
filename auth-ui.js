@@ -10,6 +10,8 @@
     "courses.html",
     "tools.html",
     "profile.html",
+    "planner.html",
+    "pricing.html",
   ];
 
   /** Only same-site pages are allowed as a post-login destination. */

@@ -138,10 +138,11 @@
         return;
       }
 
-      const protectedLink = event.target.closest('a[href="profile.html"]');
+      // Member-only pages: guests are sent to log in and then returned here.
+      const protectedLink = event.target.closest('a[href="profile.html"], a[href="planner.html"]');
       if (protectedLink && !isLoggedIn()) {
         event.preventDefault();
-        window.location.href = "login.html?return=profile.html";
+        window.location.href = `login.html?return=${protectedLink.getAttribute("href")}`;
       }
     });
   };
@@ -181,8 +182,8 @@
 
   window.addEventListener("DOMContentLoaded", () => {
     addThemeToggle();
-    // The profile page redirects guests itself before showing anything.
-    if (currentPageName() === "profile.html" && !isLoggedIn()) return;
+    // Member-only pages redirect guests themselves before showing anything.
+    if (["profile.html", "planner.html"].includes(currentPageName()) && !isLoggedIn()) return;
     updateAuthUI();
     bindShellEvents();
   });

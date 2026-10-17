@@ -1,0 +1,295 @@
+/* Weekly planner */
+.week-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.week-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.week-nav button {
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.week-label {
+  min-width: 150px;
+  text-align: center;
+  font: 700 18px var(--display);
+}
+
+.week-summary {
+  display: grid;
+  gap: 6px;
+  min-width: 220px;
+  color: var(--stone);
+}
+
+.week-summary .progress {
+  margin: 0;
+}
+
+.day-tabs {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.day-tab {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 4px;
+  min-height: 78px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.day-tab small {
+  color: var(--stone);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.day-tab b {
+  font: 700 22px var(--display);
+}
+
+.day-tab span {
+  color: var(--stone);
+  font-size: 12px;
+}
+
+.day-tab.today b {
+  color: var(--coral-text);
+}
+
+.day-tab.selected {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+
+.day-tab.selected small,
+.day-tab.selected span,
+.day-tab.selected.today b {
+  color: var(--cream);
+}
+
+.planner-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.planner-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--paper);
+}
+
+.planner-card h2 {
+  margin: 0 0 16px;
+  font: 700 22px var(--display);
+  letter-spacing: -0.03em;
+}
+
+.plan-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--tint);
+}
+
+.plan-item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.plan-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  accent-color: var(--coral);
+}
+
+.plan-title {
+  font-weight: 700;
+}
+
+.plan-item.done .plan-title {
+  text-decoration: line-through;
+  color: var(--stone);
+}
+
+.plan-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--stone);
+}
+
+.plan-type {
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--on-accent);
+  background: var(--sun);
+}
+
+.plan-type.meal {
+  background: var(--mint);
+}
+
+.plan-type.course {
+  background: var(--lilac);
+}
+
+.plan-remove {
+  min-height: 40px;
+  padding: 0 8px;
+  border: 0;
+  background: none;
+  color: var(--error-text);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.plan-empty {
+  padding: 18px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  color: var(--stone);
+  text-align: center;
+}
+
+.add-form {
+  display: grid;
+  gap: 12px;
+}
+
+.add-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.add-form select {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--field);
+  color: var(--ink);
+  font: inherit;
+}
+
+.add-form .enrol-button {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--ink);
+  color: var(--cream);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-form .enrol-button:disabled {
+  cursor: default;
+  background: var(--tint-strong);
+  color: var(--stone);
+}
+
+.add-hint {
+  margin: 0;
+  color: var(--stone);
+}
+
+@media (max-width: 900px) {
+  .planner-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .day-tabs {
+    gap: 4px;
+  }
+
+  .day-tab {
+    padding: 8px 0;
+    min-height: 72px;
+    border-radius: 12px;
+  }
+
+  .day-tab b {
+    font-size: 18px;
+  }
+
+  .plan-item {
+    grid-template-columns: 1fr auto;
+  }
+
+  .plan-meta {
+    grid-column: 1;
+    padding-left: 30px;
+  }
+
+  .plan-remove {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .week-label {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .week-nav {
+    width: 100%;
+  }
+
+  .week-summary {
+    min-width: 0;
+    width: 100%;
+  }
+}

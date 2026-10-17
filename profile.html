@@ -35,6 +35,7 @@
         <a class="side-link active" href="profile.html"
           >♙ <span>My progress</span></a
         >
+        <a class="side-link protected-link" href="planner.html">▦ <span>My planner</span></a>
         <div class="side-prompt">
           <strong>Your next good choice is one tap away.</strong
           ><a href="trainers.html">Meet a coach →</a>
@@ -70,6 +71,8 @@
                 <h1>My <em>progress.</em></h1>
                 <p class="lede">Notice what’s changing, inside and out.</p>
               </div>
+              <div class="profile-actions">
+              <a class="outline-button" href="planner.html">▦ My planner</a>
               <button
                 class="outline-button"
                 id="editProfile"
@@ -79,6 +82,7 @@
               >
                 ⚙ Edit profile
               </button>
+              </div>
             </div>
             <form class="cream-card edit-profile hidden" id="editProfileForm">
               <label
@@ -119,34 +123,30 @@
                   ><b>Feel stronger and sleep better.</b>
                 </div>
                 <div class="profile-stats">
-                  <div><b>47.2</b><small>move hours</small></div>
-                  <div><b>06</b><small>day streak</small></div>
-                  <div><b>12</b><small>sessions</small></div>
+                  <div><b id="statHours">0</b><small>move hours</small></div>
+                  <div><b id="statStreak">0</b><small>day streak</small></div>
+                  <div><b id="statSessions">0</b><small>completed</small></div>
                 </div>
               </article>
               <article class="cream-card progress-card">
                 <p class="eyebrow">Over the last 30 days</p>
                 <h2>A steadier you</h2>
                 <div class="mini-stats">
-                  <div>ϟ<strong>18</strong><small>ACTIVE DAYS</small></div>
-                  <div>◷<strong>426</strong><small>MOVE MINUTES</small></div>
-                  <div>♡<strong>21</strong><small>MOOD CHECK-INS</small></div>
+                  <div>ϟ<strong id="miniDays">0</strong><small>ACTIVE DAYS</small></div>
+                  <div>◷<strong id="miniMinutes">0</strong><small>MOVE MINUTES</small></div>
+                  <div>▤<strong id="miniLessons">0</strong><small>LESSONS DONE</small></div>
                 </div>
                 <div class="progress-copy">
-                  <span>Weekly goal</span><b>4 / 5 moments</b>
+                  <span>Weekly goal</span><b id="goalText">0 / 3 moments</b>
                 </div>
-                <div class="progress"><i style="width: 80%"></i></div>
+                <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Weekly goal progress" id="goalProgress"><i id="goalBar" style="width: 0"></i></div>
               </article>
             </div>
             <div class="profile-lower-grid">
               <article class="cream-card track-card">
                 <p class="eyebrow">Your track</p>
                 <h2>Consistency is the win.</h2>
-                <ul class="feature-list">
-                  <li>6 active days this week</li>
-                  <li>128 minutes of movement logged</li>
-                  <li>3 sessions completed this month</li>
-                </ul>
+                <ul class="feature-list" id="trackList"></ul>
               </article>
               <article class="dark-card user-card">
                 <p class="eyebrow sun-text">Your profile</p>
@@ -160,10 +160,30 @@
                 </button>
               </article>
             </div>
+            <div class="insight-grid">
+              <section class="cream-card insight-card" aria-labelledby="weekChartHeading">
+                <p class="eyebrow">This week</p>
+                <h2 id="weekChartHeading">Activity by day</h2>
+                <div id="weekChart" class="week-chart" role="img" aria-label="Completed items per day this week"></div>
+                <p class="insight-note" id="weekChartNote"></p>
+              </section>
+              <section class="cream-card insight-card" aria-labelledby="weightHeading">
+                <p class="eyebrow">Body</p>
+                <h2 id="weightHeading">Weight log</h2>
+                <form class="weight-form" id="weightForm" novalidate>
+                  <label>Date<input id="weightDate" type="date" required /></label>
+                  <label>Weight (kg)<input id="weightKg" type="number" inputmode="decimal" step="0.1" min="25" max="300" placeholder="e.g. 68.4" required /></label>
+                  <button class="action-button" type="submit">Save</button>
+                </form>
+                <p class="form-error hidden" id="weightError" role="alert"></p>
+                <div id="weightChart" class="weight-chart"></div>
+                <ul class="weight-list" id="weightList"></ul>
+              </section>
+            </div>
             <div class="section-heading upcoming-heading">
               <div>
-                <p class="eyebrow">Your recent workouts</p>
-                <h2>Workout history</h2>
+                <p class="eyebrow">What you’ve completed</p>
+                <h2>Recent activity</h2>
               </div>
             </div>
             <div id="workoutHistory" class="history-list"></div>
@@ -226,6 +246,9 @@
     <script src="auth.js"></script>
     <script src="common.js"></script>
     <script src="user-store.js"></script>
+    <script src="courses-data.js"></script>
+    <script src="lessons-data.js"></script>
+    <script src="activity-store.js"></script>
     <script src="profile.js"></script>
   </body>
 </html>

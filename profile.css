@@ -263,3 +263,257 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Progress tracking */
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.profile-actions .outline-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 22px;
+}
+
+.insight-card {
+  padding: 28px;
+  border-radius: 28px;
+  background: var(--paper);
+}
+
+.insight-card h2 {
+  margin: 0 0 16px;
+  font-size: 28px;
+}
+
+.insight-note {
+  margin: 12px 0 0;
+  color: var(--stone);
+}
+
+.week-chart {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  align-items: end;
+  height: 160px;
+}
+
+.bar-col {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  gap: 4px;
+  height: 100%;
+}
+
+.bar-col .bar {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 34px;
+  border-radius: 8px;
+  background: var(--tint-strong);
+  overflow: hidden;
+}
+
+.bar-col .bar i {
+  display: block;
+  width: 100%;
+  background: var(--coral);
+  min-height: 0;
+}
+
+.bar-col.today small,
+.bar-col.today b {
+  color: var(--coral-text);
+  font-weight: 700;
+}
+
+.bar-col small {
+  color: var(--stone);
+}
+
+.weight-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.weight-form label {
+  display: grid;
+  gap: 4px;
+  font-weight: 700;
+}
+
+.weight-form input {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--field);
+  color: var(--ink);
+  font: inherit;
+  min-width: 0;
+}
+
+.weight-form .action-button {
+  min-height: 44px;
+}
+
+.weight-chart {
+  margin-top: 14px;
+  color: var(--coral);
+}
+
+.weight-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.weight-list {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weight-list li {
+  display: grid;
+  grid-template-columns: 70px auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+  border-top: 1px solid var(--line);
+}
+
+.weight-list small {
+  color: var(--stone);
+}
+
+.weight-remove {
+  min-height: 40px;
+  padding: 0 8px;
+  border: 0;
+  background: none;
+  color: var(--coral-text);
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.history-empty small {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .insight-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .weight-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .weight-form .action-button {
+    grid-column: 1 / -1;
+  }
+
+  .insight-card {
+    padding: 22px;
+  }
+}
+
+/* Real numbers must stay readable on the light card */
+.mini-stats strong {
+  color: var(--ink);
+}
+
+@media (max-width: 560px) {
+  .profile-actions {
+    width: 100%;
+  }
+
+  .profile-actions .outline-button {
+    flex: 1 1 140px;
+    padding-inline: 10px;
+  }
+}
+
+/* Previously unstyled blocks on this page */
+.progress-copy {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.upcoming-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 36px 0 14px;
+}
+
+.upcoming-heading h2 {
+  margin: 0;
+}
+
+.upcoming-heading a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--coral-text);
+  font-weight: 700;
+}
+
+.upcoming {
+  display: grid;
+  gap: 12px;
+}
+
+.upcoming > div {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+}
+
+.upcoming p {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+
+.upcoming small {
+  color: var(--stone);
+}
+
+.upcoming time {
+  text-align: center;
+  line-height: 1.3;
+}

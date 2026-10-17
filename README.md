@@ -64,6 +64,17 @@ Fonts load from Google Fonts, so the first load needs an internet connection. Wi
 ├── course.html          Course detail page (course.html?id=<slug>)
 ├── courses-data.js      MOCK course catalogue
 ├── course-store.js      Per-user enrol/started courses (localStorage)
+├── lesson.html          Lesson player (lesson.html?course=<id>&n=<number>)
+├── lessons-data.js      MOCK lesson lists for each course
+├── coach.html           Coach profile page (coach.html?id=<slug>)
+├── coach-profiles-data.js  MOCK coach bios, sessions, reviews; coachSlug()
+├── pricing.html         Plans page (Free / Plus $9 / Pro $19, mock)
+├── pricing-data.js      MOCK plans
+├── planner.html         Weekly planner (members only)
+├── planner-data.js      MOCK workout and meal choices for the planner
+├── activity-store.js    Per-user planner, lesson progress and weight log + derived stats
+├── theme.js             Light/dark theme (loaded in <head> of every page)
+├── tools-extra.js       Water, one-rep max, macro split and timers on tools.html
 ├── tools.html           Body check-in, recommender, weekly goal
 ├── profile.html         Profile (login required)
 ├── login.html           Simulated sign in
@@ -130,13 +141,25 @@ Two views in one page, switched by login state:
 ### `course.html` — Course detail
 Opened as `course.html?id=<slug>`. Shows the price and an **Enrol** button (mock: saves the course to the user's list, no payment; **Leave course** undoes it), *What you'll learn*, a *Timeline*, *Reviews* (sample), *Trainers involved* (names must match coaches in `trainers-data.js`) and *Good to know*. An unknown or missing `id` shows a "couldn't find that course" state. Prices are US dollars and formatted in `course-store.js` (`formatPrice`); `0` shows "Free".
 
+### `lesson.html` — Lesson player
+Opened as `lesson.html?course=<id>&n=<number>`. Only for members enrolled in the course (otherwise it offers to enrol). Shows a **placeholder** video, the lesson title and summary, a **Mark lesson complete** toggle, previous/next links and the full lesson list with ticks and a progress bar. Completing lessons drives the progress bars on `courses.html` and `course.html` and counts towards streaks and minutes on My progress.
+
+### `coach.html` — Coach profile
+Opened as `coach.html?id=<slug>` (slug from `coachSlug(name)`, e.g. `tomas-silva`). Bio, approach, sessions, sample reviews, courses the coach teaches (worked out from `courses-data.js`) and credentials. **Book a session** and **Save** use the same per-user data as the Find a coach page; **Chat** opens `trainers.html?chat=<name>`.
+
+### `pricing.html` — Plans
+Three mock plans from `pricing-data.js`. **Choose** saves the plan for the user (`plan` key). Plans are not enforced anywhere. Linked from every page's footer.
+
+### `planner.html` — Weekly planner (members only)
+A Monday–Sunday week with previous/next week. Tap a day, then add a workout, a meal or a session of an enrolled course from a list, tick items off or remove them. Guests are sent to log in and returned here.
+
 ### `tools.html` — Tools
 - **Body check-in:** BMI and a daily energy estimate from height, weight, age and sex (Mifflin-St Jeor: +5 male, −161 female).
 - **What suits you?** A rule-based recommender from lifestyle and free time.
 - **Weekly goal:** pick 1 to 6 movement moments.
 
-### `profile.html` — Profile
-Protected page. Shows name, initials, email, stats, workout history and upcoming bookings. **Edit profile** opens an inline form to change name and email. If you are not logged in it redirects to `login.html?return=profile.html`.
+### `profile.html` — My progress
+Protected page. Real progress tracking computed from the member's own activity (ticked-off planner items and completed lessons): move hours, day streak, completed count, active days and minutes over 30 days, weekly goal progress (from the goal saved in Tools), an activity-by-day chart, recent activity, and a **weight log** with a trend chart (25–300 kg, one entry per date, no future dates). New members see zeros and empty states. Upcoming bookings are still static sample content. **Edit profile** opens an inline form to change name and email. If you are not logged in it redirects to `login.html?return=profile.html`.
 
 ### `login.html` / `signup.html`
 Simulated sign up and sign in with real-looking validation. **Sign up** checks your name, email and password (with a live rule checklist and strength meter), then asks you to verify your email with a 6-digit code that appears in an on-page **demo inbox**. **Sign in** needs an existing, verified account. A demo account is pre-created: `demo@flexform.com` / `Demo1234`. See [Authentication (mock)](#authentication-mock).
@@ -206,6 +229,10 @@ All mock data is kept separate from UI logic where practical and is labelled as 
 | ------------------------------------- | ------------------- |
 | Coaches and chat content              | `trainers-data.js`  |
 | Courses (10)                          | `courses-data.js`   |
+| Lessons for each course               | `lessons-data.js`   |
+| Coach bios, sessions, reviews         | `coach-profiles-data.js` |
+| Plans                                 | `pricing-data.js`   |
+| Planner workout and meal choices      | `planner-data.js`   |
 | Today's schedule                      | `index.js`          |
 | Workout history                       | `profile.js`        |
 
@@ -230,6 +257,11 @@ Coach names, ratings and availability are made up.
 | `flexform:<email or guest>:bookedCoaches` | JSON array of coaches with a booking request          |
 | `flexform:<email or guest>:courseProgress` | JSON array of started course titles                  |
 | `flexform:<email or guest>:weeklyGoal`    | The saved weekly goal (1 to 6)                        |
+| `flexform:<email or guest>:planner`       | Planner items by date (`workout`, `meal`, `course`), each with done flag |
+| `flexform:<email or guest>:lessonProgress` | Completed lessons per course, with completion date    |
+| `flexform:<email or guest>:weightLog`     | Weight entries (one per date)                          |
+| `flexform:<email or guest>:plan`          | Chosen plan id (`free`, `plus`, `pro`)                 |
+| `flexformTheme`                           | `light` or `dark` if the visitor chose (otherwise the device setting is followed) |
 | `flexformSplashSeen` (`sessionStorage`)   | Set once the splash has been shown in this tab         |
 | `flexformTabSession` (`sessionStorage`)   | Set while signed in without "remember me"              |
 | `flexformPendingEmail` (`sessionStorage`) | Email waiting on verification in this tab              |
@@ -305,6 +337,10 @@ Clear the site's `localStorage` in your browser's dev tools.
 ---
 
 ## Known limitations
+
+- Plans on the pricing page are display-only; nothing is gated by plan.
+- Lesson videos are placeholders.
+- The headline coral accent words (for example "planner.") have about 2.6:1 contrast on the light theme; this is a pending design decision.
 
 - **Authentication is simulated, not secure.** Accounts, hashes, codes and sessions are all in `localStorage`, and no email is sent. Do not enter real credentials. Anyone using dev tools can read or edit them.
 - **Accounts are per browser.** An account created in one browser or profile does not exist in another. People who used the old flag-based login must sign up again (or use the demo account).

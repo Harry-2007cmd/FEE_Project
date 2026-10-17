@@ -15,6 +15,35 @@ const renderTrainer = (name) => {
     </li>`;
 };
 
+
+const activity = window.flexformActivity;
+
+const lessonUrl = (course, number) => `lesson.html?course=${encodeURIComponent(course.id)}&n=${number}`;
+
+/** Progress summary + "continue" link in the enrol card (only when enrolled). */
+const progressBlockHtml = (course) => {
+  if (!window.flexformCourses.isStarted(course.title)) return "";
+  const lessons = lessonsFor(course);
+  const done = new Set(activity.completedLessons(course.id));
+  const percent = Math.round((done.size / lessons.length) * 100);
+  const next = lessons.find((lesson) => !done.has(lesson.number));
+  return `<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}" aria-label="Course progress"><i style="width:${percent}%"></i></div>
+    <p class="enrol-progress">${done.size} of ${lessons.length} lessons · ${percent}%</p>
+    <a class="enrol-link" href="${next ? lessonUrl(course, next.number) : lessonUrl(course, 1)}">${done.size === 0 ? "Start lessons" : next ? "Continue lessons" : "Review lessons"} →</a>`;
+};
+
+/** Lesson list; links only work once enrolled. */
+const lessonsBlockHtml = (course) => {
+  const enrolled = window.flexformCourses.isStarted(course.title);
+  const done = new Set(activity.completedLessons(course.id));
+  return `<ol class="syllabus">${lessonsFor(course)
+    .map((lesson) => {
+      const label = `<span class="lesson-mark${done.has(lesson.number) ? " done" : ""}" aria-hidden="true">${done.has(lesson.number) ? "✓" : enrolled ? lesson.number : "🔒"}</span><span class="syllabus-title">${escapeHtml(lesson.title)}</span><small>${lesson.minutes} min</small>${done.has(lesson.number) ? '<span class="sr-only">Completed</span>' : ""}`;
+      return `<li>${enrolled ? `<a href="${lessonUrl(course, lesson.number)}">${label}</a>` : `<div class="syllabus-locked">${label}</div>`}</li>`;
+    })
+    .join("")}</ol>${enrolled ? "" : '<p class="sample-note">Enrol to unlock the lessons.</p>'}`;
+};
+
 const enrolLabel = (course) => (course.price ? `Enrol — $${course.price}` : "Start for free");
 
 const renderCourse = (course, index) => {
@@ -39,6 +68,7 @@ const renderCourse = (course, index) => {
         <p class="price">${store.formatPrice(course.price)}</p>
         <button type="button" class="enrol-button" id="enrolButton"${enrolled ? " disabled" : ""}>${enrolled ? "✓ Enrolled" : enrolLabel(course)}</button>
         <button type="button" class="link-button${enrolled ? "" : " hidden"}" id="leaveButton">Leave course</button>
+        <div id="courseProgress">${progressBlockHtml(course)}</div>
         <p class="enrol-note">Demo only — no payment is taken.</p>
       </aside>
     </header>
@@ -57,6 +87,11 @@ const renderCourse = (course, index) => {
               (step) => `<li><small>${escapeHtml(step.when)}</small><b>${escapeHtml(step.title)}</b><p>${escapeHtml(step.detail)}</p></li>`,
             )
             .join("")}</ol>
+        </section>
+
+        <section class="detail-section" aria-labelledby="lessonsHeading">
+          <h2 id="lessonsHeading">Lessons</h2>
+          <div id="lessonsBlock">${lessonsBlockHtml(course)}</div>
         </section>
 
         <section class="detail-section" aria-labelledby="reviewsHeading">
@@ -122,11 +157,17 @@ window.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => toast.classList.remove("show"), 2600);
   };
 
+  const refreshLessons = () => {
+    document.querySelector("#courseProgress").innerHTML = progressBlockHtml(course);
+    document.querySelector("#lessonsBlock").innerHTML = lessonsBlockHtml(course);
+  };
+
   enrolButton.addEventListener("click", () => {
     window.flexformCourses.start(course.title);
     enrolButton.textContent = "✓ Enrolled";
     enrolButton.disabled = true;
     leaveButton.classList.remove("hidden");
+    refreshLessons();
     notify(`You’re enrolled in ${course.title}. (Demo — no payment taken.)`);
   });
 
@@ -135,6 +176,7 @@ window.addEventListener("DOMContentLoaded", () => {
     enrolButton.textContent = enrolLabel(course);
     enrolButton.disabled = false;
     leaveButton.classList.add("hidden");
+    refreshLessons();
     enrolButton.focus();
     notify(`You left ${course.title}.`);
   });
