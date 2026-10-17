@@ -7,7 +7,6 @@
  *  - title / subtitle / description: copy shown on cards and the detail page
  *  - level, weeks, lessons, minutes: summary facts (minutes = total video time)
  *  - price: US dollars, 0 = free (mock only, no payment is ever taken)
- *  - progress: starting progress % shown on the card
  *  - rating: average of the sample reviews
  *  - learn: "What you'll learn" bullets
  *  - timeline: ordered stages { when, title, detail }
@@ -26,7 +25,6 @@ const courses = [
     lessons: 7,
     minutes: 44,
     price: 39,
-    progress: 60,
     rating: "4.9",
     learn: [
       "Move through the five foundation lifts with good form",
@@ -60,7 +58,6 @@ const courses = [
     lessons: 8,
     minutes: 56,
     price: 19,
-    progress: 28,
     rating: "4.8",
     learn: [
       "Release tight neck, shoulders and hip flexors in under 8 minutes",
@@ -94,7 +91,6 @@ const courses = [
     lessons: 9,
     minutes: 68,
     price: 0,
-    progress: 0,
     rating: "4.7",
     learn: [
       "Raise your heart rate without jumping or loud footsteps",
@@ -128,7 +124,6 @@ const courses = [
     lessons: 10,
     minutes: 80,
     price: 24,
-    progress: 0,
     rating: "4.9",
     learn: [
       "Wind down with gentle movement and breathwork",
@@ -162,7 +157,6 @@ const courses = [
     lessons: 9,
     minutes: 72,
     price: 34,
-    progress: 0,
     rating: "4.8",
     learn: [
       "Perform a safe, powerful kettlebell swing",
@@ -195,7 +189,6 @@ const courses = [
     lessons: 12,
     minutes: 96,
     price: 29,
-    progress: 0,
     rating: "4.8",
     learn: [
       "Build balanced plates without counting or banning foods",
@@ -229,7 +222,6 @@ const courses = [
     lessons: 9,
     minutes: 70,
     price: 29,
-    progress: 0,
     rating: "4.7",
     learn: [
       "Open the hips, ankles and calves that limit your stride",
@@ -262,7 +254,6 @@ const courses = [
     lessons: 8,
     minutes: 60,
     price: 19,
-    progress: 0,
     rating: "4.9",
     learn: [
       "Use three simple breathing patterns for stress",
@@ -295,7 +286,6 @@ const courses = [
     lessons: 12,
     minutes: 100,
     price: 34,
-    progress: 0,
     rating: "4.8",
     learn: [
       "Progress from wall push-ups to full push-ups",
@@ -329,7 +319,6 @@ const courses = [
     lessons: 9,
     minutes: 66,
     price: 24,
-    progress: 0,
     rating: "4.8",
     learn: [
       "Notice hunger, fullness and cravings without judgement",

@@ -138,10 +138,11 @@
         return;
       }
 
-      const protectedLink = event.target.closest('a[href="profile.html"]');
+      // Member-only pages: guests are sent to log in and then returned here.
+      const protectedLink = event.target.closest('a[href="profile.html"], a[href="planner.html"]');
       if (protectedLink && !isLoggedIn()) {
         event.preventDefault();
-        window.location.href = "login.html?return=profile.html";
+        window.location.href = `login.html?return=${protectedLink.getAttribute("href")}`;
       }
     });
   };
@@ -159,9 +160,30 @@
     updateUserLabels,
   };
 
+  /** Adds the light/dark button to the header (theme logic lives in theme.js). */
+  const addThemeToggle = () => {
+    const actions = document.querySelector(".top-actions");
+    const theme = window.flexformTheme;
+    if (!actions || !theme || actions.querySelector(".theme-toggle")) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "theme-toggle";
+    const sync = () => {
+      const dark = theme.current() === "dark";
+      button.textContent = dark ? "☀" : "☾";
+      button.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+      button.title = dark ? "Light mode" : "Dark mode";
+    };
+    button.addEventListener("click", () => theme.toggle());
+    document.addEventListener("flexform:themechange", sync);
+    sync();
+    actions.insertBefore(button, actions.firstChild);
+  };
+
   window.addEventListener("DOMContentLoaded", () => {
-    // The profile page redirects guests itself before showing anything.
-    if (currentPageName() === "profile.html" && !isLoggedIn()) return;
+    addThemeToggle();
+    // Member-only pages redirect guests themselves before showing anything.
+    if (["profile.html", "planner.html"].includes(currentPageName()) && !isLoggedIn()) return;
     updateAuthUI();
     bindShellEvents();
   });

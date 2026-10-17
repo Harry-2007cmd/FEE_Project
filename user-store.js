@@ -44,7 +44,7 @@
     writeUsers(users);
   };
 
-  /** Move a user's record (and saved/booked coaches) when their email changes. */
+  /** Move a user's record (and their saved/booked coaches, courses, planner, lessons, weight log, plan) when their email changes. */
   const renameEmail = (oldEmail, newEmail) => {
     const from = normaliseEmail(oldEmail);
     const to = normaliseEmail(newEmail);
@@ -57,7 +57,7 @@
     delete users[from];
     writeUsers(users);
 
-    ["savedCoaches", "bookedCoaches", "courseProgress", "weeklyGoal"].forEach((kind) => {
+    ["savedCoaches", "bookedCoaches", "courseProgress", "weeklyGoal", "planner", "lessonProgress", "weightLog", "plan"].forEach((kind) => {
       const oldKey = `flexform:${from}:${kind}`;
       const value = localStorage.getItem(oldKey);
       if (value !== null) {

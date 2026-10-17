@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="flexform everyday wellness tools." />
     <title>Tools · flexform.</title>
+    <script src="theme.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,6 +30,7 @@
         </nav>
         <p class="side-label keep-label">Keep going</p>
         <a class="side-link protected-link" href="profile.html">♙ <span>My progress</span></a>
+        <a class="side-link protected-link" href="planner.html">▦ <span>My planner</span></a>
         <div class="side-prompt">
           <strong>Your next good choice is one tap away.</strong
           ><a href="trainers.html">Meet a coach →</a>
@@ -148,6 +150,86 @@
                 </button>
               </article>
             </div>
+            <div class="section-heading more-tools-heading">
+              <div>
+                <p class="eyebrow">A few more helpers</p>
+                <h2>More tools.</h2>
+              </div>
+            </div>
+            <div class="extra-tools">
+              <article class="cream-card extra-card" aria-labelledby="waterTitle">
+                <p class="eyebrow">Stay topped up</p>
+                <h3 id="waterTitle">Water intake</h3>
+                <div class="extra-inputs">
+                  <label>Weight (kg)<input id="waterWeight" type="number" inputmode="decimal" value="68" /></label>
+                  <label>Exercise (min/day)<input id="waterMinutes" type="number" inputmode="numeric" value="30" /></label>
+                </div>
+                <button class="outline-button" id="waterCalc" type="button">Estimate my water</button>
+                <div class="extra-result" id="waterResult" aria-live="polite" hidden></div>
+              </article>
+
+              <article class="cream-card extra-card" aria-labelledby="rmTitle">
+                <p class="eyebrow">Know your strength</p>
+                <h3 id="rmTitle">One-rep max</h3>
+                <div class="extra-inputs">
+                  <label>Weight lifted (kg)<input id="rmWeight" type="number" inputmode="decimal" value="60" /></label>
+                  <label>Reps done (1–12)<input id="rmReps" type="number" inputmode="numeric" value="8" /></label>
+                </div>
+                <button class="outline-button" id="rmCalc" type="button">Estimate my max</button>
+                <div class="extra-result" id="rmResult" aria-live="polite" hidden></div>
+              </article>
+
+              <article class="cream-card extra-card" aria-labelledby="macroTitle">
+                <p class="eyebrow">Balance your plate</p>
+                <h3 id="macroTitle">Macro split</h3>
+                <div class="extra-inputs">
+                  <label>Daily calories<input id="macroCalories" type="number" inputmode="numeric" value="2000" /></label>
+                  <label>Goal
+                    <select id="macroGoal">
+                      <option value="balanced">Balanced</option>
+                      <option value="lose">Lose fat</option>
+                      <option value="build">Build muscle</option>
+                    </select>
+                  </label>
+                </div>
+                <button class="outline-button" id="macroCalc" type="button">Split my macros</button>
+                <div class="extra-result" id="macroResult" aria-live="polite" hidden></div>
+              </article>
+
+              <article class="dark-card extra-card timer-card" aria-labelledby="timerTitle">
+                <p class="eyebrow sun-text">Keep the rhythm</p>
+                <h3 id="timerTitle">Session timer</h3>
+                <div class="extra-inputs">
+                  <label>Type
+                    <select id="timerMode">
+                      <option value="interval">Workout intervals</option>
+                      <option value="breathing">Breathing</option>
+                    </select>
+                  </label>
+                  <label id="timerPatternWrap" hidden>Pattern
+                    <select id="timerPattern">
+                      <option value="box">Box (4-4-4-4)</option>
+                      <option value="478">Relax (4-7-8)</option>
+                      <option value="calm">Calm (4-6)</option>
+                    </select>
+                  </label>
+                  <label class="interval-field">Work (sec)<input id="timerWork" type="number" inputmode="numeric" value="40" /></label>
+                  <label class="interval-field">Rest (sec)<input id="timerRest" type="number" inputmode="numeric" value="20" /></label>
+                  <label id="timerRoundsWrap"><span id="timerRoundsLabel">Rounds</span><input id="timerRounds" type="number" inputmode="numeric" value="6" /></label>
+                </div>
+                <p class="timer-error form-error hidden" id="timerError" role="alert"></p>
+                <div class="timer-face" role="timer" aria-label="Session timer">
+                  <b id="timerPhase">Ready</b>
+                  <span id="timerClock">00:00</span>
+                  <small id="timerProgress"></small>
+                </div>
+                <div class="timer-actions">
+                  <button class="sun-button" id="timerStart" type="button">Start</button>
+                  <button class="timer-reset" id="timerReset" type="button">Reset</button>
+                </div>
+                <p class="sr-only" id="timerAnnounce" aria-live="polite"></p>
+              </article>
+            </div>
             <div class="note">
               <span>ⓘ</span>
               <div>
@@ -170,6 +252,7 @@
                 flexform brings together practical habits, movement coaching, and a
                 calmer approach to everyday wellbeing so you can thrive without the pressure.
               </p>
+              <a class="footer-link" href="pricing.html">Plans &amp; pricing →</a>
             </div>
             <div class="footer-block">
               <h3>Contact us</h3>
@@ -193,5 +276,6 @@
     <script src="auth.js"></script>
     <script src="common.js"></script>
     <script src="tools.js"></script>
+    <script src="tools-extra.js"></script>
   </body>
 </html>

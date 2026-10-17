@@ -9,8 +9,42 @@
   --sun: #ffd33d;
   --mint: #b9ddc6;
   --lilac: #d8cce8;
+  /* Neutral surfaces that change with the theme */
+  --tint: #efeae1;
+  --tint-strong: #eee8df;
+  --field: #ffffff;
+  --glass-paper: #fffaf0f5;
+  --glass-cream: #f7f3ece8;
+  --error-bg: #fff1ef;
+  --error-text: #8f1f17;
+  --success-text: #2d6e49;
+  /* Fixed colours: dark cards and pastel cards look the same in both themes */
+  --surface-dark: #292825;
+  --on-surface-dark: #f7f3ec;
+  --on-accent: #292825;
+  color-scheme: light;
   --display: "Space Grotesk", sans-serif;
   --body: "DM Sans", sans-serif;
+}
+
+/* Dark theme: set by theme.js (data-theme="dark"), from the saved choice or the device setting */
+:root[data-theme="dark"] {
+  --ink: #f3efe6;
+  --cream: #161513;
+  --paper: #211f1c;
+  --line: #3a3731;
+  --stone: #b3afa6;
+  --coral-text: #ff8d85;
+  --tint: #2a2824;
+  --tint-strong: #34312c;
+  --field: #2a2824;
+  --glass-paper: #211f1cf5;
+  --glass-cream: #161513e8;
+  --error-bg: #3b1f1c;
+  --error-text: #ffb4ac;
+  --success-text: #8fd6ac;
+  --surface-dark: #2f2d28;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -34,10 +68,10 @@ a { color: inherit; text-decoration: none; }
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: var(--ink);
+  background: var(--surface-dark);
   display: grid;
   place-items: center;
-  color: var(--cream);
+  color: var(--on-surface-dark);
 }
 .loader-inner {
   text-align: center;
@@ -51,7 +85,7 @@ a { color: inherit; text-decoration: none; }
   place-items: center;
   border-radius: 21px;
   background: var(--sun);
-  color: var(--ink);
+  color: var(--on-accent);
   font: 700 42px var(--display);
 }
 .loader-logo {
@@ -81,6 +115,7 @@ em {
   height: 100%;
   background: var(--sun);
   animation: load 1.1s ease-in-out infinite;
+  color: var(--on-accent);
 }
 
 @keyframes load {
@@ -95,7 +130,7 @@ em {
   position: fixed;
   inset: 0 auto 0 0;
   width: 224px;
-  background: #f3efe6e8;
+  background: var(--glass-cream);
   border-right: 1px solid var(--line);
   padding: 28px 20px;
   display: flex;
@@ -116,7 +151,7 @@ em {
   height: 36px;
   border-radius: 12px;
   background: var(--sun);
-  color: var(--ink);
+  color: var(--on-accent);
   font: 700 24px var(--display);
 }
 .side-label {
@@ -142,7 +177,7 @@ em {
 .side-nav a:hover,
 .side-link:hover,
 .side-nav a.active {
-  background: #e9e4da;
+  background: var(--tint-strong);
   color: var(--ink);
 }
 .side-prompt {
@@ -150,8 +185,8 @@ em {
   margin-bottom: 16px;
   padding: 16px;
   border-radius: 16px;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--surface-dark);
+  color: var(--on-surface-dark);
   line-height: 1.25;
 }
 .side-prompt strong {
@@ -168,7 +203,7 @@ em {
 .main-column { padding-left: 224px; }
 .topbar {
   height: 74px;
-  border-bottom: 1px solid #ded9cdcc;
+  border-bottom: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -176,7 +211,7 @@ em {
   padding: 0 5%;
   position: sticky;
   top: 0;
-  background: #f7f3ece8;
+  background: var(--glass-cream);
   backdrop-filter: blur(15px);
   z-index: 4;
 }
@@ -194,6 +229,7 @@ em {
   border-radius: 50%;
   background: var(--coral);
   margin-right: 8px;
+  color: var(--on-accent);
 }
 .top-actions {
   display: flex;
@@ -207,6 +243,7 @@ em {
   background: var(--coral);
   padding: 10px 14px;
   font-weight: 700;
+  color: var(--on-accent);
 }
 .icon-button {
   border: 0;
@@ -231,7 +268,7 @@ em {
   border-radius: 50%;
   background: var(--sun);
   font-weight: 700;
-  color: var(--ink);
+  color: var(--on-accent);
 }
 .notification {
   position: absolute;
@@ -312,7 +349,7 @@ h2 { font-size: 28px; line-height: 1; }
 }
 .action-button {
   background: var(--coral);
-  color: var(--ink);
+  color: var(--on-accent);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -338,6 +375,7 @@ h2 { font-size: 28px; line-height: 1; }
   height: 100%;
   background: var(--sun);
   border-radius: inherit;
+  color: var(--on-accent);
 }
 /* Decorative placeholder panel used by promo banners (courses, trainers) */
 .abstract-photo {
@@ -368,8 +406,8 @@ h2 { font-size: 28px; line-height: 1; }
   position: fixed;
   right: 24px;
   bottom: 24px;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--surface-dark);
+  color: var(--on-surface-dark);
   padding: 14px 18px;
   border-radius: 12px;
   opacity: 0;
@@ -425,7 +463,7 @@ h2 { font-size: 28px; line-height: 1; }
     bottom: 12px;
     left: 12px;
     right: 12px;
-    background: #fffaf0f5;
+    background: var(--glass-paper);
     border: 1px solid var(--line);
     border-radius: 18px;
     padding: 8px;
@@ -443,8 +481,8 @@ h2 { font-size: 28px; line-height: 1; }
     border-radius: 11px;
   }
   .mobile-nav a.active {
-    background: var(--ink);
-    color: var(--cream);
+    background: var(--surface-dark);
+    color: var(--on-surface-dark);
   }
   .mobile-nav small {
     font-size: 9px;
@@ -467,8 +505,8 @@ h2 { font-size: 28px; line-height: 1; }
 }
 
 .dark-card {
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--surface-dark);
+  color: var(--on-surface-dark);
 }
 
 .cream-card {
@@ -486,10 +524,10 @@ h2 { font-size: 28px; line-height: 1; }
   flex: none;
 }
 
-.avatar.coral { background: var(--coral); }
-.avatar.sun { background: var(--sun); }
-.avatar.mint { background: var(--mint); }
-.avatar.lilac { background: var(--lilac); }
+.avatar.coral { background: var(--coral); color: var(--on-accent); }
+.avatar.sun { background: var(--sun); color: var(--on-accent); }
+.avatar.mint { background: var(--mint); color: var(--on-accent); }
+.avatar.lilac { background: var(--lilac); color: var(--on-accent); }
 
 @media (max-width: 560px) {
   .dark-card,
@@ -596,8 +634,47 @@ summary:focus-visible,
   padding: 12px 14px;
   border: 1px solid var(--coral-text);
   border-radius: 11px;
-  background: #fff1ef;
-  color: #8f1f17;
+  background: var(--error-bg);
+  color: var(--error-text);
   font-size: 13px;
   font-weight: 600;
+}
+
+
+/* ---- Theme toggle (button is added to the header by common.js) ---- */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+.theme-toggle:hover { background: var(--tint); }
+
+/* Visually hidden, still read by screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Footer link to the pricing page */
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--coral-text);
+  font-weight: 700;
 }

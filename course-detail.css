@@ -19,15 +19,15 @@
   padding: 34px;
   border-radius: 28px;
   background: var(--sun);
-  color: var(--ink);
+  color: var(--on-accent);
   margin-bottom: 24px;
 }
 
-.detail-hero[data-tone="lilac"] { background: var(--lilac); }
-.detail-hero[data-tone="mint"] { background: var(--mint); }
-.detail-hero[data-tone="pink"] { background: #ffd5d1; }
+.detail-hero[data-tone="lilac"] { background: var(--lilac); color: var(--on-accent); }
+.detail-hero[data-tone="mint"] { background: var(--mint); color: var(--on-accent); }
+.detail-hero[data-tone="pink"] { background: #ffd5d1; color: var(--on-accent); }
 
-.detail-hero .eyebrow { color: var(--ink); }
+.detail-hero .eyebrow { color: var(--on-accent); }
 .detail-hero h1 { margin: 6px 0 10px; }
 .detail-hero .lede { color: #4a4538; max-width: 520px; }
 
@@ -52,8 +52,8 @@
   align-self: start;
   padding: 22px;
   border-radius: 22px;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--surface-dark);
+  color: var(--on-surface-dark);
   text-align: center;
 }
 
@@ -70,7 +70,7 @@
   border-radius: 12px;
   padding: 12px;
   background: var(--coral);
-  color: var(--ink);
+  color: var(--on-accent);
   font-weight: 700;
   cursor: pointer;
 }
@@ -78,11 +78,12 @@
 .enrol-button:disabled {
   background: var(--mint);
   cursor: default;
+  color: var(--on-accent);
 }
 
 .enrol-card .link-button {
   margin-top: 8px;
-  color: var(--cream);
+  color: var(--on-surface-dark);
 }
 
 .enrol-note {
@@ -165,6 +166,7 @@
   border-radius: 50%;
   background: var(--coral);
   border: 2px solid var(--paper);
+  color: var(--on-accent);
 }
 
 .timeline small {
@@ -211,13 +213,13 @@
   height: 44px;
   border-radius: 50%;
   background: var(--sun);
-  color: var(--ink);
+  color: var(--on-accent);
   font-weight: 700;
 }
 
-.detail-avatar[data-tone="coral"] { background: #ffd5d1; }
-.detail-avatar[data-tone="mint"] { background: var(--mint); }
-.detail-avatar[data-tone="lilac"] { background: var(--lilac); }
+.detail-avatar[data-tone="coral"] { background: #ffd5d1; color: var(--on-accent); }
+.detail-avatar[data-tone="mint"] { background: var(--mint); color: var(--on-accent); }
+.detail-avatar[data-tone="lilac"] { background: var(--lilac); color: var(--on-accent); }
 
 .side-cta {
   display: inline-block;
@@ -320,4 +322,80 @@
   font-weight: 700;
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* Syllabus (lesson list on the course page) and progress in the enrol card */
+.enrol-card .progress {
+  margin: 14px 0 6px;
+}
+
+.enrol-progress {
+  margin: 0 0 8px;
+  color: #aaa69d;
+  font-size: 13px;
+  text-align: center;
+}
+
+.syllabus {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.syllabus a,
+.syllabus-locked {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: var(--tint);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.syllabus a:hover .syllabus-title {
+  text-decoration: underline;
+}
+
+.syllabus-locked {
+  color: var(--stone);
+}
+
+.syllabus small {
+  color: var(--stone);
+}
+
+.syllabus .lesson-mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.syllabus .lesson-mark.done {
+  background: var(--mint);
+  border-color: var(--mint);
+  color: var(--on-accent);
+}
+
+.enrol-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 8px;
+  border: 1px solid var(--on-surface-dark);
+  border-radius: 12px;
+  color: var(--on-surface-dark);
+  font-weight: 700;
+  text-decoration: none;
 }
