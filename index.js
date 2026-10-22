@@ -37,7 +37,17 @@ const updateHomeView = () => {
 window.addEventListener("DOMContentLoaded", () => {
   const siteLoader = document.getElementById("siteLoader");
   if (siteLoader) {
-    window.setTimeout(() => siteLoader.remove(), 1600);
+    // The loader goes away when BOTH Promises are done: the 1.6 s minimum show time,
+    // and the page finishing loading (capped at 4 s so a slow font cannot trap the loader).
+    const api = window.flexformApi;
+    const minimumTime = api.delay(1600);
+    const pageLoaded = new Promise((resolve) => {
+      if (document.readyState === "complete") resolve();
+      else window.addEventListener("load", resolve, { once: true });
+    });
+    Promise.all([minimumTime, Promise.race([pageLoaded, api.delay(4000)])]).then(() =>
+      siteLoader.remove(),
+    );
   }
 
   updateHomeView();

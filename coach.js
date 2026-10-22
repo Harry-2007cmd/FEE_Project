@@ -116,36 +116,45 @@ const renderNotFound = () => `
 window.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#app").classList.remove("hidden");
   const container = document.querySelector("#coachDetail");
-  const id = new URLSearchParams(window.location.search).get("id");
-  const coach = trainers.find((item) => coachSlug(item.name) === id);
-  const profile = coach && coachProfiles[coach.name];
+  container.innerHTML = '<div class="detail-empty" role="status"><h1>Loading coach…</h1></div>';
 
-  if (!coach || !profile) {
-    document.title = "Coach not found · flexform.";
-    container.innerHTML = renderNotFound();
-    return;
-  }
+  // The coaches and the courses they teach are loaded together; the page draws once both Promises resolve.
+  Promise.all([window.flexformApi.getCoaches(), window.flexformApi.getCourses()])
+    .then(([coachList]) => {
+      const id = new URLSearchParams(window.location.search).get("id");
+      const coach = coachList.find((item) => coachSlug(item.name) === id);
+      const profile = coach && coachProfiles[coach.name];
 
-  document.title = `${coach.name} · flexform.`;
-  container.innerHTML = renderCoach(coach, profile);
+      if (!coach || !profile) {
+        document.title = "Coach not found · flexform.";
+        container.innerHTML = renderNotFound();
+        return;
+      }
 
-  document.querySelector("#bookButton").addEventListener("click", (event) => {
-    const booked = loadSet("bookedCoaches");
-    booked.add(coach.name);
-    storeSet("bookedCoaches", booked);
-    event.currentTarget.textContent = "✓ Request sent";
-    event.currentTarget.disabled = true;
-    notify(`Request sent to ${coach.name}. (Demo — nothing is booked.)`);
-  });
+      document.title = `${coach.name} · flexform.`;
+      container.innerHTML = renderCoach(coach, profile);
 
-  document.querySelector("#saveButton").addEventListener("click", (event) => {
-    const savedSet = loadSet("savedCoaches");
-    const nowSaved = !savedSet.has(coach.name);
-    if (nowSaved) savedSet.add(coach.name);
-    else savedSet.delete(coach.name);
-    storeSet("savedCoaches", savedSet);
-    event.currentTarget.textContent = nowSaved ? "♥ Saved" : "♡ Save coach";
-    event.currentTarget.setAttribute("aria-pressed", String(nowSaved));
-    notify(nowSaved ? `${coach.name} saved.` : `${coach.name} removed from saved coaches.`);
-  });
+      document.querySelector("#bookButton").addEventListener("click", (event) => {
+        const booked = loadSet("bookedCoaches");
+        booked.add(coach.name);
+        storeSet("bookedCoaches", booked);
+        event.currentTarget.textContent = "✓ Request sent";
+        event.currentTarget.disabled = true;
+        notify(`Request sent to ${coach.name}. (Demo — nothing is booked.)`);
+      });
+
+      document.querySelector("#saveButton").addEventListener("click", (event) => {
+        const savedSet = loadSet("savedCoaches");
+        const nowSaved = !savedSet.has(coach.name);
+        if (nowSaved) savedSet.add(coach.name);
+        else savedSet.delete(coach.name);
+        storeSet("savedCoaches", savedSet);
+        event.currentTarget.textContent = nowSaved ? "♥ Saved" : "♡ Save coach";
+        event.currentTarget.setAttribute("aria-pressed", String(nowSaved));
+        notify(nowSaved ? `${coach.name} saved.` : `${coach.name} removed from saved coaches.`);
+      });
+    })
+    .catch((error) => {
+      container.innerHTML = `<div class="detail-empty" role="alert"><h1>${error.message}</h1><a class="dark-button" href="">Try again</a></div>`;
+    });
 });

@@ -26,9 +26,23 @@ const courseCardHtml = (course) => {
     </article>`;
 };
 
+/** Load the catalogue through the mock API Promise, showing loading and error states. */
+const loadCourses = () => {
+  const list = document.querySelector("#courseList");
+  list.innerHTML = '<div class="cream-card" role="status"><h2>Loading courses…</h2></div>';
+  return window.flexformApi
+    .getCourses()
+    .then((items) => {
+      list.innerHTML = items.map(courseCardHtml).join("");
+    })
+    .catch((error) => {
+      list.innerHTML = `<div class="cream-card" role="alert"><h2>${error.message}</h2><button class="sun-button" data-retry>Try again</button></div>`;
+    });
+};
+
 window.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#app").classList.remove("hidden");
-  document.querySelector("#courseList").innerHTML = courses.map(courseCardHtml).join("");
+  loadCourses();
 
   document.addEventListener("click", (event) => {
     // The free class banner starts the "Quiet cardio" course.
@@ -38,6 +52,10 @@ window.addEventListener("DOMContentLoaded", () => {
       );
       card?.scrollIntoView({ behavior: "smooth", block: "center" });
       card?.click();
+      return;
+    }
+    if (event.target.closest("[data-retry]")) {
+      loadCourses();
       return;
     }
     const button = event.target.closest("[data-course]");

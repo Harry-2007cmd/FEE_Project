@@ -28,6 +28,9 @@ const bookedCoaches = loadCoachSet("bookedCoaches");
 
 const TRAINERS_PER_PAGE = 8;
 let trainerPage = 1;
+/* Coaches arrive from the mock API (a Promise). Until then the list is empty. */
+let coachList = [];
+let coachesLoaded = false;
 
 /** Filters changed: go back to the first page and redraw. */
 function renderTrainers() {
@@ -36,10 +39,11 @@ function renderTrainers() {
 }
 
 function drawTrainers() {
+  if (!coachesLoaded) return;
   const query = (select("#trainerSearch")?.value || "").toLowerCase();
   const active = select(".filter.active")?.dataset.filter || "All coaches";
   const availability = select("#availability")?.value || "any";
-  const filtered = trainers.filter(
+  const filtered = coachList.filter(
     (trainer) =>
       (active === "All coaches" || trainer.specialty === active) &&
       // "this week" includes coaches who are free today
@@ -124,7 +128,7 @@ function sendChatMessage(text, reply) {
 }
 
 function openChat(coachName) {
-  const coach = trainers.find((trainer) => trainer.name === coachName);
+  const coach = coachList.find((trainer) => trainer.name === coachName);
   if (!coach) return;
   if (activeCoach?.name !== coach.name) {
     activeCoach = coach;
@@ -143,7 +147,7 @@ function openChat(coachName) {
 /** Apply the "Find my match" answers to the filters and show the results. */
 function applyMatch(goal, time) {
   const matches = (availability) =>
-    trainers.filter(
+    coachList.filter(
       (trainer) =>
         trainer.specialty === goal &&
         (availability === "week" || trainer.availability === "today"),
@@ -203,14 +207,33 @@ function bindChat() {
   });
 }
 
+/** Load the coaches through the mock API Promise, showing loading and error states. */
+function loadCoaches() {
+  select("#trainerCount").textContent = "Loading coaches…";
+  select("#trainerList").innerHTML =
+    '<div class="cream-card" role="status"><h2>Loading coaches…</h2></div>';
+  return window.flexformApi
+    .getCoaches()
+    .then((list) => {
+      coachList = list;
+      coachesLoaded = true;
+      renderTrainers();
+      // Coming from a coach profile (trainers.html?chat=<name>): open that coach's chat
+      const chatWith = new URLSearchParams(window.location.search).get("chat");
+      if (chatWith && coachList.some((trainer) => trainer.name === chatWith)) openChat(chatWith);
+    })
+    .catch((error) => {
+      select("#trainerCount").textContent = "Coaches could not be loaded";
+      select("#trainerList").innerHTML =
+        `<div class="cream-card" role="alert"><h2>${error.message}</h2><button class="sun-button" data-retry>Try again</button></div>`;
+    });
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   select("#app").classList.remove("hidden");
-  renderTrainers();
+  loadCoaches();
   bindChat();
   bindMatchDialog();
-  // Coming from a coach profile (trainers.html?chat=<name>): open that coach's chat
-  const chatWith = new URLSearchParams(window.location.search).get("chat");
-  if (chatWith && trainers.some((trainer) => trainer.name === chatWith)) openChat(chatWith);
   select("#trainerSearch")?.addEventListener("input", renderTrainers);
   select("#availability")?.addEventListener("change", renderTrainers);
   all(".filter").forEach((button) =>
@@ -222,13 +245,29 @@ window.addEventListener("DOMContentLoaded", () => {
   );
   document.addEventListener("click", (event) => {
     const book = event.target.closest("[data-book]");
-    if (book) {
-      bookedCoaches.add(book.dataset.book);
-      storeCoachSet("bookedCoaches", bookedCoaches);
-      book.textContent = "✓ Request sent";
-      book.classList.add("booked");
-      toast(`Session request sent to ${book.dataset.book}`);
+    if (book && !book.disabled && !bookedCoaches.has(book.dataset.book)) {
+      const coachName = book.dataset.book;
+      book.disabled = true;
+      book.textContent = "Sending…";
+      // The mock API returns a Promise: .then runs on success, .catch on failure.
+      window.flexformApi
+        .bookCoach(coachName)
+        .then(() => {
+          bookedCoaches.add(coachName);
+          storeCoachSet("bookedCoaches", bookedCoaches);
+          book.textContent = "✓ Request sent";
+          book.classList.add("booked");
+          toast(`Session request sent to ${coachName}`);
+        })
+        .catch((error) => {
+          book.textContent = "Book a session";
+          toast(`${error.message} Please try again.`);
+        })
+        .finally(() => {
+          book.disabled = false;
+        });
     }
+    if (event.target.closest("[data-retry]")) loadCoaches();
     const chatButton = event.target.closest("[data-chat]");
     if (chatButton) openChat(chatButton.dataset.chat);
     const save = event.target.closest("[data-save]");

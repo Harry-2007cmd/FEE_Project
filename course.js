@@ -134,50 +134,59 @@ const renderNotFound = () => `
 window.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#app").classList.remove("hidden");
   const container = document.querySelector("#courseDetail");
-  const id = new URLSearchParams(window.location.search).get("id");
-  const index = courses.findIndex((item) => item.id === id);
-  const course = courses[index];
+  container.innerHTML = '<div class="detail-empty" role="status"><h1>Loading course…</h1></div>';
 
-  if (!course) {
-    document.title = "Course not found · flexform.";
-    container.innerHTML = renderNotFound();
-    return;
-  }
+  // The course list and the coaches are loaded together; the page draws once both Promises resolve.
+  Promise.all([window.flexformApi.getCourses(), window.flexformApi.getCoaches()])
+    .then(([courseList]) => {
+      const id = new URLSearchParams(window.location.search).get("id");
+      const index = courseList.findIndex((item) => item.id === id);
+      const course = courseList[index];
 
-  document.title = `${course.title} · flexform.`;
-  container.innerHTML = renderCourse(course, index);
+      if (!course) {
+        document.title = "Course not found · flexform.";
+        container.innerHTML = renderNotFound();
+        return;
+      }
 
-  const enrolButton = document.querySelector("#enrolButton");
-  const leaveButton = document.querySelector("#leaveButton");
-  const toast = document.querySelector("#toast");
-  const notify = (message) => {
-    if (!toast) return;
-    toast.textContent = message;
-    toast.classList.add("show");
-    setTimeout(() => toast.classList.remove("show"), 2600);
-  };
+      document.title = `${course.title} · flexform.`;
+      container.innerHTML = renderCourse(course, index);
 
-  const refreshLessons = () => {
-    document.querySelector("#courseProgress").innerHTML = progressBlockHtml(course);
-    document.querySelector("#lessonsBlock").innerHTML = lessonsBlockHtml(course);
-  };
+      const enrolButton = document.querySelector("#enrolButton");
+      const leaveButton = document.querySelector("#leaveButton");
+      const toast = document.querySelector("#toast");
+      const notify = (message) => {
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2600);
+      };
 
-  enrolButton.addEventListener("click", () => {
-    window.flexformCourses.start(course.title);
-    enrolButton.textContent = "✓ Enrolled";
-    enrolButton.disabled = true;
-    leaveButton.classList.remove("hidden");
-    refreshLessons();
-    notify(`You’re enrolled in ${course.title}. (Demo — no payment taken.)`);
-  });
+      const refreshLessons = () => {
+        document.querySelector("#courseProgress").innerHTML = progressBlockHtml(course);
+        document.querySelector("#lessonsBlock").innerHTML = lessonsBlockHtml(course);
+      };
 
-  leaveButton.addEventListener("click", () => {
-    window.flexformCourses.leave(course.title);
-    enrolButton.textContent = enrolLabel(course);
-    enrolButton.disabled = false;
-    leaveButton.classList.add("hidden");
-    refreshLessons();
-    enrolButton.focus();
-    notify(`You left ${course.title}.`);
-  });
+      enrolButton.addEventListener("click", () => {
+        window.flexformCourses.start(course.title);
+        enrolButton.textContent = "✓ Enrolled";
+        enrolButton.disabled = true;
+        leaveButton.classList.remove("hidden");
+        refreshLessons();
+        notify(`You’re enrolled in ${course.title}. (Demo — no payment taken.)`);
+      });
+
+      leaveButton.addEventListener("click", () => {
+        window.flexformCourses.leave(course.title);
+        enrolButton.textContent = enrolLabel(course);
+        enrolButton.disabled = false;
+        leaveButton.classList.add("hidden");
+        refreshLessons();
+        enrolButton.focus();
+        notify(`You left ${course.title}.`);
+      });
+    })
+    .catch((error) => {
+      container.innerHTML = `<div class="detail-empty" role="alert"><h1>${error.message}</h1><a class="dark-button" href="">Try again</a></div>`;
+    });
 });
