@@ -29,6 +29,7 @@ Mode: ponytail ultra (push back on scope, minimal code)
 - [x] Copy originals to public/legacy/
 - [x] Verify build succeeds (`npm run build` → 79 modules, dist/index.html 1.24 kB, CSS 53.7 kB, JS 317.55 kB)
 - [x] Dev server starts cleanly (no console errors at startup)
+- [x] Cleanup: deleted 51 redundant root legacy files (duplicates of `public/legacy/`, verified byte-identical via `diff`); build still green
 - [ ] Visual comparison (1440/900/560/390, light/dark, guest/member)
 - [ ] Click-through verification
 - [ ] Final report
