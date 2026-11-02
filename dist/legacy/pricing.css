@@ -1,0 +1,124 @@
+/* Pricing page */
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.plan-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--paper);
+}
+
+.plan-card.featured {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.plan-card.current {
+  background: var(--tint);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--sun);
+  color: var(--on-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.plan-card h2 {
+  margin: 0;
+  font: 700 28px var(--display);
+  letter-spacing: -0.04em;
+}
+
+.plan-tagline {
+  margin: 6px 0 0;
+  color: var(--stone);
+  line-height: 1.5;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.plan-price b {
+  font: 700 44px var(--display);
+  letter-spacing: -0.05em;
+}
+
+.plan-price span {
+  color: var(--stone);
+}
+
+.plan-features {
+  flex: 1;
+  display: grid;
+  gap: 10px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-features li {
+  position: relative;
+  padding-left: 26px;
+  line-height: 1.45;
+}
+
+.plan-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--coral-text);
+  font-weight: 700;
+}
+
+.plan-button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--cream);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.plan-card.featured .plan-button {
+  background: var(--coral);
+  color: var(--on-accent);
+}
+
+.plan-button:disabled {
+  background: var(--mint);
+  color: var(--on-accent);
+  cursor: default;
+}
+
+.plan-note {
+  margin: 22px 0 0;
+  color: var(--stone);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .plan-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+}

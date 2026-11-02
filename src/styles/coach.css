@@ -1,0 +1,72 @@
+/* Coach profile page: builds on course-detail.css */
+.enrol-card .coach-avatar {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  font-size: 20px;
+}
+
+.coach-chat-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 8px;
+  border: 1px solid var(--on-surface-dark);
+  border-radius: 12px;
+  color: var(--on-surface-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.coach-text {
+  margin: 0 0 14px;
+  line-height: 1.6;
+  color: var(--stone);
+}
+
+.coach-sub {
+  margin: 8px 0 6px;
+  font: 700 16px var(--display);
+}
+
+.session-list,
+.coach-courses {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.session-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--tint);
+}
+
+.session-list span {
+  color: var(--stone);
+  white-space: nowrap;
+}
+
+.coach-courses a {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--tint);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.coach-courses a:hover b {
+  text-decoration: underline;
+}
+
+.coach-courses small {
+  color: var(--stone);
+}

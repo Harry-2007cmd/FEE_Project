@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="flexform — thoughtful fitness consultancy for your real life."
+    />
+    <title>flexform. — Move in your own way</title>
+    <script src="theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body data-page="home">
+    <div class="loader" id="siteLoader" role="status" aria-label="Loading flexform">
+      <div class="loader-inner">
+        <div class="logo-mark">⌁</div>
+        <div class="loader-logo">flexform<span>.</span></div>
+        <p>Start in a way that feels good.</p>
+        <div class="loader-line" aria-hidden="true"><i></i></div>
+      </div>
+    </div>
+    <script>
+      // Show the splash once per tab session; skip it on later visits.
+      try {
+        if (sessionStorage.getItem("flexformSplashSeen")) {
+          document.getElementById("siteLoader")?.remove();
+        } else {
+          sessionStorage.setItem("flexformSplashSeen", "true");
+        }
+      } catch (error) {
+        /* storage unavailable: the splash simply shows each time */
+      }
+    </script>
+    <div id="app" class="app">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"
+          ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+        >
+        <p class="side-label">Your rhythm</p>
+        <nav class="side-nav">
+          <a class="active" href="index.html">⌂ <span>Today</span></a
+          ><a href="trainers.html">♧ <span>Find a coach</span></a
+          ><a href="courses.html">▤ <span>Courses</span></a
+          ><a href="tools.html">⌗ <span>Tools</span></a>
+        </nav>
+        <p class="side-label keep-label">Keep going</p>
+        <a class="side-link protected-link" href="profile.html"
+          >♙ <span>My progress</span></a
+        >
+        <a class="side-link protected-link" href="planner.html">▦ <span>My planner</span></a>
+        <div class="side-prompt">
+          <strong>Your next good choice is one tap away.</strong
+          ><a href="trainers.html">Meet a coach →</a>
+        </div>
+        <a class="side-link" href="login.html">⚙ <span>Sign in</span></a>
+      </aside>
+      <div class="main-column">
+        <header class="topbar">
+          <a class="brand desktop-brand" href="index.html"
+            ><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a
+          >
+          <div class="top-message"><i></i> Your wellness, on your terms</div>
+          <div class="top-actions">
+            <button
+              id="notificationButton"
+              class="icon-button"
+              aria-label="Show notifications"
+            >
+              ♧</button
+            ><a class="top-auth-link guest-only" href="login.html">Log in</a
+            ><a class="top-auth-button guest-only" href="signup.html">Sign up</a
+            ><a href="profile.html" class="user-chip protected-link auth-only hidden user-chip--main"
+              ><span class="user-avatar-text">AL</span><b class="user-name-display">Alex Lee</b>⌄</a
+            ><button type="button" class="logout-button auth-only hidden" data-logout>
+              Log out
+            </button>
+          </div>
+          <div id="notification" class="notification">
+            You’re all caught up.
+          </div>
+        </header>
+        <main id="pages">
+          <section class="page active guest-home" id="page-home-guest">
+            <div class="guest-hero">
+              <p class="eyebrow">A calmer way to move</p>
+              <h1>Build a rhythm that fits <em>real life.</em></h1>
+              <p class="lede">
+                Meet coaches, discover guided classes, and create a wellness plan
+                that supports your day instead of overwhelming it.
+              </p>
+              <div class="guest-actions">
+                <a class="action-button" href="signup.html">Create your space →</a>
+                <a class="outline-button" href="login.html">Log in</a>
+              </div>
+            </div>
+            <div class="guest-feature-grid">
+              <article class="cream-card guest-feature">
+                <span class="feature-icon">♧</span>
+                <h2>Coach matching</h2>
+                <p>Find support that feels aligned with your goals and pace.</p>
+              </article>
+              <article class="cream-card guest-feature">
+                <span class="feature-icon">▤</span>
+                <h2>Guided courses</h2>
+                <p>Try short lessons designed for busy routines and real progress.</p>
+              </article>
+              <article class="cream-card guest-feature">
+                <span class="feature-icon">⌗</span>
+                <h2>Helpful tools</h2>
+                <p>Track your goals, mood, and everyday movement without the pressure.</p>
+              </article>
+            </div>
+
+            <section class="guest-content-block">
+              <div class="section-heading guest-block-head">
+                <div>
+                  <p class="eyebrow">Meet your support</p>
+                  <h2>Coaches who keep real life in view</h2>
+                </div>
+              </div>
+              <div class="trainer-preview-grid">
+                <article class="cream-card trainer-preview">
+                  <span class="trainer-badge">Maya Chen</span>
+                  <h3>Strength &amp; mobility coach</h3>
+                  <p>
+                    Brings structure, confidence, and smart progression for people who
+                    want to feel stronger without burnout.
+                  </p>
+                </article>
+                <article class="cream-card trainer-preview">
+                  <span class="trainer-badge">Arjun Patel</span>
+                  <h3>Mindful movement guide</h3>
+                  <p>
+                    Helps you build calm movement and recovery habits that support
+                    long-term energy and consistency.
+                  </p>
+                </article>
+                <article class="cream-card trainer-preview">
+                  <span class="trainer-badge">Lena Ortiz</span>
+                  <h3>Nutrition &amp; habit coach</h3>
+                  <p>
+                    Makes everyday nutrition simple and helps you design habits that
+                    stick.
+                  </p>
+                </article>
+              </div>
+            </section>
+
+            <section class="guest-content-block faq-block">
+              <div class="section-heading guest-block-head">
+                <div>
+                  <p class="eyebrow">FAQs</p>
+                  <h2>Everything you need to know before starting</h2>
+                </div>
+              </div>
+              <div class="faq-list">
+                <details open>
+                  <summary>Is flexform for beginners?</summary>
+                  <p>
+                    Yes. Every plan is designed to be approachable, with guided
+                    sessions and flexible routines that work for different experience
+                    levels.
+                  </p>
+                </details>
+                <details>
+                  <summary>Do I need a strict routine?</summary>
+                  <p>
+                    No. The platform is built around realistic progress. Small,
+                    sustainable habits matter more than perfection.
+                  </p>
+                </details>
+                <details>
+                  <summary>Can I try coaching before committing?</summary>
+                  <p>
+                    Absolutely. You can explore the programs, preview coach styles,
+                    and create your account before choosing a plan.
+                  </p>
+                </details>
+                <details>
+                  <summary>What makes flexform different?</summary>
+                  <p>
+                    We combine supportive coaching, thoughtful tools, and a healthier
+                    relationship with movement—so your routine fits your life, not the
+                    other way around.
+                  </p>
+                </details>
+              </div>
+            </section>
+          </section>
+
+          <section class="page active member-home hidden" id="page-home-member">
+            <div class="page-intro split">
+              <div>
+                <p class="eyebrow">Tuesday, October 24 · Week 6</p>
+                <h1>Good morning,<br /><em data-greeting-name>Alex.</em></h1>
+                <p class="lede">
+                  A little movement, a little intention. That’s enough to change
+                  the shape of your day.
+                </p>
+              </div>
+              <div class="rhythm-pill">
+                <i></i> 6 day rhythm <b>Keep it going</b>
+              </div>
+            </div>
+            <div class="home-grid">
+              <article class="dark-card rhythm-card">
+                <div class="card-top">
+                  <span>THIS WEEK’S RHYTHM</span><b>On track</b>
+                </div>
+                <strong class="big-number">84<span>%</span></strong>
+                <p>of your weekly plan completed</p>
+                <div class="progress-copy">
+                  <span>4 of 5 sessions</span><span>+12% from last week</span>
+                </div>
+                <div class="progress"><i style="width: 84%"></i></div>
+                <div class="dot-orbit">● ○ ●<br />○ ● ○<br />● ○ ●</div>
+              </article>
+              <article class="cream-card focus-card">
+                <div class="card-top">
+                  <span>TODAY’S FOCUS</span><b class="round-icon">◎</b>
+                </div>
+                <div>
+                  <h2>15 minutes<br />to feel <em>lighter.</em></h2>
+                  <p>
+                    A short mobility flow, designed for where your body is
+                    today.
+                  </p>
+                </div>
+                <button class="action-button" data-complete>
+                  Start today’s flow <b>→</b>
+                </button>
+              </article>
+            </div>
+            <article class="cream-card schedule-card">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Today</p>
+                  <h2>Your schedule</h2>
+                </div>
+              </div>
+              <div id="todaySchedule" class="schedule-list"></div>
+            </article>
+            <div class="stats-row">
+              <div>
+                <span class="stat-icon coral">ϟ</span><small>ACTIVE DAYS</small
+                ><b>06 days</b>
+              </div>
+              <div>
+                <span class="stat-icon sun">↯</span><small>MOVE MINUTES</small
+                ><b>128 min</b>
+              </div>
+              <div>
+                <span class="stat-icon mint">♡</span><small>ENERGY TODAY</small
+                ><b>Feeling good</b>
+              </div>
+              <div>
+                <span class="stat-icon lilac">↗</span><small>BEST STREAK</small
+                ><b>12 days</b>
+              </div>
+            </div>
+            <div class="home-grid lower-grid">
+              <article class="cream-card chart-card">
+                <div class="section-heading">
+                  <div>
+                    <p class="eyebrow">Your numbers</p>
+                    <h2>The bigger picture</h2>
+                  </div>
+                </div>
+                <div class="steps">
+                  <b>11,240</b><span>steps this week</span>
+                </div>
+                <svg viewBox="0 0 420 115" preserveAspectRatio="none">
+                  <path
+                    d="M4 95 C35 88 44 56 78 70 S117 86 142 46 S183 70 207 53 S249 61 273 25 S309 53 341 39 S376 46 416 12"
+                  />
+                </svg>
+                <div class="days">
+                  <span>Mon</span><span>Tue</span><span>Wed</span
+                  ><span>Thu</span><span>Fri</span><span>Sat</span
+                  ><span>Sun</span>
+                </div>
+              </article>
+              <article class="challenge-card">
+                <div class="challenge-overlay">
+                  <span class="play">▶</span
+                  ><small>15 MIN · GUIDED SESSION</small>
+                  <h2>Your daily challenge:<br /><em>show up softly.</em></h2>
+                  <button class="light-button" data-complete>
+                    Play session →
+                  </button>
+                </div>
+              </article>
+            </div>
+            <div class="section-heading upcoming-heading">
+              <div>
+                <p class="eyebrow">Coming up</p>
+                <h2>Keep your rhythm</h2>
+              </div>
+              <a href="trainers.html">View all coaches →</a>
+            </div>
+            <div class="upcoming">
+              <div>
+                <span class="avatar coral">MC</span>
+                <p><b>Strength foundations</b><small>with Maya Chen</small></p>
+                <time>Today<br /><b>6:30 PM</b></time>
+              </div>
+              <div>
+                <span class="avatar lilac">DF</span>
+                <p><b>Desk reset</b><small>Self-guided course</small></p>
+                <time>Tomorrow<br /><b>8 min</b></time>
+              </div>
+              <div>
+                <span class="avatar mint">AP</span>
+                <p><b>Recovery check-in</b><small>with Arjun Patel</small></p>
+                <time>Fri<br /><b>12:15 PM</b></time>
+              </div>
+            </div>
+          </section>
+        </main>
+        <footer class="site-footer">
+          <div class="footer-grid">
+            <div class="footer-block">
+              <h3>About us</h3>
+              <p>
+                flexform is a thoughtful wellness space designed to help you move in
+                a way that feels sustainable, supportive, and true to your life.
+                We blend gentle coaching, practical tools, and steady routines to
+                make healthy habits feel possible.</p>
+              <a class="footer-link" href="pricing.html">Plans &amp; pricing →</a>
+            </div>
+            <div class="footer-block">
+              <h3>Contact us</h3>
+              <p>
+                Reach out at hello@flexform.com or call +1 (415) 555-0148 for
+                support, bookings, or questions about memberships and coaching.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <nav class="mobile-nav">
+        <a class="active" href="index.html">⌂<small>Today</small></a
+        ><a href="trainers.html">♧<small>Find a coach</small></a
+        ><a href="courses.html">▤<small>Courses</small></a
+        ><a href="tools.html">⌗<small>Tools</small></a
+        ><a class="protected-link" href="profile.html"
+          >♙<small>Profile</small></a
+        >
+      </nav>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="notifications-data.js"></script>
+    <script src="auth.js"></script>
+    <script src="common.js"></script>
+    <script src="api.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
