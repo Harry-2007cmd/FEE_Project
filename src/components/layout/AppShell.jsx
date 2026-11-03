@@ -10,7 +10,7 @@ export default function AppShell() {
   const pageKey = location.pathname.slice(1) || "home";
 
   return (
-    <div id="app" className="app hidden">
+    <div id="app" className="app">
       <Sidebar activePath={location.pathname} />
       <div className="main-column">
         <Topbar />

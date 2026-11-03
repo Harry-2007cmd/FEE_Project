@@ -17,8 +17,7 @@ export default function TrainerCard({ trainer, onBook, onSave, onChat }) {
   const handleSave = (e) => {
     e.stopPropagation();
     const nowSaved = !saved;
-    if (nowSaved) onSave(trainer.name);
-    else onSave(trainer.name);
+    onSave(trainer.name);
     setSaved(nowSaved);
   };
 

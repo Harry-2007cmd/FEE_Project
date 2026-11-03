@@ -132,3 +132,6 @@ const lessonsFor = (course) => {
     minutes: base + (index < extra ? 1 : 0),
   }));
 };
+
+export { lessonsFor };
+export default lessonsFor;

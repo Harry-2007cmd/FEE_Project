@@ -237,3 +237,6 @@ const coachSlug = (name) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+
+export { coachProfiles, coachSlug };
+export default coachProfiles;

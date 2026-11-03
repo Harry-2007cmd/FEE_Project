@@ -811,3 +811,5 @@ const trainers = [
       "Thank you for sharing that. Tell me more, or tap a question below. There's no right answer.",
   },
 ];
+
+export default trainers;

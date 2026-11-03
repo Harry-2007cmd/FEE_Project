@@ -26,3 +26,5 @@ const plannerMeals = [
   { title: "Snack: fruit and yogurt" },
   { title: "Snack: hummus and veggies" },
 ];
+
+export { plannerWorkouts, plannerMeals };

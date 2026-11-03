@@ -27,8 +27,12 @@ Mode: ponytail ultra (push back on scope, minimal code)
 - [x] Build page components
 - [x] Wire up routing in main.jsx
 - [x] Copy originals to public/legacy/
-- [x] Verify build succeeds (`npm run build` → 79 modules, dist/index.html 1.24 kB, CSS 53.7 kB, JS 317.55 kB)
+- [x] Verify build succeeds (`npm run build` → 87 modules, dist/index.html 1.24 kB, CSS 53.7 kB, JS 376.56 kB)
 - [x] Dev server starts cleanly (no console errors at startup)
+- [x] Fix black screen issue:
+  1. Removed `hidden` class on root `<div id="app" className="app">` in AppShell, Login, Signup.
+  2. Created `src/lib/data-loader.js` to expose mock data (`window.courses`, `window.trainers`, `window.coachProfiles`, `window.plans`, `window.plannerWorkouts`, `window.plannerMeals`, `window.lessonsFor`, `window.coachSlug`, `window.flexformNotifications`) on startup via `main.jsx`.
+  3. Added export statements to data modules (`courses-data.js`, `trainers-data.js`, `coach-profiles-data.js`, `pricing-data.js`, `planner-data.js`, `lessons-data.js`).
 - [x] Cleanup: deleted 51 redundant root legacy files (duplicates of `public/legacy/`, verified byte-identical via `diff`); build still green
 - [ ] Visual comparison (1440/900/560/390, light/dark, guest/member)
 - [ ] Click-through verification

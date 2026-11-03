@@ -38,8 +38,6 @@ export default function Courses() {
   };
 
   const loadCourses = async () => {
-    const list = document.querySelector("#courseList");
-    if (list) list.innerHTML = '<div class="cream-card" role="status"><h2>Loading courses…</h2></div>';
     try {
       const items = await window.flexformApi.getCourses();
       setCourses(items);
@@ -76,40 +74,52 @@ export default function Courses() {
     toast("Nice work. Your course progress is saved.");
   };
 
+  const intro = (
+    <div className="page-intro split">
+      <div>
+        <p className="eyebrow">A little structure goes a long way</p>
+        <h1>Your <em>library.</em></h1>
+        <p className="lede">
+          Short, thoughtful programs for the days you have — not the
+          days you wish you had.
+        </p>
+      </div>
+      <div className="rhythm-pill">▶ <b>1 free class</b> included</div>
+    </div>
+  );
+
+  const freeClass = (
+    <div className="free-class">
+      <div>
+        <p className="eyebrow">Start here · no commitment</p>
+        <h2>A free class to find your <em>pace.</em></h2>
+        <p>
+          Press play on a 12-minute full-body reset. No equipment, no
+          perfect form required.
+        </p>
+        <button className="dark-button" data-free-class>
+          Try the free class ▶
+        </button>
+      </div>
+      <div className="abstract-photo"><span>12:04</span></div>
+    </div>
+  );
+
+  const heading = (
+    <div className="section-heading">
+      <div>
+        <p className="eyebrow">Built for real life</p>
+        <h2>Move at your pace.</h2>
+      </div>
+    </div>
+  );
+
   if (!loaded) {
     return (
-      <section className="page active" id="page-courses">
-        <div className="page-intro split">
-          <div>
-            <p className="eyebrow">A little structure goes a long way</p>
-            <h1>Your <em>library.</em></h1>
-            <p className="lede">
-              Short, thoughtful programs for the days you have — not the
-              days you wish you had.
-            </p>
-          </div>
-          <div className="rhythm-pill">▶ <b>1 free class</b> included</div>
-        </div>
-        <div className="free-class">
-          <div>
-            <p className="eyebrow">Start here · no commitment</p>
-            <h2>A free class to find your <em>pace.</em></h2>
-            <p>
-              Press play on a 12-minute full-body reset. No equipment, no
-              perfect form required.
-            </p>
-            <button className="dark-button" data-free-class disabled>
-              Try the free class ▶
-            </button>
-          </div>
-          <div className="abstract-photo"><span>12:04</span></div>
-        </div>
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Built for real life</p>
-            <h2>Move at your pace.</h2>
-          </div>
-        </div>
+      <section className="page active" id="page-courses" onClick={handleClick}>
+        {intro}
+        {freeClass}
+        {heading}
         <div id="courseList" className="course-grid">
           <div className="cream-card" role="status"><h2>Loading courses…</h2></div>
         </div>
@@ -119,38 +129,10 @@ export default function Courses() {
 
   if (error) {
     return (
-      <section className="page active" id="page-courses">
-        <div className="page-intro split">
-          <div>
-            <p className="eyebrow">A little structure goes a long way</p>
-            <h1>Your <em>library.</em></h1>
-            <p className="lede">
-              Short, thoughtful programs for the days you have — not the
-              days you wish you had.
-            </p>
-          </div>
-          <div className="rhythm-pill">▶ <b>1 free class</b> included</div>
-        </div>
-        <div className="free-class">
-          <div>
-            <p className="eyebrow">Start here · no commitment</p>
-            <h2>A free class to find your <em>pace.</em></h2>
-            <p>
-              Press play on a 12-minute full-body reset. No equipment, no
-              perfect form required.
-            </p>
-            <button className="dark-button" data-free-class disabled>
-              Try the free class ▶
-            </button>
-          </div>
-          <div className="abstract-photo"><span>12:04</span></div>
-        </div>
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Built for real life</p>
-            <h2>Move at your pace.</h2>
-          </div>
-        </div>
+      <section className="page active" id="page-courses" onClick={handleClick}>
+        {intro}
+        {freeClass}
+        {heading}
         <div id="courseList" className="course-grid">
           <div className="cream-card" role="alert">
             <h2>{error}</h2>
@@ -163,37 +145,9 @@ export default function Courses() {
 
   return (
     <section className="page active" id="page-courses" onClick={handleClick}>
-      <div className="page-intro split">
-        <div>
-          <p className="eyebrow">A little structure goes a long way</p>
-          <h1>Your <em>library.</em></h1>
-          <p className="lede">
-            Short, thoughtful programs for the days you have — not the
-            days you wish you had.
-          </p>
-        </div>
-        <div className="rhythm-pill">▶ <b>1 free class</b> included</div>
-      </div>
-      <div className="free-class">
-        <div>
-          <p className="eyebrow">Start here · no commitment</p>
-          <h2>A free class to find your <em>pace.</em></h2>
-          <p>
-            Press play on a 12-minute full-body reset. No equipment, no
-            perfect form required.
-          </p>
-          <button className="dark-button" data-free-class>
-            Try the free class ▶
-          </button>
-        </div>
-        <div className="abstract-photo"><span>12:04</span></div>
-      </div>
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">Built for real life</p>
-          <h2>Move at your pace.</h2>
-        </div>
-      </div>
+      {intro}
+      {freeClass}
+      {heading}
       <div id="courseList" className="course-grid" dangerouslySetInnerHTML={{ __html: courses.map(courseCardHtml).join("") }} />
     </section>
   );

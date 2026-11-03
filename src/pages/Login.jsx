@@ -115,7 +115,7 @@ export default function Login() {
 
   return (
     <>
-      <div id="app" className="app hidden">
+      <div id="app" className="app">
         <main id="pages">
           <section className="page active auth-page" id="page-login">
             <div className="auth-wrap">

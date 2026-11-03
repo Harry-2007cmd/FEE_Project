@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./styles/styles.css";
+import "./lib/data-loader.js";
 import AppShell from "./components/layout/AppShell.jsx";
 import Load from "./pages/Load.jsx";
 import Home from "./pages/Home.jsx";
