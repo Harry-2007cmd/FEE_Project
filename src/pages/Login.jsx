@@ -31,11 +31,7 @@ export default function Login() {
   // Redirect if already logged in once auth is ready.
   useEffect(() => {
     if (loading) return;
-    if (flexformAuth.isEnabled ? flexformAuth.isEnabled() : true) {
-      if (flexformAuth.isEnabled()) {
-        navigate(ui.returnPage());
-      }
-    }
+    if (flexformAuth.isLoggedIn()) navigate(ui.returnPage());
   }, [loading, navigate]);
 
   const fieldError = (id, message) =>
