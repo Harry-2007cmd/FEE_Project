@@ -352,3 +352,35 @@ Clear the site's `localStorage` in your browser's dev tools.
 - **Mock data is fixed.** Stats, schedule and history are static.
 - **Google Fonts** need a network connection.
 - **Calorie and BMI figures are rough estimates**, not medical advice.
+
+
+---
+
+## React + Vite migration
+
+The `react-vite-migration` branch contains the React application entry point and Vite development setup. The original static HTML, CSS and JavaScript files remain in the repository as reference/legacy sources; the Vite app is served from the root `index.html`.
+
+### Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Create a production build with:
+
+```bash
+npm run build
+npm run preview
+```
+
+### React app structure
+
+- `src/main.jsx` — React bootstrap and route definitions.
+- `src/data/` — imported mock coach, course, coach-profile, lesson, planner and pricing data.
+- `src/app.css` — React-specific component and responsive styles.
+- `vite.config.js` — Vite React plugin configuration.
+
+The app remains frontend-only. Sign-in, coach chat, enrolment, planner entries and progress use browser storage and sample data; there is no real authentication provider, payment processor, messaging service or booking backend. Lesson video areas are placeholders, matching the demo nature of the original project.
+
+A GitHub Actions workflow at `.github/workflows/react-build.yml` runs the Vite production build on pushes and pull requests to this branch.
