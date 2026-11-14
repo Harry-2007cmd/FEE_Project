@@ -20,7 +20,7 @@ const notify = (message) => {
 };
 
 export default function Planner() {
-  const { isLoggedIn } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [weekStart, setWeekStart] = useState(() => activity.weekStart(activity.dateKey()));
   const [selectedDay, setSelectedDay] = useState(() => activity.dateKey());
@@ -151,10 +151,10 @@ export default function Planner() {
 
   // Redirect if not logged in
   useEffect(() => {
-    if (!isLoggedIn()) {
+    if (!user) {
       navigate("/login?return=/planner");
     }
-  }, [isLoggedIn, navigate]);
+  }, [user, navigate]);
 
   return (
     <section className="page active" id="page-planner">

@@ -10,7 +10,7 @@ const ui = flexformAuthUI;
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login, loading } = useAuth();
+  const { login, user, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
@@ -31,8 +31,8 @@ export default function Login() {
   // Redirect if already logged in once auth is ready.
   useEffect(() => {
     if (loading) return;
-    if (flexformAuth.isLoggedIn()) navigate(ui.returnPage());
-  }, [loading, navigate]);
+    if (user) navigate(ui.returnPage());
+  }, [loading, user, navigate]);
 
   const fieldError = (id, message) =>
     setErrors((prev) => ({ ...prev, [id]: message }));

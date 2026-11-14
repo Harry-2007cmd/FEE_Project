@@ -19,8 +19,8 @@ const createStorage = () => {
   };
 };
 
-global.localStorage = createStorage();
-global.sessionStorage = createStorage();
+Object.defineProperty(global, "localStorage", { value: createStorage(), writable: true, configurable: true });
+Object.defineProperty(global, "sessionStorage", { value: createStorage(), writable: true, configurable: true });
 
 // Ensure crypto.subtle is available (jsdom 31+ has it)
 if (!global.crypto) {

@@ -52,7 +52,17 @@ export const clock = (seconds) => {
   return `${m}:${s}`;
 };
 
+/* ---- BMI: weight (kg) / height (m)^2 ---- */
+export const bmi = (heightCm, weightKg) =>
+  weightKg / Math.pow(heightCm / 100, 2);
+
+/* ---- Mifflin-St Jeor: 10w + 6.25h - 5a + sexConstant ---- */
+export const mifflinStJeor = (heightCm, weightKg, age, sex) => {
+  const sexConstant = sex === "female" ? -161 : 5;
+  return Math.round(10 * weightKg + 6.25 * heightCm - 5 * age + sexConstant);
+};
+
 // Export as an object for window.flexformTools compatibility
-export const flexformTools = { waterMl, oneRepMax, macroGrams, buildPhases };
+export const flexformTools = { waterMl, oneRepMax, macroGrams, buildPhases, bmi, mifflinStJeor };
 window.flexformTools = flexformTools;
 export default flexformTools;

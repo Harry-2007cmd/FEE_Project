@@ -6,9 +6,9 @@ import GuestHome from "../components/home/GuestHome.jsx";
 import MemberHome from "../components/home/MemberHome.jsx";
 
 export default function Home() {
-  const { isLoggedIn, loading } = useAuth();
+  const { user, loading } = useAuth();
   const [showLoader, setShowLoader] = useState(true);
-  const loggedIn = isLoggedIn();
+  const loggedIn = !!user;
 
   // Loader logic from index.js — keep it a React state so no DOM removeChild
   // can ever race with React reconciliation (which crashes the whole tree).

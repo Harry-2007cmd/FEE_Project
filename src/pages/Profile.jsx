@@ -32,7 +32,7 @@ const notify = (message) => {
 };
 
 export default function Profile() {
-  const { isLoggedIn, user, updateProfile, refresh } = useAuth();
+  const { user, updateProfile, refresh } = useAuth();
   const navigate = useNavigate();
   const [editOpen, setEditOpen] = useState(false);
   const [tick, setTick] = useState(0);
@@ -61,14 +61,14 @@ export default function Profile() {
   const activity = window.flexformActivity;
 
   useEffect(() => {
-    if (!isLoggedIn()) {
+    if (!user) {
       navigate("/login?return=/profile");
       return;
     }
-  }, [isLoggedIn, navigate]);
+  }, [user, navigate]);
 
   useEffect(() => {
-    if (!isLoggedIn()) return;
+    if (!user) return;
     const email = localStorage.getItem("flexformUserEmail") || "";
     const name = localStorage.getItem("flexformUserName")?.trim() || "Friend";
     const initialsVal = name
@@ -82,10 +82,10 @@ export default function Profile() {
     setProfileEmail(email || "you@example.com");
     setEditName(name);
     setEditEmail(email);
-  }, [isLoggedIn, tick]);
+  }, [user, tick]);
 
   useEffect(() => {
-    if (!isLoggedIn()) return;
+    if (!user) return;
     const list = activity.completions(
       (courseId, number) => {
         const course = window.courses.find((item) => item.id === courseId);
