@@ -1,4 +1,4 @@
-.filter-box {
+.filter-box{
   display: grid;
   grid-template-columns: 1fr auto auto;
   gap: 12px;
@@ -9,9 +9,7 @@
   box-shadow: 0 10px 25px #29282509;
   margin-bottom: 24px;
 }
-
-.filter-box input,
-.filter-box select {
+body[data-page="trainers"] .filter-box input, body[data-page="trainers"] .filter-box select{
   height: 46px;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -20,14 +18,12 @@
   min-width: 150px;
   outline-color: var(--coral);
 }
-
-.filters {
+body[data-page="trainers"] .filters{
   display: flex;
   gap: 7px;
   overflow: auto;
 }
-
-.filter {
+.filter{
   white-space: nowrap;
   border: 0;
   min-height: 40px;
@@ -38,55 +34,46 @@
   font-size: 11px;
   font-weight: 700;
 }
-
-.filter.active {
+.filter.active{
   background: var(--surface-dark);
   color: var(--on-surface-dark);
 }
-
-.filter-box small {
+body[data-page="trainers"] .filter-box small{
   grid-column: 1/-1;
   color: var(--stone);
 }
-
-.trainer-grid {
+.trainer-grid{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
-
-.trainer-card {
+.trainer-card{
   background: var(--paper);
   border-radius: 22px;
   padding: 20px;
   box-shadow: 0 12px 30px #29282509;
 }
-
-.trainer-card .card-top {
+body[data-page="trainers"] .trainer-card .card-top{
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-.trainer-card h3 {
+body[data-page="trainers"] .trainer-card h3{
   font: 700 21px var(--display);
   letter-spacing: -0.05em;
   margin: 20px 0 5px;
 }
-
-.trainer-card p {
+body[data-page="trainers"] .trainer-card p{
   color: var(--stone);
   margin: 0;
 }
-
-.tags {
+.tags{
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   margin: 16px 0 6px;
 }
-
-.profile-link {
+.profile-link{
   display: inline-flex;
   align-items: center;
   min-height: 32px;
@@ -95,8 +82,7 @@
   font-size: 13px;
   font-weight: 700;
 }
-
-.tags span {
+body[data-page="trainers"] .tags span{
   padding: 7px 9px;
   border-radius: 20px;
   background: var(--tint);
@@ -104,20 +90,17 @@
   font-size: 10px;
   font-weight: 700;
 }
-
-.rating {
+.rating{
   padding-top: 14px;
   border-top: 1px solid var(--line);
   font-size: 12px;
 }
-
-.rating span {
+body[data-page="trainers"] .rating span{
   float: right;
   color: var(--success-text);
   font-size: 10px;
 }
-
-.book-button {
+.book-button{
   width: 100%;
   border: 0;
   border-radius: 10px;
@@ -127,42 +110,35 @@
   font-weight: 700;
   color: var(--on-accent);
 }
-
-.book-button.booked {
+body[data-page="trainers"] .book-button.booked{
   background: var(--mint);
   color: var(--on-accent);
 }
-
-.match-banner {
+.match-banner{
   display: grid;
   grid-template-columns: 1fr 0.9fr;
   background: var(--surface-dark);
   color: var(--on-surface-dark);
   margin-top: 28px;
 }
-
-.match-banner > div:first-child {
+body[data-page="trainers"] .match-banner > div:first-child{
   padding: 34px;
 }
-
-.match-banner h2 {
+body[data-page="trainers"] .match-banner h2{
   font-size: 34px;
   max-width: 450px;
 }
-
-.match-banner p {
+body[data-page="trainers"] .match-banner p{
   color: #aaa69d;
   line-height: 1.6;
   max-width: 420px;
 }
-
-.sun-button {
+.sun-button{
   background: var(--sun);
   color: var(--on-accent);
   margin-top: 14px;
 }
-
-.chat {
+body[data-page="trainers"] .chat{
   position: fixed;
   right: 24px;
   bottom: 24px;
@@ -173,8 +149,7 @@
   z-index: 20;
   overflow: hidden;
 }
-
-.chat-head {
+.chat-head{
   display: flex;
   align-items: center;
   gap: 10px;
@@ -182,31 +157,26 @@
   color: var(--on-surface-dark);
   padding: 14px;
 }
-
-.chat-head div {
+body[data-page="trainers"] .chat-head div{
   flex: 1;
 }
-
-.chat-head small {
+body[data-page="trainers"] .chat-head small{
   display: block;
   color: #aaa69d;
   margin-top: 3px;
 }
-
-.chat-head button {
+body[data-page="trainers"] .chat-head button{
   border: 0;
   background: none;
   color: var(--on-surface-dark);
   font-size: 22px;
 }
-
-.chat-body {
+.chat-body{
   height: 240px;
   padding: 16px;
   overflow-y: auto;
 }
-
-.chat-body p {
+body[data-page="trainers"] .chat-body p{
   background: var(--tint-strong);
   padding: 12px;
   border-radius: 14px;
@@ -215,16 +185,14 @@
   margin: 0 0 10px;
   max-width: 85%;
 }
-
-.chat-body p.from-user {
+body[data-page="trainers"] .chat-body p.from-user{
   background: var(--surface-dark);
   color: var(--on-surface-dark);
   margin-left: auto;
   border-bottom-left-radius: 14px;
   border-bottom-right-radius: 4px;
 }
-
-.chat-prompts {
+.chat-prompts{
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -232,8 +200,7 @@
   max-height: 110px;
   overflow-y: auto;
 }
-
-.chat-prompt {
+.chat-prompt{
   background: var(--field);
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -243,29 +210,24 @@
   color: var(--ink);
   cursor: pointer;
 }
-
-.chat-prompt:hover,
-.chat-prompt:focus-visible {
+body[data-page="trainers"] .chat-prompt:hover, body[data-page="trainers"] .chat-prompt:focus-visible{
   background: var(--surface-dark);
   color: var(--on-surface-dark);
 }
-
-.chat form {
+body[data-page="trainers"] .chat form{
   border-top: 1px solid var(--line);
   padding: 10px;
   display: flex;
   gap: 8px;
 }
-
-.chat input {
+body[data-page="trainers"] .chat input{
   flex: 1;
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 10px;
   background: var(--cream);
 }
-
-.chat form button {
+body[data-page="trainers"] .chat form button{
   border: 0;
   border-radius: 9px;
   background: var(--surface-dark);
@@ -273,39 +235,34 @@
   width: 38px;
 }
 
+
 @media (max-width: 900px) {
   .trainer-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .filter-box {
+.filter-box{
     grid-template-columns: 1fr;
   }
-
-  .filter-box small {
+body[data-page="trainers"] .filter-box small{
     grid-column: auto;
   }
-}
+
 
 @media (max-width: 560px) {
   .trainer-grid {
     grid-template-columns: 1fr;
   }
-
-  .match-banner {
+.match-banner{
     grid-template-columns: 1fr;
   }
-
-  .chat {
+body[data-page="trainers"] .chat{
     left: 12px;
     right: 12px;
     bottom: 84px;
     width: auto;
   }
-}
-
-/* "Find my match" dialog */
-.match-dialog {
+body[data-page="trainers"] /* "Find my match" dialog */
+.match-dialog{
   border: 0;
   border-radius: 24px;
   padding: 28px;
@@ -314,22 +271,18 @@
   color: var(--ink);
   box-shadow: 0 20px 60px #29282544;
 }
-
-.match-dialog::backdrop {
+body[data-page="trainers"] .match-dialog::backdrop{
   background: #29282566;
 }
-
-.match-dialog h2 {
+body[data-page="trainers"] .match-dialog h2{
   font-size: 28px;
   margin: 0 0 6px;
 }
-
-.match-sub {
+.match-sub{
   color: var(--stone);
   margin: 0 0 18px;
 }
-
-.match-dialog fieldset {
+body[data-page="trainers"] .match-dialog fieldset{
   border: 0;
   padding: 0;
   margin: 0 0 18px;
@@ -337,14 +290,12 @@
   flex-wrap: wrap;
   gap: 8px;
 }
-
-.match-dialog legend {
+body[data-page="trainers"] .match-dialog legend{
   font-weight: 700;
   margin-bottom: 10px;
   padding: 0;
 }
-
-.match-dialog label span {
+body[data-page="trainers"] .match-dialog label span{
   display: inline-block;
   background: var(--field);
   border: 1px solid var(--line);
@@ -353,52 +304,44 @@
   font-weight: 600;
   cursor: pointer;
 }
-
-.match-dialog input[type="radio"] {
+body[data-page="trainers"] .match-dialog input[type="radio"]{
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
-
-.match-dialog input[type="radio"]:checked + span {
+body[data-page="trainers"] .match-dialog input[type="radio"]:checked + span{
   background: var(--surface-dark);
   color: var(--on-surface-dark);
   border-color: var(--ink);
 }
-
-.match-dialog input[type="radio"]:focus-visible + span {
+body[data-page="trainers"] .match-dialog input[type="radio"]:focus-visible + span{
   outline: 2px solid var(--coral);
   outline-offset: 2px;
 }
-
-.match-actions {
+.match-actions{
   display: flex;
   gap: 10px;
   justify-content: flex-end;
   margin-top: 6px;
 }
-
-.match-actions button {
+body[data-page="trainers"] .match-actions button{
   width: auto;
   flex: 0 0 auto;
   padding-inline: 18px;
   margin-top: 0;
 }
-
-/* Pagination */
-.pagination {
+body[data-page="trainers"] /* Pagination */
+.pagination{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
   margin-top: 28px;
 }
-
-.pagination:empty {
+body[data-page="trainers"] .pagination:empty{
   display: none;
 }
-
-.page-button {
+.page-button{
   min-width: 44px;
   height: 44px;
   padding: 0 14px;
@@ -409,18 +352,14 @@
   font-weight: 700;
   cursor: pointer;
 }
-
-.page-button:hover:not(:disabled):not(.active) {
+body[data-page="trainers"] .page-button:hover:not(:disabled):not(.active){
   background: var(--tint-strong);
 }
-
-.page-button.active {
+body[data-page="trainers"] .page-button.active{
   background: var(--surface-dark);
   border-color: var(--ink);
   color: var(--on-surface-dark);
 }
-
-.page-button:disabled {
+body[data-page="trainers"] .page-button:disabled{
   opacity: 0.4;
   cursor: not-allowed;
-}

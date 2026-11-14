@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flexform. — Start your rhythm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+    <script>
+      // Theme system - runs before first paint to avoid flash
+      (function() {
+        try {
+          var theme = localStorage.getItem('flexformTheme');
+          if (!theme) {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+    <script type="module" crossorigin="" src="./assets/index-0uQ-g4mW.js"></script>
+    <link rel="stylesheet" crossorigin="" href="./assets/index-DWlTU_ll.css">
+  </head>
+  <body>
+    <div id="root"><div id="app" class="app"><aside class="sidebar"><a class="brand" href="/" data-discover="true"><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a><p class="side-label">Your rhythm</p><nav class="side-nav"><a class="" href="/" data-discover="true">⌂ <span>Today</span></a><a class="" href="/trainers" data-discover="true">♧ <span>Find a coach</span></a><a class="" href="/courses" data-discover="true">▤ <span>Courses</span></a><a class="" href="/tools" data-discover="true">⌗ <span>Tools</span></a></nav><p class="side-label keep-label">Keep going</p><a class="side-link protected-link hidden" href="/profile" data-discover="true">♙ <span>My progress</span></a><a class="side-link protected-link hidden" href="/planner" data-discover="true">▦ <span>My planner</span></a><div class="side-prompt"><strong>Your next good choice is one tap away.</strong><a class="" href="/trainers" data-discover="true">Meet a coach →</a></div><a class="side-link" href="/login" data-discover="true">⚙ <span>Sign in</span></a></aside><div class="main-column"><header class="topbar"><a class="brand mobile-brand" href="/" data-discover="true"><span class="brand-mark">⌁</span><b>flexform<span>.</span></b></a><div class="top-message"><i></i> Your wellness, on your terms</div><div class="top-actions"><button type="button" class="theme-toggle" aria-label="Switch to light mode" title="Light mode">☀</button><button id="notificationButton" class="icon-button" aria-label="Show notifications" aria-controls="notification" aria-expanded="false">♧</button><a class="top-auth-link guest-only" href="/login" data-discover="true">Log in</a><a class="top-auth-button guest-only" href="/signup" data-discover="true">Sign up</a><a class="user-chip protected-link auth-only hidden user-chip--main" href="/profile" data-discover="true"><span class="user-avatar-text">F</span><b class="user-name-display">Alex Lee</b>⌄</a><button type="button" class="logout-button auth-only hidden" data-logout="true">Log out</button></div><div id="notification" class="notification">You're all caught up.</div></header><main id="pages"><section class="page active" id="page-pricing"><div class="page-intro"><p class="eyebrow">Simple, honest pricing</p><h1>Pick your <em>plan.</em></h1><p class="lede">Start free and move up when it feels right. Cancel any time.</p></div><div id="planList" class="plan-grid"><article class="plan-card current" aria-labelledby="plan-free">
+          
+          <h2 id="plan-free">Free</h2>
+          <p class="plan-tagline">Start moving, no strings attached.</p>
+          <p class="plan-price"><b>$0</b><span>forever</span></p>
+          <ul class="plan-features"><li>1 free class to find your pace</li><li>Body check-in, calculators and timers</li><li>Browse coaches and chat with them</li><li>Set and save a weekly goal</li></ul>
+          <button type="button" class="plan-button" data-plan="free" disabled="">✓ Your plan</button>
+        </article><article class="plan-card featured" aria-labelledby="plan-plus">
+          <span class="plan-badge">Most popular</span>
+          <h2 id="plan-plus">Plus</h2>
+          <p class="plan-tagline">A little structure for every week.</p>
+          <p class="plan-price"><b>$9</b><span>/ month</span></p>
+          <ul class="plan-features"><li>Everything in Free</li><li>All 10 courses with lessons</li><li>Weekly planner</li><li>Progress tracking and streaks</li></ul>
+          <button type="button" class="plan-button" data-plan="plus">Choose Plus</button>
+        </article><article class="plan-card" aria-labelledby="plan-pro">
+          
+          <h2 id="plan-pro">Pro</h2>
+          <p class="plan-tagline">Your own coach in your corner.</p>
+          <p class="plan-price"><b>$19</b><span>/ month</span></p>
+          <ul class="plan-features"><li>Everything in Plus</li><li>Book one-to-one coach sessions</li><li>Priority coach chat</li><li>A monthly check-in with a coach</li></ul>
+          <button type="button" class="plan-button" data-plan="pro">Choose Pro</button>
+        </article></div><p class="plan-note">Demo only — no payment is taken and plans are not enforced.</p></section></main><footer class="site-footer"><div class="footer-grid"><div class="footer-block"><h3>About us</h3><p>flexform helps people build a sustainable rhythm with practical coaching, accessible classes, and routines designed for real life.</p><a aria-current="page" class="footer-link active" href="/pricing" data-discover="true">Plans &amp; pricing →</a></div><div class="footer-block"><h3>Contact us</h3><p>Reach the flexform team at hello@flexform.com or +1 (415) 555-0148.</p></div></div></footer></div><nav class="mobile-nav"><a class="" href="/" data-discover="true">⌂<small>Today</small></a><a class="" href="/trainers" data-discover="true">♧<small>Find a coach</small></a><a class="" href="/courses" data-discover="true">▤<small>Courses</small></a><a class="" href="/tools" data-discover="true">⌗<small>Tools</small></a><a class="protected-link hidden" href="/profile" data-discover="true">♙<small>Profile</small></a></nav><div id="toast" class="toast"></div></div></div>
+  
+</body></html>

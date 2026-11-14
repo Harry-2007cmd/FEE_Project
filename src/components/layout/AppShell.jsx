@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Sidebar from "./Sidebar.jsx";
 import Topbar from "./Topbar.jsx";
 import Footer from "./Footer.jsx";
@@ -8,6 +9,11 @@ import Toast from "./Toast.jsx";
 export default function AppShell() {
   const location = useLocation();
   const pageKey = location.pathname.slice(1) || "home";
+
+  // Set data-page on body for CSS scoping (matches original)
+  useEffect(() => {
+    document.body.setAttribute("data-page", pageKey);
+  }, [pageKey]);
 
   return (
     <div id="app" className="app">

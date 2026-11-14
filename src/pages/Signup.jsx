@@ -9,6 +9,10 @@ const auth = flexformAuth;
 const ui = flexformAuthUI;
 
 export default function Signup() {
+  // Set data-page on body for CSS scoping (matches original)
+  useEffect(() => {
+    document.body.setAttribute("data-page", "signup");
+  }, []);
   const navigate = useNavigate();
   const [step, setStep] = useState("signup"); // "signup" | "verify"
   const [verifyEmail, setVerifyEmail] = useState(null);
@@ -115,8 +119,7 @@ export default function Signup() {
           <div className="auth-wrap">
             <a className="brand" href="/"><span className="brand-mark">⌁</span><b>flexform<span>.</span></b></a>
 
-            {step === "signup" ? (
-              <div id="signupStep">
+            <div id="signupStep" className={step === "signup" ? "" : "hidden"}>
                 <p className="eyebrow">Start with one good choice</p>
                 <h1>Make room for feeling good.</h1>
                 <p className="lede">Your coaches, courses and progress — all in one calm place.</p>
@@ -204,7 +207,7 @@ export default function Signup() {
                 <p className="auth-switch">Already have a space? <a href="/login">Sign in</a></p>
               </div>
             ) : (
-              <div id="verifyStep">
+              <div id="verifyStep" className={step === "verify" ? "" : "hidden"}>
                 <p className="eyebrow">Check your inbox</p>
                 <h1>Verify your email.</h1>
                 <p className="lede">We sent a 6-digit code to <b id="verifyEmail">{verifyEmail}</b>. It expires in 10 minutes.</p>
@@ -255,6 +258,7 @@ export default function Signup() {
           </div>
         </section>
       </main>
+      <div id="toast" className="toast" />
     </div>
   );
 }

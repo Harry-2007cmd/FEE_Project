@@ -9,6 +9,10 @@ import "../styles/auth.css";
 const ui = flexformAuthUI;
 
 export default function Login() {
+  // Set data-page on body for CSS scoping (matches original)
+  useEffect(() => {
+    document.body.setAttribute("data-page", "login");
+  }, []);
   const navigate = useNavigate();
   const { login, user, loading } = useAuth();
   const [email, setEmail] = useState("");
@@ -82,85 +86,88 @@ export default function Login() {
   };
 
   return (
-    <div id="app" className="app">
-      <main id="pages">
-        <section className="page active auth-page" id="page-login">
-          <div className="auth-wrap">
-            <a className="brand" href="/"><span className="brand-mark">⌁</span><b>flexform<span>.</span></b></a>
-            <p className="eyebrow">Welcome back</p>
-            <h1>Let's pick up where you left off.</h1>
-            <p className="lede">Sign in to see your plan, upcoming sessions and little wins.</p>
-            <form className="auth-form" id="loginForm" noValidate onSubmit={handleSubmit}>
-              <p className="form-error" id="loginError" role="alert" hidden={!formError}>{formError}</p>
-              <div className="field">
-                <label htmlFor="email">Email address</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="username"
-                  placeholder="you@example.com"
-                  value={email}
-                  aria-invalid={!!errors.email}
-                  aria-describedby="email-error"
-                  onChange={(e) => { setEmail(e.target.value); fieldError("email", ""); }}
-                  onBlur={() => { if (email) fieldError("email", flexformAuth.validateEmail(email)); }}
-                />
-                <p className="field-error" id="email-error">{errors.email || ""}</p>
-              </div>
-              <div className="field">
-                <label htmlFor="password">Password</label>
-                <div className="password-field">
+    <>
+      <div id="toast" className="toast" />
+      <div id="app" className="app hidden">
+        <main id="pages">
+          <section className="page active auth-page" id="page-login">
+            <div className="auth-wrap">
+              <a className="brand" href="/"><span className="brand-mark">⌁</span><b>flexform<span>.</span></b></a>
+              <p className="eyebrow">Welcome back</p>
+              <h1>Let's pick up where you left off.</h1>
+              <p className="lede">Sign in to see your plan, upcoming sessions and little wins.</p>
+              <form className="auth-form" id="loginForm" noValidate onSubmit={handleSubmit}>
+                <p className="form-error" id="loginError" role="alert" hidden={!formError}>{formError}</p>
+                <div className="field">
+                  <label htmlFor="email">Email address</label>
                   <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    placeholder="Your password"
-                    value={password}
-                    aria-invalid={!!errors.password}
-                    aria-describedby="password-error"
-                    onChange={(e) => { setPassword(e.target.value); fieldError("password", ""); }}
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="username"
+                    placeholder="you@example.com"
+                    value={email}
+                    aria-invalid={!!errors.email}
+                    aria-describedby="email-error"
+                    onChange={(e) => { setEmail(e.target.value); fieldError("email", ""); }}
+                    onBlur={() => { if (email) fieldError("email", flexformAuth.validateEmail(email)); }}
                   />
-                  <button
-                    className="toggle-password"
-                    type="button"
-                    aria-controls="password"
-                    aria-pressed="false"
-                    aria-label="Show password"
-                    onClick={() => {
-                      const input = document.getElementById("password");
-                      const show = input.type === "password";
-                      input.type = show ? "text" : "password";
-                    }}
-                  >
-                    Show
-                  </button>
+                  <p className="field-error" id="email-error">{errors.email || ""}</p>
                 </div>
-                <p className="field-error" id="password-error">{errors.password || ""}</p>
-              </div>
-              <label className="check-row" htmlFor="remember">
-                <input
-                  id="remember"
-                  name="remember"
-                  type="checkbox"
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
-                />
-                <span>Remember me for 30 days</span>
-              </label>
-              <button className="action-button" type="submit" id="loginSubmit" disabled={busy || lockSeconds > 0}>
-                {busy ? "Signing in…" : lockSeconds > 0 ? `Try again in ${lockSeconds}s` : "Sign me in →"}
-              </button>
-            </form>
-            <p className="auth-switch">New to flexform? <a href="/signup">Create an account</a></p>
-            <aside className="demo-hint" aria-label="Demo account">
-              <p><b>Demo account</b> · demo@flexform.com / Demo1234</p>
-              <button className="link-button" type="button" id="useDemo" onClick={showDemo}>Fill it in</button>
-            </aside>
-          </div>
-        </section>
-      </main>
-    </div>
+                <div className="field">
+                  <label htmlFor="password">Password</label>
+                  <div className="password-field">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      placeholder="Your password"
+                      value={password}
+                      aria-invalid={!!errors.password}
+                      aria-describedby="password-error"
+                      onChange={(e) => { setPassword(e.target.value); fieldError("password", ""); }}
+                    />
+                    <button
+                      className="toggle-password"
+                      type="button"
+                      aria-controls="password"
+                      aria-pressed="false"
+                      aria-label="Show password"
+                      onClick={() => {
+                        const input = document.getElementById("password");
+                        const show = input.type === "password";
+                        input.type = show ? "text" : "password";
+                      }}
+                    >
+                      Show
+                    </button>
+                  </div>
+                  <p className="field-error" id="password-error">{errors.password || ""}</p>
+                </div>
+                <label className="check-row" htmlFor="remember">
+                  <input
+                    id="remember"
+                    name="remember"
+                    type="checkbox"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                  />
+                  <span>Remember me for 30 days</span>
+                </label>
+                <button className="action-button" type="submit" id="loginSubmit" disabled={busy || lockSeconds > 0}>
+                  {busy ? "Signing in…" : lockSeconds > 0 ? `Try again in ${lockSeconds}s` : "Sign me in →"}
+                </button>
+              </form>
+              <p className="auth-switch">New to flexform? <a href="/signup">Create an account</a></p>
+              <aside className="demo-hint" aria-label="Demo account">
+                <p><b>Demo account</b> · demo@flexform.com / Demo1234</p>
+                <button className="link-button" type="button" id="useDemo" onClick={showDemo}>Fill it in</button>
+              </aside>
+            </div>
+          </section>
+        </main>
+      </div>
+    </>
   );
 }

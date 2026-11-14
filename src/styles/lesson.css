@@ -1,12 +1,11 @@
-/* Lesson player */
-.lesson-layout {
+body[data-page="lesson"] /* Lesson player */
+.lesson-layout{
   display: grid;
   grid-template-columns: 1.6fr 1fr;
   gap: 24px;
   align-items: start;
 }
-
-.video-placeholder {
+body[data-page="lesson"] .video-placeholder{
   position: relative;
   display: grid;
   place-items: center;
@@ -18,8 +17,7 @@
   background: var(--surface-dark);
   color: var(--on-surface-dark);
 }
-
-.play-mark {
+body[data-page="lesson"] .play-mark{
   display: grid;
   place-items: center;
   width: 68px;
@@ -30,31 +28,25 @@
   font-size: 26px;
   padding-left: 4px;
 }
-
-.video-placeholder small {
+body[data-page="lesson"] .video-placeholder small{
   color: #aaa69d;
 }
-
-.lesson-main h1 {
+body[data-page="lesson"] .lesson-main h1{
   margin: 4px 0 8px;
   font: 700 clamp(28px, 4vw, 40px) var(--display);
   letter-spacing: -0.04em;
 }
-
-.lesson-actions {
+body[data-page="lesson"] .lesson-actions{
   margin: 18px 0;
   max-width: 360px;
 }
-
-.lesson-complete {
+body[data-page="lesson"] .lesson-complete{
   background: var(--coral);
 }
-
-.lesson-complete.is-done {
+body[data-page="lesson"] .lesson-complete.is-done{
   background: var(--mint);
 }
-
-.lesson-pager {
+body[data-page="lesson"] .lesson-pager{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -62,42 +54,36 @@
   padding-top: 16px;
   border-top: 1px solid var(--line);
 }
-
-.lesson-pager a {
+body[data-page="lesson"] .lesson-pager a{
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   color: var(--coral-text);
   font-weight: 700;
 }
-
-.lesson-side {
+body[data-page="lesson"] .lesson-side{
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: 24px;
   background: var(--paper);
 }
-
-.lesson-side h2 {
+body[data-page="lesson"] .lesson-side h2{
   margin: 0 0 12px;
   font: 700 22px var(--display);
   letter-spacing: -0.03em;
 }
-
-.lesson-count {
+body[data-page="lesson"] .lesson-count{
   margin: 8px 0 14px;
   color: var(--stone);
 }
-
-.lesson-list {
+body[data-page="lesson"] .lesson-list{
   display: grid;
   gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-
-.lesson-list a {
+body[data-page="lesson"] .lesson-list a{
   display: grid;
   grid-template-columns: 28px 1fr auto;
   align-items: center;
@@ -108,17 +94,14 @@
   color: var(--ink);
   text-decoration: none;
 }
-
-.lesson-list a:hover {
+body[data-page="lesson"] .lesson-list a:hover{
   background: var(--tint);
 }
-
-.lesson-list .current a {
+body[data-page="lesson"] .lesson-list .current a{
   background: var(--tint-strong);
   font-weight: 700;
 }
-
-.lesson-mark {
+.lesson-mark{
   display: grid;
   place-items: center;
   width: 26px;
@@ -128,19 +111,17 @@
   font-size: 12px;
   font-weight: 700;
 }
-
-.lesson-list .is-done .lesson-mark {
+body[data-page="lesson"] .lesson-list .is-done .lesson-mark{
   background: var(--mint);
   border-color: var(--mint);
   color: var(--on-accent);
 }
-
-.lesson-list small {
+body[data-page="lesson"] .lesson-list small{
   color: var(--stone);
 }
+
 
 @media (max-width: 900px) {
   .lesson-layout {
     grid-template-columns: 1fr;
-  }
-}
+  

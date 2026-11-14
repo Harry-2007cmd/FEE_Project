@@ -27,6 +27,8 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <Routes>
           <Route path="/load" element={<Load />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<AppShell />}>
             <Route index element={<Home />} />
             <Route path="trainers" element={<Trainers />} />
@@ -38,8 +40,6 @@ createRoot(document.getElementById("root")).render(
             <Route path="pricing" element={<Pricing />} />
             <Route path="planner" element={<Planner />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<Navigate to="/load" replace />} />

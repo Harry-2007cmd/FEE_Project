@@ -47,8 +47,6 @@ export default function ChatPanel({ isOpen, coach, onClose, userName }) {
     sendChatMessage(text, reply);
   };
 
-  if (!isOpen) return null;
-
   return (
     <div id="chat" className="chat" role="dialog" aria-modal="true" aria-label={`Chat with ${coach?.name}`}>
       <div className="chat-head">
