@@ -1,0 +1,108 @@
+/* Splash screen (load.html inline styles), scoped to /load. The original's
+   :root palette is always the light one, so it is re-declared here. */
+body[data-page="load"] {
+  --ink: #292825; --cream: #f7f3ec; --paper: #fffaf0; --line: #ded9cd; --stone: #8b877e;
+  --coral: #ff665d; --sun: #ffd33d; --mint: #b9ddc6; --purple: #d8cce8;
+  margin: 0;
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--body);
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+body[data-page="load"] .loader-card {
+  width: min(640px, 100%);
+  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 52px 40px 40px;
+  text-align: center;
+}
+body[data-page="load"] .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 700 30px var(--display);
+  letter-spacing: -0.06em;
+}
+body[data-page="load"] .brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--sun);
+  color: var(--ink);
+  font-size: 24px;
+}
+body[data-page="load"] .brand span {
+  color: var(--coral);
+}
+body[data-page="load"] .eyebrow {
+  margin: 42px 0 16px;
+  color: var(--coral);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 700;
+}
+body[data-page="load"] h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 0.96;
+  letter-spacing: -0.08em;
+}
+body[data-page="load"] .tagline {
+  margin: 22px auto 0;
+  max-width: 500px;
+  color: var(--stone);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+body[data-page="load"] .loader-wrap {
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+body[data-page="load"] .loader-bar {
+  width: min(210px, 45%);
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(41, 40, 37, 0.2);
+  overflow: hidden;
+}
+body[data-page="load"] .loader-bar i {
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--sun);
+  animation: load 1.15s ease-in-out infinite;
+}
+body[data-page="load"] .loading-text {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+@keyframes load {
+  50% { transform: translateX(160%); }
+}
+
+@media (max-width: 640px) {
+body[data-page="load"] .loader-card {
+    padding: 36px 24px 28px;
+  }
+body[data-page="load"] .loader-wrap {
+    flex-direction: column;
+    gap: 12px;
+  }
+body[data-page="load"] .loader-bar {
+    width: 100%;
+  }
+}
+    

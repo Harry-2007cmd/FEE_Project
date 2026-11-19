@@ -1,14 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
+import { Link } from "react-router-dom";
 import { escapeHtml } from "../lib/utils.js";
-import "../styles/styles.css";
-import "../styles/courses.css";
-import "../styles/planner.css";
+import { flexformActivity } from "../lib/activity-store.js";
 
 const TYPE_LABEL = { workout: "Workout", meal: "Meal", course: "Course" };
 
-const activity = window.flexformActivity;
+const activity = flexformActivity;
 const fmt = (key, options) => activity.parseKey(key).toLocaleDateString("en-US", options);
 
 const notify = (message) => {
@@ -20,8 +17,6 @@ const notify = (message) => {
 };
 
 export default function Planner() {
-  const { user } = useAuth();
-  const navigate = useNavigate();
   const [weekStart, setWeekStart] = useState(() => activity.weekStart(activity.dateKey()));
   const [selectedDay, setSelectedDay] = useState(() => activity.dateKey());
   const [addType, setAddType] = useState("workout");
@@ -149,13 +144,6 @@ export default function Planner() {
     notify(`Added to ${fmt(selectedDay, { weekday: "long" })}.`);
   };
 
-  // Redirect if not logged in
-  useEffect(() => {
-    if (!user) {
-      navigate("/login?return=/planner");
-    }
-  }, [user, navigate]);
-
   return (
     <section className="page active" id="page-planner">
       <div className="page-intro">
@@ -203,7 +191,7 @@ export default function Planner() {
               </select>
             </label>
             <p className="add-hint" id="addHint" hidden={opts.length > 0}>
-              Enrol in a course first, then plan it here. <a href="/courses">Browse courses →</a>
+              Enrol in a course first, then plan it here. <Link to="/courses">Browse courses →</Link>
             </p>
             <button className="enrol-button" id="addButton" type="submit" disabled={addDisabled}>Add to my plan</button>
           </form>

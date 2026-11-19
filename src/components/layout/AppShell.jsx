@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { pageKeyFor } from "../../lib/nav.js";
 import Sidebar from "./Sidebar.jsx";
 import Topbar from "./Topbar.jsx";
 import Footer from "./Footer.jsx";
@@ -8,7 +9,7 @@ import Toast from "./Toast.jsx";
 
 export default function AppShell() {
   const location = useLocation();
-  const pageKey = location.pathname.slice(1) || "home";
+  const pageKey = pageKeyFor(location.pathname);
 
   // Set data-page on body for CSS scoping (matches original)
   useEffect(() => {

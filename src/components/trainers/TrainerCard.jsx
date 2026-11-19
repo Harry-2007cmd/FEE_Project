@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { coachSlug } from "../../data/coach-profiles-data.js";
 
 const userKey = (kind) => `flexform:${localStorage.getItem("flexformUserEmail") || "guest"}:${kind}`;
 
@@ -61,7 +62,7 @@ export default function TrainerCard({ trainer, onBook, onSave, onChat }) {
       </div>
       <NavLink
         className="profile-link"
-        to={`/coach?id=${encodeURIComponent(trainer.name.toLowerCase().replace(/\s+/g, "-"))}`}
+        to={`/coach?id=${encodeURIComponent(coachSlug(trainer.name))}`}
         aria-label={`View ${trainer.name}'s profile`}
       >
         View profile →

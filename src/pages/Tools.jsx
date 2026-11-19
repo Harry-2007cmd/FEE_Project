@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "../styles/styles.css";
-import "../styles/tools.css";
+import { waterMl, oneRepMax, macroGrams, buildPhases, clock, bmi as bmiOf, mifflinStJeor } from "../lib/tools-math.js";
+import { escapeHtml } from "../lib/utils.js";
 
 export default function Tools() {
   const [savedGoal, setSavedGoal] = useState(null);
@@ -9,6 +9,8 @@ export default function Tools() {
 
   // BMI/Calorie calculator
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
     const calculate = document.querySelector("#calculate");
     calculate?.addEventListener("click", () => {
       const height = Number(document.querySelector("#height").value) || 0;
@@ -26,16 +28,18 @@ export default function Tools() {
       if (!age) return showError("Please enter your age.");
       if (age < 13 || age > 100) return showError("Enter an age between 13 and 100.");
 
-      const bmi = weight / Math.pow(height / 100, 2);
-      const sexConstant = document.querySelector("#sex")?.value === "female" ? -161 : 5;
-      const calories = Math.round(10 * weight + 6.25 * height - 5 * age + sexConstant);
+      const bmi = bmiOf(height, weight);
+      const calories = mifflinStJeor(height, weight, age, document.querySelector("#sex")?.value);
       results.classList.remove("hidden");
       results.innerHTML = `<div><small>ESTIMATED BMI</small><b>${bmi.toFixed(1)}</b></div><div><small>DAILY ENERGY GUIDE</small><b>${calories.toLocaleString()}</b></div>`;
-    });
+    }, { signal });
+    return () => { controller.abort(); };
   }, []);
 
   // Recommendation tool
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
     const suggestBtn = document.getElementById("suggestBtn");
     suggestBtn?.addEventListener("click", (event) => {
       event.preventDefault();
@@ -43,7 +47,7 @@ export default function Tools() {
       const freeTime = Number(document.getElementById("freeTime")?.value) || 0;
       const resultNode = document.getElementById("recommendationResult");
 
-      const name = localStorage.getItem("flexformUserName") || "Friend";
+      const name = escapeHtml(localStorage.getItem("flexformUserName") || "Friend");
 
       let suggestion = { title: "Try a short mobility flow", reason: "A gentle routine to get started", link: "/courses" };
 
@@ -70,11 +74,14 @@ export default function Tools() {
           <div style="margin-top:10px"><a href="${suggestion.link}">View similar courses →</a></div>
         `;
       }
-    });
+    }, { signal });
+    return () => { controller.abort(); };
   }, []);
 
   // Weekly goal
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
     const goalButtons = [...document.querySelectorAll(".goal-buttons button")];
     const saveGoalButton = document.querySelector("#saveGoal");
     const SAVE_LABEL = "Save my weekly goal";
@@ -102,7 +109,7 @@ export default function Tools() {
       button.addEventListener("click", () => {
         selectGoal(button);
         saveGoalButton.textContent = button.textContent === currentSavedGoal ? "Weekly goal saved" : SAVE_LABEL;
-      }),
+      }, { signal }),
     );
 
     saveGoalButton?.addEventListener("click", () => {
@@ -115,11 +122,14 @@ export default function Tools() {
       }
       setSavedGoal(goal);
       saveGoalButton.textContent = "Weekly goal saved";
-    });
+    }, { signal });
+    return () => { controller.abort(); };
   }, []);
 
   // Extra tools
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
     const $ = (selector) => document.querySelector(selector);
     const num = (selector) => {
       const raw = $(selector)?.value;
@@ -133,23 +143,6 @@ export default function Tools() {
     };
     const stat = (label, value) => `<div><small>${label}</small><b>${value}</b></div>`;
 
-    const waterMl = (weightKg, exerciseMin) => Math.round(weightKg * 35 + (exerciseMin / 30) * 350);
-    const oneRepMax = (weight, reps) => (reps === 1 ? weight : weight * (1 + reps / 30));
-    const MACRO_SPLITS = {
-      balanced: { protein: 0.3, carbs: 0.4, fat: 0.3 },
-      lose: { protein: 0.35, carbs: 0.35, fat: 0.3 },
-      build: { protein: 0.3, carbs: 0.45, fat: 0.25 },
-    };
-    const macroGrams = (calories, goal) => {
-      const split = MACRO_SPLITS[goal] || MACRO_SPLITS.balanced;
-      return {
-        protein: Math.round((calories * split.protein) / 4),
-        carbs: Math.round((calories * split.carbs) / 4),
-        fat: Math.round((calories * split.fat) / 9),
-        split,
-      };
-    };
-
     // Water
     $("#waterCalc")?.addEventListener("click", () => {
       const weight = num("#waterWeight");
@@ -159,7 +152,7 @@ export default function Tools() {
       if (!inRange(minutes, 0, 300)) return showResult(result, "Enter exercise minutes between 0 and 300.", true);
       const ml = waterMl(weight, minutes);
       showResult(result, stat("Daily target", `${(ml / 1000).toFixed(1)} L`) + stat("In glasses (250 ml)", Math.round(ml / 250)));
-    });
+    }, { signal });
 
     // One-rep max
     $("#rmCalc")?.addEventListener("click", () => {
@@ -171,7 +164,7 @@ export default function Tools() {
       const max = oneRepMax(weight, reps);
       const rows = [60, 70, 80, 90].map((p) => `<li><span>${p}%</span><b>${Math.round((max * p) / 100)} kg</b></li>`).join("");
       showResult(result, stat("Estimated one-rep max", `${Math.round(max)} kg`) + `<ul class="percent-list" aria-label="Training weights">${rows}</ul>`);
-    });
+    }, { signal });
 
     // Macro split
     $("#macroCalc")?.addEventListener("click", () => {
@@ -186,7 +179,7 @@ export default function Tools() {
           stat("Carbs", `${g.carbs} g <i>${pct(g.split.carbs)}</i>`) +
           stat("Fat", `${g.fat} g <i>${pct(g.split.fat)}</i>`),
       );
-    });
+    }, { signal });
 
     // Timer
     const mode = $("#timerMode");
@@ -204,31 +197,6 @@ export default function Tools() {
     let remaining = 0;
     let handle = null;
     let state = "idle";
-
-    const BREATHING_PATTERNS = {
-      box: [["Breathe in", 4], ["Hold", 4], ["Breathe out", 4], ["Hold", 4]],
-      "478": [["Breathe in", 4], ["Hold", 7], ["Breathe out", 8]],
-      calm: [["Breathe in", 4], ["Breathe out", 6]],
-    };
-    const buildPhases = ({ mode, work, rest, rounds, pattern }) => {
-      const phases = [];
-      if (mode === "breathing") {
-        for (let round = 1; round <= rounds; round++) {
-          for (const [label, seconds] of BREATHING_PATTERNS[pattern]) phases.push({ label, seconds, round });
-        }
-        return phases;
-      }
-      for (let round = 1; round <= rounds; round++) {
-        phases.push({ label: "Work", seconds: work, round });
-        if (rest > 0 && round < rounds) phases.push({ label: "Rest", seconds: rest, round });
-      }
-      return phases;
-    };
-    const clock = (seconds) => {
-      const m = String(Math.floor(seconds / 60)).padStart(2, "0");
-      const s = String(seconds % 60).padStart(2, "0");
-      return `${m}:${s}`;
-    };
 
     const syncMode = () => {
       const breathing = mode.value === "breathing";
@@ -325,11 +293,12 @@ export default function Tools() {
       els.announce.textContent = phases[0].label;
       handle = setInterval(tick, 1000);
       render();
-    });
-    els.reset?.addEventListener("click", resetTimer);
-    mode?.addEventListener("change", syncMode);
-    ["#timerWork", "#timerRest", "#timerRounds", "#timerPattern"].forEach((s) => $(s)?.addEventListener("change", () => state !== "running" && resetTimer()));
+    }, { signal });
+    els.reset?.addEventListener("click", resetTimer, { signal });
+    mode?.addEventListener("change", syncMode, { signal });
+    ["#timerWork", "#timerRest", "#timerRounds", "#timerPattern"].forEach((s) => $(s)?.addEventListener("change", () => state !== "running" && resetTimer(), { signal }));
     syncMode();
+    return () => { controller.abort(); stop(); };
   }, []);
 
   return (
@@ -344,9 +313,9 @@ export default function Tools() {
           <p className="eyebrow sun-text">A useful baseline</p>
           <h2>Body check-in</h2>
           <div className="inputs">
-            <label>Height (In cm)<input id="height" type="number" value="170" /></label>
-            <label>Weight (In kg)<input id="weight" type="number" value="68" /></label>
-            <label>Age (In years)<input id="age" type="number" value="31" /></label>
+            <label>Height (In cm)<input id="height" type="number" defaultValue="170" /></label>
+            <label>Weight (In kg)<input id="weight" type="number" defaultValue="68" /></label>
+            <label>Age (In years)<input id="age" type="number" defaultValue="31" /></label>
             <label>Sex<select id="sex"><option value="male">Male</option><option value="female">Female</option></select></label>
           </div>
           <button className="sun-button" id="calculate">Calculate my baseline →</button>
@@ -405,8 +374,8 @@ export default function Tools() {
           <p className="eyebrow">Stay topped up</p>
           <h3 id="waterTitle">Water intake</h3>
           <div className="extra-inputs">
-            <label>Weight (kg)<input id="waterWeight" type="number" inputMode="decimal" value="68" /></label>
-            <label>Exercise (min/day)<input id="waterMinutes" type="number" inputMode="numeric" value="30" /></label>
+            <label>Weight (kg)<input id="waterWeight" type="number" inputMode="decimal" defaultValue="68" /></label>
+            <label>Exercise (min/day)<input id="waterMinutes" type="number" inputMode="numeric" defaultValue="30" /></label>
           </div>
           <button className="outline-button" id="waterCalc" type="button">Estimate my water</button>
           <div className="extra-result" id="waterResult" aria-live="polite" hidden></div>
@@ -416,8 +385,8 @@ export default function Tools() {
           <p className="eyebrow">Know your strength</p>
           <h3 id="rmTitle">One-rep max</h3>
           <div className="extra-inputs">
-            <label>Weight lifted (kg)<input id="rmWeight" type="number" inputMode="decimal" value="60" /></label>
-            <label>Reps done (1–12)<input id="rmReps" type="number" inputMode="numeric" value="8" /></label>
+            <label>Weight lifted (kg)<input id="rmWeight" type="number" inputMode="decimal" defaultValue="60" /></label>
+            <label>Reps done (1–12)<input id="rmReps" type="number" inputMode="numeric" defaultValue="8" /></label>
           </div>
           <button className="outline-button" id="rmCalc" type="button">Estimate my max</button>
           <div className="extra-result" id="rmResult" aria-live="polite" hidden></div>
@@ -427,7 +396,7 @@ export default function Tools() {
           <p className="eyebrow">Balance your plate</p>
           <h3 id="macroTitle">Macro split</h3>
           <div className="extra-inputs">
-            <label>Daily calories<input id="macroCalories" type="number" inputMode="numeric" value="2000" /></label>
+            <label>Daily calories<input id="macroCalories" type="number" inputMode="numeric" defaultValue="2000" /></label>
             <label>Goal
               <select id="macroGoal">
                 <option value="balanced">Balanced</option>
@@ -457,9 +426,9 @@ export default function Tools() {
                 <option value="calm">Calm (4-6)</option>
               </select>
             </label>
-            <label className="interval-field">Work (sec)<input id="timerWork" type="number" inputMode="numeric" value="40" /></label>
-            <label className="interval-field">Rest (sec)<input id="timerRest" type="number" inputMode="numeric" value="20" /></label>
-            <label id="timerRoundsWrap"><span id="timerRoundsLabel">Rounds</span><input id="timerRounds" type="number" inputMode="numeric" value="6" /></label>
+            <label className="interval-field">Work (sec)<input id="timerWork" type="number" inputMode="numeric" defaultValue="40" /></label>
+            <label className="interval-field">Rest (sec)<input id="timerRest" type="number" inputMode="numeric" defaultValue="20" /></label>
+            <label id="timerRoundsWrap"><span id="timerRoundsLabel">Rounds</span><input id="timerRounds" type="number" inputMode="numeric" defaultValue="6" /></label>
           </div>
           <p className="timer-error form-error hidden" id="timerError" role="alert"></p>
           <div className="timer-face" role="timer" aria-label="Session timer">

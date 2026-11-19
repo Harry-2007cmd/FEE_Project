@@ -3,30 +3,23 @@
  * (field errors, show/hide password, busy buttons, safe return page).
  * Ported from the original global-script version to an ES module.
  */
-const ALLOWED_RETURN_PAGES = [
-  "index.html",
-  "trainers.html",
-  "courses.html",
-  "tools.html",
-  "profile.html",
-  "planner.html",
-  "pricing.html",
-];
+// Accepts the new route paths (/profile) and the legacy file names (profile.html).
+const ALLOWED_RETURN_ROUTES = {
+  "/": "/", "index.html": "/",
+  "/trainers": "/trainers", "trainers.html": "/trainers", "trainers": "/trainers",
+  "/courses": "/courses", "courses.html": "/courses", "courses": "/courses",
+  "/tools": "/tools", "tools.html": "/tools", "tools": "/tools",
+  "/profile": "/profile", "profile.html": "/profile", "profile": "/profile",
+  "/planner": "/planner", "planner.html": "/planner", "planner": "/planner",
+  "/pricing": "/pricing", "pricing.html": "/pricing", "pricing": "/pricing",
+};
 
 /** Only same-site pages are allowed as a post-login destination. */
 const returnPage = () => {
-  const requested = new URLSearchParams(window.location.search).get("return");
-  // Map old filenames to new routes
-  const routeMap = {
-    "index.html": "/",
-    "trainers.html": "/trainers",
-    "courses.html": "/courses",
-    "tools.html": "/tools",
-    "profile.html": "/profile",
-    "planner.html": "/planner",
-    "pricing.html": "/pricing",
-  };
-  return routeMap[requested] || "/";
+  const requested = new URLSearchParams(window.location.search).get("return") || "";
+  const [path] = requested.split(/[?#]/);
+  const route = ALLOWED_RETURN_ROUTES[path] || ALLOWED_RETURN_ROUTES[path.replace(/^\//, "")];
+  return route || "/";
 };
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

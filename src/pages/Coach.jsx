@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
+import { coachSlug } from "../data/coach-profiles-data.js";
 import { useSearchParams, Link } from "react-router-dom";
-import "../styles/styles.css";
-import "../styles/courses.css";
-import "../styles/course-detail.css";
-import "../styles/coach.css";
 
 const stars = (rating) => "★".repeat(rating) + "☆".repeat(5 - rating);
 const toneFor = (tone) => ({ coral: "pink", mint: "mint", lilac: "lilac", sun: "sun" })[tone] || "sun";
@@ -52,7 +49,7 @@ export default function Coach() {
         ]);
         if (cancelled) return;
         const id = searchParams.get("id");
-        const foundCoach = coachList.find((item) => item.name.toLowerCase().replace(/\s+/g, "-") === id);
+        const foundCoach = coachList.find((item) => coachSlug(item.name) === id);
         const foundProfile = foundCoach && window.coachProfiles[foundCoach.name];
 
         if (!foundCoach || !foundProfile) {

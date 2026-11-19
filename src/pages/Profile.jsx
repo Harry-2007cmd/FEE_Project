@@ -1,9 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { escapeHtml } from "../lib/utils.js";
-import "../styles/styles.css";
-import "../styles/profile.css";
 
 const KIND = { workout: ["W", "Workout"], meal: ["M", "Meal"], course: ["C", "Course"], lesson: ["L", "Lesson"] };
 
@@ -32,7 +30,7 @@ const notify = (message) => {
 };
 
 export default function Profile() {
-  const { user, updateProfile, refresh } = useAuth();
+  const { user, loading, refresh } = useAuth();
   const navigate = useNavigate();
   const [editOpen, setEditOpen] = useState(false);
   const [tick, setTick] = useState(0);
@@ -60,12 +58,14 @@ export default function Profile() {
 
   const activity = window.flexformActivity;
 
+  // Weight date defaults to today and can't be in the future (as in the original).
   useEffect(() => {
-    if (!user) {
-      navigate("/login?return=/profile");
-      return;
-    }
-  }, [user, navigate]);
+    const input = document.getElementById("weightDate");
+    if (!input) return;
+    const today = window.flexformActivity.dateKey();
+    input.value = today;
+    input.max = today;
+  }, [user]);
 
   useEffect(() => {
     if (!user) return;
@@ -191,7 +191,7 @@ export default function Profile() {
             .join("")
         : `<div class="history-item history-empty"><div class="history-meta"><strong>No activity yet</strong><small>Tick something off in your planner or finish a lesson and it will show up here.</small></div></div>`
     );
-  }, [isLoggedIn, tick]);
+  }, [user, tick]);
 
   const handleWeightSubmit = (e) => {
     e.preventDefault();
@@ -221,6 +221,7 @@ export default function Profile() {
     if (!button) return;
     activity.removeWeight(button.dataset.date);
     setTick((t) => t + 1);
+    document.getElementById("weightKg")?.focus();
     notify("Entry removed");
   };
 
@@ -243,18 +244,40 @@ export default function Profile() {
     setTick((t) => t + 1);
     refresh();
     setEditOpen(false);
+    document.getElementById("editProfile")?.focus();
     notify("Profile updated");
   };
 
+  const openEdit = (open) => {
+    setEditOpen(open);
+    if (open) {
+      setEditName(userName);
+      setEditEmail(localStorage.getItem("flexformUserEmail") || "");
+      document.getElementById("editError")?.classList.add("hidden");
+      setTimeout(() => document.getElementById("editName")?.focus(), 0);
+    }
+  };
+
   const handleCancelEdit = () => {
-    setEditOpen(false);
+    openEdit(false);
+    document.getElementById("editProfile")?.focus();
+  };
+
+  // Links inside the innerHTML-rendered lists should navigate without a reload.
+  const handleInternalLink = (e) => {
+    const link = e.target.closest("a[href^='/']");
+    if (!link) return;
+    e.preventDefault();
+    navigate(link.getAttribute("href"));
   };
 
   const handleLogout = () => {
     window.flexformAuth.logout();
     refresh();
-    navigate("/");
+    navigate("/", { replace: true });
   };
+
+  if (loading || !user) return null;
 
   return (
     <section className="page active" id="page-profile">
@@ -265,20 +288,20 @@ export default function Profile() {
           <p className="lede">Notice what's changing, inside and out.</p>
         </div>
         <div className="profile-actions">
-          <a className="outline-button" href="/planner">▦ My planner</a>
+          <Link className="outline-button" to="/planner">▦ My planner</Link>
           <button
             className="outline-button"
             id="editProfile"
             type="button"
             aria-expanded={editOpen}
             aria-controls="editProfileForm"
-            onClick={() => setEditOpen(!editOpen)}
+            onClick={() => openEdit(!editOpen)}
           >
             ⚙ Edit profile
           </button>
         </div>
       </div>
-      <form className="cream-card edit-profile hidden" id="editProfileForm" hidden={!editOpen} onSubmit={handleEditSubmit}>
+      <form className="cream-card edit-profile" id="editProfileForm" hidden={!editOpen} onSubmit={handleEditSubmit}>
         <label>
           Name
           <input
@@ -346,7 +369,7 @@ export default function Profile() {
         <article className="cream-card track-card">
           <p className="eyebrow">Your track</p>
           <h2>Consistency is the win.</h2>
-          <ul className="feature-list" id="trackList" dangerouslySetInnerHTML={{ __html: trackList }} />
+          <ul className="feature-list" id="trackList" onClick={handleInternalLink} dangerouslySetInnerHTML={{ __html: trackList }} />
         </article>
         <article className="dark-card user-card">
           <p className="eyebrow sun-text">Your profile</p>
@@ -390,7 +413,7 @@ export default function Profile() {
           <p className="eyebrow">On your calendar</p>
           <h2>Upcoming bookings</h2>
         </div>
-        <a href="/trainers">Book another +</a>
+        <Link to="/trainers">Book another +</Link>
       </div>
       <div className="upcoming">
         <div>

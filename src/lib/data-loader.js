@@ -9,6 +9,7 @@
  * `window.plannerMeals` and `window.coachProfiles` reference working.
  */
 import "./theme.js";
+import "./common.js";
 import "./mock-api.js";
 import "./activity-store.js";
 import "./course-store.js";

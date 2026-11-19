@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function GuestHome() {
   return (
     <section className="page active guest-home" id="page-home-guest">
@@ -9,8 +11,8 @@ export default function GuestHome() {
           that supports your day instead of overwhelming it.
         </p>
         <div className="guest-actions">
-          <a className="action-button" href="/signup">Create your space →</a>
-          <a className="outline-button" href="/login">Log in</a>
+          <Link className="action-button" to="/signup">Create your space →</Link>
+          <Link className="outline-button" to="/login">Log in</Link>
         </div>
       </div>
       <div className="guest-feature-grid">

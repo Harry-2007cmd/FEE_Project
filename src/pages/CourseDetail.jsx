@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import "../styles/styles.css";
-import "../styles/courses.css";
-import "../styles/course-detail.css";
 
 const stars = (rating) => "★".repeat(rating) + "☆".repeat(5 - rating);
 const toneFor = (index) => ["sun", "lilac", "mint", "pink"][index % 4];

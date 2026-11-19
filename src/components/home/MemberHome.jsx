@@ -1,30 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-export default function MemberHome() {
+export default function MemberHome({ name }) {
+  const firstName = (name || "").trim().split(/\s+/)[0] || "Friend";
   const todaySchedule = [
     { time: "6:30 PM", title: "Strength foundations", coach: "with Maya Chen", type: "Coach session" },
     { time: "8:00 AM", title: "Desk reset", coach: "Self-guided course", type: "Mobility" },
     { time: "7:15 PM", title: "Recovery check-in", coach: "with Arjun Patel", type: "Reset" },
   ];
-
-  const renderTodaySchedule = () => {
-    const scheduleList = document.getElementById("todaySchedule");
-    if (!scheduleList) return;
-    scheduleList.innerHTML = todaySchedule
-      .map(
-        (item) => `
-          <div class="schedule-item">
-            <span class="schedule-time">${item.time}</span>
-            <div>
-              <strong>${item.title}</strong>
-              <small>${item.coach}</small>
-            </div>
-            <span class="history-pill">${item.type}</span>
-          </div>
-        `,
-      )
-      .join("");
-  };
 
   // Complete flow toast
   useEffect(() => {
@@ -44,19 +27,14 @@ export default function MemberHome() {
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
-  // Render schedule on mount
-  useEffect(() => {
-    renderTodaySchedule();
-  }, []);
-
   return (
-    <section className="page active member-home hidden" id="page-home-member">
+    <section className="page active member-home" id="page-home-member">
       <div className="page-intro split">
         <div>
           <p className="eyebrow">Tuesday, October 24 · Week 6</p>
           <h1>
             Good morning,<br />
-            <em data-greeting-name>Alex.</em>
+            <em data-greeting-name>{firstName}.</em>
           </h1>
           <p className="lede">
             A little movement, a little intention. That's enough to change
@@ -106,7 +84,18 @@ export default function MemberHome() {
             <h2>Your schedule</h2>
           </div>
         </div>
-        <div id="todaySchedule" className="schedule-list"></div>
+        <div id="todaySchedule" className="schedule-list">
+          {todaySchedule.map((item) => (
+            <div className="schedule-item" key={item.title}>
+              <span className="schedule-time">{item.time}</span>
+              <div>
+                <strong>{item.title}</strong>
+                <small>{item.coach}</small>
+              </div>
+              <span className="history-pill">{item.type}</span>
+            </div>
+          ))}
+        </div>
       </article>
       <div className="stats-row">
         <div>
@@ -173,7 +162,7 @@ export default function MemberHome() {
           <p className="eyebrow">Coming up</p>
           <h2>Keep your rhythm</h2>
         </div>
-        <a href="/trainers">View all coaches →</a>
+        <Link to="/trainers">View all coaches →</Link>
       </div>
       <div className="upcoming">
         <div>

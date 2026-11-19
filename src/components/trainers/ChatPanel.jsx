@@ -47,12 +47,14 @@ export default function ChatPanel({ isOpen, coach, onClose, userName }) {
     sendChatMessage(text, reply);
   };
 
+  if (!isOpen || !coach) return null;
+
   return (
-    <div id="chat" className="chat" role="dialog" aria-modal="true" aria-label={`Chat with ${coach?.name}`}>
+    <div id="chat" className="chat" role="dialog" aria-modal="true" aria-label={`Chat with ${coach.name}`}>
       <div className="chat-head">
-        <span className={`avatar ${coach?.tone}`}>{coach?.initials}</span>
+        <span className={`avatar ${coach.tone}`}>{coach.initials}</span>
         <div>
-          <b>{coach?.name}</b>
+          <b>{coach.name}</b>
           <small>Usually replies in 10 min</small>
         </div>
         <button id="closeChat" type="button" aria-label="Close chat" onClick={onClose}>

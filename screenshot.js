@@ -27,7 +27,7 @@ const routes = [
   "/courses",
   "/course?id=start-strong",
   "/lesson?course=start-strong&n=1",
-  "/coach?id=maria-chen",
+  "/coach?id=maya-chen",
   "/tools",
   "/pricing",
   "/planner",

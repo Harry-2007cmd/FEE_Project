@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
-import "../styles/styles.css";
-import "../styles/home.css";
 import GuestHome from "../components/home/GuestHome.jsx";
 import MemberHome from "../components/home/MemberHome.jsx";
 
@@ -39,8 +37,7 @@ export default function Home() {
           </div>
         </div>
       )}
-      <GuestHome className={loggedIn ? "hidden" : ""} />
-      <MemberHome className={loggedIn ? "" : "hidden"} />
+      {loggedIn ? <MemberHome name={user.name} /> : <GuestHome />}
     </>
   );
 }

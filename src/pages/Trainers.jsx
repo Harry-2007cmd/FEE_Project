@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import "../styles/styles.css";
-import "../styles/trainers.css";
 import TrainerCard from "../components/trainers/TrainerCard.jsx";
 import ChatPanel from "../components/trainers/ChatPanel.jsx";
 import MatchDialog from "../components/trainers/MatchDialog.jsx";

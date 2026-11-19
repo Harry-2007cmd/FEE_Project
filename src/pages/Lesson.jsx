@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import "../styles/styles.css";
-import "../styles/courses.css";
-import "../styles/course-detail.css";
-import "../styles/lesson.css";
 
 const lessonUrl = (course, number) => `/lesson?course=${encodeURIComponent(course.id)}&n=${number}`;
 
@@ -17,7 +13,6 @@ export default function Lesson() {
   const [notFoundMessage, setNotFoundMessage] = useState("");
 
   useEffect(() => {
-    let cancelled = false;
     const courseParam = searchParams.get("course");
     const courseData = window.courses.find((item) => item.id === courseParam);
 
@@ -44,18 +39,17 @@ export default function Lesson() {
 
     if (!window.flexformCourses.isStarted(courseData.title)) {
       setCourse(courseData);
+      setLessons(lessonsData);
+      setLesson(lessonData);
       setState({ status: "locked" });
       return;
     }
 
-    if (cancelled) return;
     setCourse(courseData);
     setLessons(lessonsData);
     setLesson(lessonData);
     setDoneNumbers(new Set(window.flexformActivity.completedLessons(courseData.id)));
     setState({ status: "ready" });
-
-    return () => { cancelled = true; };
   }, [searchParams]);
 
   const handleEnrol = () => {

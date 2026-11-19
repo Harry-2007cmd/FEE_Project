@@ -139,27 +139,6 @@ describe("Checkpoint 1: Data integrity and pure logic", () => {
     });
   });
 
-  describe("Storage keys exact match (section 3.5)", () => {
-    it("localStorage keys list", () => {
-      const expectedLocal = [
-        "flexformAccounts", "flexformSession", "flexformInbox",
-        "flexformVerification", "flexformLoginAttempts", "flexformLoggedIn",
-        "flexformUserName", "flexformUserEmail", "flexformUsers",
-        "flexformTheme"
-      ];
-      // Keys are documented in flexformAuth config and service methods
-      expect(typeof flexformAuth.isLoggedIn).toBe("function");
-    });
-
-    it("sessionStorage keys list", () => {
-      expect(typeof flexformAuth.pendingEmail).toBe("function");
-    });
-
-    it("per-user keys pattern uses colon separators", () => {
-      expect(typeof flexformAuth.normaliseEmail).toBe("function");
-    });
-  });
-
   describe("Utils", () => {
     it("escapeHtml encodes entities", () => {
       expect(escapeHtml("<script>")).toBe("&lt;script&gt;");

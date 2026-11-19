@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 import { flexformAuth } from "../lib/auth.js";
 import { flexformAuthUI } from "../lib/auth-ui-utils.js";
-import "../styles/styles.css";
-import "../styles/auth.css";
 
 const auth = flexformAuth;
 const ui = flexformAuthUI;
@@ -14,6 +13,9 @@ export default function Signup() {
     document.body.setAttribute("data-page", "signup");
   }, []);
   const navigate = useNavigate();
+  const { refresh } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [step, setStep] = useState("signup"); // "signup" | "verify"
   const [verifyEmail, setVerifyEmail] = useState(null);
 
@@ -41,7 +43,7 @@ export default function Signup() {
     (async () => {
       await auth.ready;
       if (cancelled) return;
-      if (auth.isLoggedIn()) { navigate("/"); return; }
+      if (auth.isLoggedIn()) { navigate("/", { replace: true }); return; }
       const pending = auth.pendingEmail();
       const account = pending && auth.getAccount(pending);
       if (account && !account.verified) enterVerifyStep(pending);
@@ -101,7 +103,8 @@ export default function Signup() {
     setBusy(false);
     if (!result.ok) { fieldError("code", result.error); return; }
     auth.signInVerified(verifyEmail, false);
-    navigate("/");
+    refresh();
+    navigate(ui.returnPage(), { replace: true });
   };
 
   const handleResend = () => {
@@ -117,9 +120,10 @@ export default function Signup() {
       <main id="pages">
         <section className="page active auth-page" id="page-signup">
           <div className="auth-wrap">
-            <a className="brand" href="/"><span className="brand-mark">⌁</span><b>flexform<span>.</span></b></a>
+            <Link className="brand" to="/"><span className="brand-mark">⌁</span><b>flexform<span>.</span></b></Link>
 
-            <div id="signupStep" className={step === "signup" ? "" : "hidden"}>
+            {step === "signup" ? (
+            <div id="signupStep">
                 <p className="eyebrow">Start with one good choice</p>
                 <h1>Make room for feeling good.</h1>
                 <p className="lede">Your coaches, courses and progress — all in one calm place.</p>
@@ -149,7 +153,7 @@ export default function Signup() {
                     <label htmlFor="password">Password</label>
                     <div className="password-field">
                       <input
-                        id="password" name="password" type="password" autoComplete="new-password" placeholder="Create a password"
+                        id="password" name="password" type={showPassword ? "text" : "password"} autoComplete="new-password" placeholder="Create a password"
                         value={password} aria-invalid={!!errors.password} aria-describedby="password-error password-rules"
                         onChange={(e) => {
                           const value = e.target.value;
@@ -158,13 +162,8 @@ export default function Signup() {
                           if (confirm) fieldError("confirm", confirm === value ? "" : "The passwords don't match.");
                         }}
                       />
-                      <button className="toggle-password" type="button" aria-controls="password" aria-label="Show password"
-                        onClick={(e) => {
-                          const input = document.getElementById("password");
-                          const show = input.type === "password";
-                          input.type = show ? "text" : "password";
-                          e.currentTarget.textContent = show ? "Hide" : "Show";
-                        }}>Show</button>
+                      <button className="toggle-password" type="button" aria-controls="password" aria-pressed={showPassword} aria-label={showPassword ? "Hide password" : "Show password"}
+                        onClick={() => setShowPassword((v) => !v)}>{showPassword ? "Hide" : "Show"}</button>
                     </div>
                     <div className="strength" id="strength" data-score={String(strength.score)} aria-live="polite">
                       <div className="strength-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -182,7 +181,7 @@ export default function Signup() {
                     <label htmlFor="confirm">Confirm password</label>
                     <div className="password-field">
                       <input
-                        id="confirm" name="confirm" type="password" autoComplete="new-password" placeholder="Repeat your password"
+                        id="confirm" name="confirm" type={showConfirm ? "text" : "password"} autoComplete="new-password" placeholder="Repeat your password"
                         value={confirm} aria-invalid={!!errors.confirm} aria-describedby="confirm-error"
                         onChange={(e) => {
                           const value = e.target.value;
@@ -190,13 +189,8 @@ export default function Signup() {
                           fieldError("confirm", value === password ? "" : "The passwords don't match.");
                         }}
                       />
-                      <button className="toggle-password" type="button" aria-controls="confirm" aria-label="Show password"
-                        onClick={(e) => {
-                          const input = document.getElementById("confirm");
-                          const show = input.type === "password";
-                          input.type = show ? "text" : "password";
-                          e.currentTarget.textContent = show ? "Hide" : "Show";
-                        }}>Show</button>
+                      <button className="toggle-password" type="button" aria-controls="confirm" aria-pressed={showConfirm} aria-label={showConfirm ? "Hide password" : "Show password"}
+                        onClick={() => setShowConfirm((v) => !v)}>{showConfirm ? "Hide" : "Show"}</button>
                     </div>
                     <p className="field-error" id="confirm-error">{errors.confirm || ""}</p>
                   </div>
@@ -204,10 +198,10 @@ export default function Signup() {
                     {busy ? "Creating your space…" : "Create my space →"}
                   </button>
                 </form>
-                <p className="auth-switch">Already have a space? <a href="/login">Sign in</a></p>
+                <p className="auth-switch">Already have a space? <Link to="/login">Sign in</Link></p>
               </div>
             ) : (
-              <div id="verifyStep" className={step === "verify" ? "" : "hidden"}>
+              <div id="verifyStep">
                 <p className="eyebrow">Check your inbox</p>
                 <h1>Verify your email.</h1>
                 <p className="lede">We sent a 6-digit code to <b id="verifyEmail">{verifyEmail}</b>. It expires in 10 minutes.</p>

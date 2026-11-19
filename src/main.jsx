@@ -2,9 +2,22 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./styles/styles.css";
+import "./styles/home.css";
+import "./styles/trainers.css";
+import "./styles/courses.css";
+import "./styles/course-detail.css";
+import "./styles/coach.css";
+import "./styles/lesson.css";
+import "./styles/planner.css";
+import "./styles/pricing.css";
+import "./styles/profile.css";
+import "./styles/tools.css";
+import "./styles/auth.css";
+import "./styles/load.css";
 import "./lib/data-loader.js";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import AppShell from "./components/layout/AppShell.jsx";
 import Load from "./pages/Load.jsx";
 import Home from "./pages/Home.jsx";
@@ -38,11 +51,10 @@ createRoot(document.getElementById("root")).render(
             <Route path="coach" element={<Coach />} />
             <Route path="tools" element={<Tools />} />
             <Route path="pricing" element={<Pricing />} />
-            <Route path="planner" element={<Planner />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="planner" element={<ProtectedRoute><Planner /></ProtectedRoute>} />
+            <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="*" element={<Navigate to="/load" replace />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
